@@ -1,5 +1,6 @@
 package com.example.gruppe4bilabonnement.models;
 
+// BLIVER IKKE BRUGT LIGE NU
 public enum Role {
     SALESPERSON("Medarbejder"),
     MECHANIC("Mekaniker"),
