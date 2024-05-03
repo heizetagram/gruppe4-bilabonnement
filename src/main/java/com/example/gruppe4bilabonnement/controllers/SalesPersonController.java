@@ -15,7 +15,7 @@ public class SalesPersonController {
 
     @GetMapping("/new_customer")
     public String insert(){
-        return "new_customer";
+        return "salesperson/new_customer";
     }
     @PostMapping("/insert")
     public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
