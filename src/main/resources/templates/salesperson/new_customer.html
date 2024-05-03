@@ -6,6 +6,9 @@
     <title>New Customer</title>
 </head>
 <body>
+<header>
+    <div th:replace="~{fragments/navbar/navbar}"></div>
+</header>
 <h1>New Customer</h1>
 <form action="/salesperson/insert" method="post">
     <label for="firstName">First Name:</label><br>

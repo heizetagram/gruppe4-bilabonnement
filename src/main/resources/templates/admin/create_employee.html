@@ -5,6 +5,9 @@
     <title>Create Employee</title>
 </head>
 <body>
+<header>
+    <div th:replace="~{fragments/navbar/navbar}"></div>
+</header>
 <h1>Opret en ny medarbejder</h1>
 <form action="/admin/create_employee" method="post">
     <label for="email">E-mail:</label>
