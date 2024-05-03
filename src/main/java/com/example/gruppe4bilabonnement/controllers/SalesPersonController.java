@@ -13,15 +13,15 @@ public class SalesPersonController {
     @Autowired
     private SalesPersonService salesPersonService;
 
-    @GetMapping("/new_contract")
+    @GetMapping("/new_customer")
     public String insert(){
-        return "salesperson/new_contract";
+        return "new_customer";
     }
     @PostMapping("/insert")
     public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
                          @RequestParam String email, @RequestParam String address, @RequestParam int zipCode) {
         salesPersonService.insert(firstName, lastName, phoneNumber, email, address, zipCode);
-        return "redirect:/";
+        return "redirect:/new_lease_agreement";
     }
     @GetMapping("/prepare_update")
     public String prepareUpdate(@RequestParam int id, Model model) {
@@ -29,9 +29,9 @@ public class SalesPersonController {
         return "home/update";
     }
     @PostMapping("/update")
-    public String update(@RequestParam int id, @RequestParam String firstNamee, @RequestParam String lastName,
+    public String update(@RequestParam int id, @RequestParam String firstName, @RequestParam String lastName,
                          @RequestParam String phoneNumber, @RequestParam String email, @RequestParam String address, @RequestParam int zipCode) {
-        salesPersonService.update(id, firstNamee, lastName, phoneNumber, email, address, zipCode);
+        salesPersonService.update(id, firstName, lastName, phoneNumber, email, address, zipCode);
         return "redirect:/";
     }
 }

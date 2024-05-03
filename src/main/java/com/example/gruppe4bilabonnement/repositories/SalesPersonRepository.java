@@ -26,14 +26,13 @@ public class SalesPersonRepository {
 
     public void update(int id, String firstName, String lastName, String phoneNumber, String email, String address, int zipCode) {
         String query = "UPDATE customer " +
-                "SET id = ?," +
-                "first_name = ?," +
+                "SET first_name= ?," +
                 "last_name = ?," +
                 "phone_number = ?, " +
                 "email = ?, " +
                 "address = ?, " +
                 "zip_code = ? " +
                 "WHERE id = ?;";
-        jdbcTemplate.update(query, id, firstName, lastName, phoneNumber, email, address, zipCode, id);
+        jdbcTemplate.update(query, firstName, lastName, phoneNumber, email, address, zipCode, id);
     }
 }
