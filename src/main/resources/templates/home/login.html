@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h1>Log ind med e-mail</h1>
+<br>
+<form action="/login_attempt" method="post">
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" placeholder="Indtast e-mail" required>
+    <br>
+    <br>
+    <label for="employeePassword">Adgangskode:</label>
+    <input type="password" id="employeePassword" name="employeePassword" placeholder="Indtast adgangskode" required>
+    <br>
+    <br>
+    <span th:text="${invalidEmployeeInfo}"></span> <!-- DOESN'T WORK RIGHT ATM -->
+    <br>
+    <button type="submit">LOG IND</button>
+</form>
+</body>
+</html>
