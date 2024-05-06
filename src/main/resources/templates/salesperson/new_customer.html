@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Customer</title>
+    <title>Opret Kunde</title>
 </head>
 <body>
 <header>
     <div th:replace="~{fragments/navbar/navbar}"></div>
 </header>
-<h1>New Customer</h1>
+<h1>Opret Kunde</h1>
 <form action="/salesperson/insert" method="post">
-    <label for="firstName">First Name:</label><br>
-    <input type="text" id="firstName" name="firstName"><br>
-    <label for="lastName">Last Name:</label><br>
-    <input type="text" id="lastName" name="lastName"><br>
-    <label for="phoneNumber">Phone Number:</label><br>
-    <input type="text" id="phoneNumber" name="phoneNumber"><br>
+    <label for="firstName">Fornavn:</label><br>
+    <input type="text" maxlength="50" id="firstName" name="firstName" placeholder="Indtast navn" required><br>
+    <label for="lastName">Efternavn:</label><br>
+    <input type="text" maxlength="50" id="lastName" name="lastName" placeholder="Indtast efternavn" required><br>
+    <label for="phoneNumber">Mobilnummer:</label><br>
+    <input type="text" maxlength="20" id="phoneNumber" name="phoneNumber" placeholder="Indtast mobil nummer" required><br>
     <label for="email">Email:</label><br>
-    <input type="text" id="email" name="email"><br>
-    <label for="address">Address:</label><br>
-    <input type="text" id="address" name="address"><br>
-    <label for="zipCode">Zip Code:</label><br>
-    <input type="number" id="zipCode" name="zipCode"><br><br>
+    <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" required><br>
+    <label for="address">Adresse:</label><br>
+    <input type="text" maxlength="100" id="address" name="address" placeholder="Indtast adresse" required><br>
+    <label for="zipCode">Postnummer:</label><br>
+    <input type="number" maxlength="100" id="zipCode" name="zipCode" placeholder="Indtast postnummer" required><br><br>
     <input type="submit" value="Submit">
 </form>
 </body>
