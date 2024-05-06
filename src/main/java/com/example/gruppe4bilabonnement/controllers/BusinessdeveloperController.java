@@ -17,34 +17,38 @@ public class BusinessdeveloperController {
     public String getAveragePaymentTime(Model model) {
         double averagePaymentTime = businessdeveloperService.getAveragePaymentTime();
         model.addAttribute("averagePaymentTime", averagePaymentTime);
-        return "business_developer/average_payment_time";
+        return "businessdeveloper/average_payment_time";
     }
         // gennemsnitlig transporttid(hvordan fuck gør jeg lige det, gps or some shit, samme med co2 etc)
     @GetMapping("/average_transport_time")
     public String getAverageTransportTime(Model model) {
         double averageTransportTime = businessdeveloperService.getAverageTransportTime();
         model.addAttribute("averageTransportTime", averageTransportTime);
-        return "business_developer/average_transport_time";
+        return "businessdeveloper/average_transport_time";
     }
         //gennemsnitlig Leasetid
     @GetMapping("/leasing_speed")
     public String getLeasingSpeedForCar(@RequestParam long carId, Model model) {
         double leasingSpeed = businessdeveloperService.getLeasingSpeedForCar(carId);
         model.addAttribute("leasingSpeed", leasingSpeed);
-        return "business_developer/leasing_speed";
+        return "businessdeveloper/leasing_speed";
     }
     //totale antal biler udlejet på givent tidspunkt
     @GetMapping("/rented_cars_count")
     public String getRentedCarsCount(Model model) {
         int rentedCarsCount = businessdeveloperService.getNumberOfRentedCars();
         model.addAttribute("rentedCarsCount", rentedCarsCount);
-        return "business_developer/rented_cars_count";
+        return "businessdeveloper/rented_cars_count";
     }
         // Pris på udlejede biler på givent tidspunkt
     @GetMapping("/total_price_of_rented_cars")
     public String getTotalPriceOfRentedCars(Model model) {
         double totalPrice = businessdeveloperService.getTotalPriceOfRentedCars();
         model.addAttribute("totalPrice", totalPrice);
-        return "business_developer/total_price_of_rented_cars";
+        return "businessdeveloper/total_price_of_rented_cars";
+    }
+    @GetMapping("/business_developer_dashboard")
+    public String showBusinessDeveloperDashboard() {
+        return "businessdeveloper/business_developer_dashboard";
     }
 }
