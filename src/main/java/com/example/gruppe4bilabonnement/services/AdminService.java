@@ -23,4 +23,15 @@ public class AdminService {
             return new Employee("N/A");
         }
     }
+
+    public boolean isEmailRegistered(String email) {
+        boolean isEmailRegistered;
+        try {
+            adminRepository.getEmployeeByEmail(email);
+            isEmailRegistered = true;
+        } catch (EmptyResultDataAccessException e) {
+            isEmailRegistered = false;
+        }
+        return isEmailRegistered;
+    }
 }
