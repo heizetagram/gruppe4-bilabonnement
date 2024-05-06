@@ -27,12 +27,22 @@ public class BusinessdeveloperController {
         return "businessdeveloper/average_transport_time";
     }
         //gennemsnitlig Leasetid
-    @GetMapping("/leasing_speed")
+    /* @GetMapping("/leasing_speed")
     public String getLeasingSpeedForCar(@RequestParam long carId, Model model) {
         double leasingSpeed = businessdeveloperService.getLeasingSpeedForCar(carId);
         model.addAttribute("leasingSpeed", leasingSpeed);
         return "businessdeveloper/leasing_speed";
+    } */
+
+    @GetMapping("/leasing_speed")
+    public String getLeasingSpeedForCar(@RequestParam long carId, Model model) {
+        double leasingSpeed = businessdeveloperService.getLeasingSpeedForCar(carId);
+        model.addAttribute("carId", carId);
+        model.addAttribute("leasingSpeed", leasingSpeed);
+        return "businessdeveloper/leasing_speed";
     }
+
+
     //totale antal biler udlejet på givent tidspunkt
     @GetMapping("/rented_cars_count")
     public String getRentedCarsCount(Model model) {
