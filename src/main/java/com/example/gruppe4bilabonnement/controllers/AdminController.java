@@ -22,15 +22,20 @@ public class AdminController {
 
     @PostMapping("/create_employee")
     public String createEmployee(@RequestParam String email, @RequestParam String employeePassword, @RequestParam String employeeRole, Model model) {
-        // Send an invalid message if e-mail doesn't contain "."
-        model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
+        boolean isEmailRegistered = adminService.isEmailRegistered(email);
 
-        adminService.createEmployee(email, employeePassword, employeeRole);
-        if (!email.contains(".")) {
-            return "admin/create_employee";
+        if (isEmailRegistered) {
+            // Send an invalid message if e-mail is already registered in the system
+            model.addAttribute("emailAlreadyRegistered", "E-mail er allerede i brug");
+        } else if (!email.contains(".")) {
+            // Send an invalid message if e-mail doesn't contain "."
+            model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
         } else {
-            return "redirect:/";
+            // Send a success message if user is created
+            adminService.createEmployee(email, employeePassword, employeeRole);
+            model.addAttribute("success", "Bruger tilføjet");
         }
+        return "admin/create_employee";
     }
 }
 
