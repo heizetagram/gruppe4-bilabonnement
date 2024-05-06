@@ -19,7 +19,7 @@ public class AdminRepository {
     }
 
     public Employee getEmployeeByEmailAndPassword(String email, String employeePassword) {
-        String query = "SELECT * FROM employee WHERE email = ? and employee_password = ?";
+        String query = "SELECT * FROM employee WHERE email = ? and employee_password = ?;";
         BeanPropertyRowMapper<Employee> beanPropertyRowMapper = new BeanPropertyRowMapper<>(Employee.class);
         return jdbcTemplate.queryForObject(query, beanPropertyRowMapper, email, employeePassword);
     }
