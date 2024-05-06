@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 public class AdminRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    private final BeanPropertyRowMapper<Employee> beanPropertyRowMapper = new BeanPropertyRowMapper<>(Employee.class);
 
     // Creates a new Employee
     public void createEmployee(String email, String employeePassword, String employeeRole) {
@@ -20,7 +21,12 @@ public class AdminRepository {
 
     public Employee getEmployeeByEmailAndPassword(String email, String employeePassword) {
         String query = "SELECT * FROM employee WHERE email = ? and employee_password = ?;";
-        BeanPropertyRowMapper<Employee> beanPropertyRowMapper = new BeanPropertyRowMapper<>(Employee.class);
         return jdbcTemplate.queryForObject(query, beanPropertyRowMapper, email, employeePassword);
     }
+
+    public Employee getEmployeeByEmail(String email) {
+        String query = "SELECT * FROM employee WHERE email = ?;";
+        return jdbcTemplate.queryForObject(query, beanPropertyRowMapper, email);
+    }
+
 }
