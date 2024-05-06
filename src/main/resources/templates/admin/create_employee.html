@@ -10,6 +10,8 @@
 </header>
 <h1>Opret en ny medarbejder</h1>
 <form action="/admin/create_employee" method="post">
+    <span th:text="${invalidInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
+    <br>
     <label for="email">E-mail:</label>
     <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" required>
     <br>
@@ -25,6 +27,8 @@
         <option value="BUSINESS_DEV">Forretningsudvikler</option>
         <option value="ADMIN">Admin</option>
     </select>
+    <br>
+    <br>
     <input type="submit">
 </form>
 </body>
