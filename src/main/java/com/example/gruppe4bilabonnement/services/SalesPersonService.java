@@ -5,6 +5,8 @@ import com.example.gruppe4bilabonnement.repositories.SalesPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SalesPersonService {
     @Autowired
@@ -20,5 +22,8 @@ public class SalesPersonService {
 
     public void update(int id, String firstNamee, String lastName, String phoneNumber, String email, String address, int zipCode) {
     salesPersonRepository.update(id, firstNamee, lastName, phoneNumber, email, address, zipCode);
+    }
+    public List<Customer> getAllCustomers() {
+        return salesPersonRepository.getAllCustomers();
     }
 }
