@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Customer Overview</title>
+  <title>Kunde Overblik</title>
 </head>
 <body>
 <header>
   <div th:replace="~{fragments/navbar/navbar}"></div>
 </header>
-<h1>Customer Overview</h1>
+<h1>Kunde Overblik</h1>
 
 <table>
   <tr>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Phone Number</th>
+    <th>Fornavn</th>
+    <th>Efternavn</th>
+    <th>Mobilnummer</th>
     <th>Actions</th>
   </tr>
   <tr th:each="customer : ${customers}">
