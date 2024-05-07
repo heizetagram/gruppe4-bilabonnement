@@ -36,7 +36,6 @@ public class BusinessdeveloperController {
         return "businessdeveloper/leasing_speed";
     }
 
-
     //totale antal biler udlejet på givent tidspunkt
     @GetMapping("/rented_cars_count")
     public String getRentedCarsCount(Model model) {
