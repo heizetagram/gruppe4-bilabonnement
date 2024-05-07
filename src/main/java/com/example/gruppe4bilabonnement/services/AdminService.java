@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminService {
     @Autowired
@@ -33,5 +35,21 @@ public class AdminService {
             isEmailRegistered = false;
         }
         return isEmailRegistered;
+    }
+
+    public List<Employee> getAllEmployees() {
+        return adminRepository.getAllEmployees();
+    }
+
+    public Employee getEmployeeById(int id) {
+        return adminRepository.getEmployeeById(id);
+    }
+
+    public void updateEmployee(int id, String email, String employeePassword, String employeeRole) {
+        adminRepository.updateEmployee(id, email, employeePassword, employeeRole);
+    }
+
+    public void deleteEmployeeById(int id) {
+        adminRepository.deleteEmployeeById(id);
     }
 }

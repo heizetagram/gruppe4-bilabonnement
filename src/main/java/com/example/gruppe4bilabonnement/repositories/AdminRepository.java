@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class AdminRepository {
     @Autowired
@@ -29,4 +31,23 @@ public class AdminRepository {
         return jdbcTemplate.queryForObject(query, beanPropertyRowMapper, email);
     }
 
+    public List<Employee> getAllEmployees() {
+        String query = "SELECT * FROM employee;";
+        return jdbcTemplate.query(query, beanPropertyRowMapper);
+    }
+
+    public Employee getEmployeeById(int id) {
+        String query = "SELECT * FROM employee WHERE id = ?;";
+        return jdbcTemplate.queryForObject(query, beanPropertyRowMapper, id);
+    }
+
+    public void updateEmployee(int id, String email, String employeePassword, String employeeRole) {
+        String query = "UPDATE employee SET email = ?, employee_password = ?, employee_role = ? WHERE id = ?;";
+        jdbcTemplate.update(query, email, employeePassword, employeeRole, id);
+    }
+
+    public void deleteEmployeeById(int id) {
+        String query ="DELETE FROM employee WHERE id = ?;";
+        jdbcTemplate.update(query, id);
+    }
 }
