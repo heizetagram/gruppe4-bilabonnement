@@ -40,6 +40,7 @@ public class AdminController {
         return "admin/create_employee";
     }
 
+    // Show all employees
     @GetMapping("/employee_overview")
     public String showEmployees(Model model) {
         List<Employee> employees = adminService.getAllEmployees();
@@ -47,6 +48,7 @@ public class AdminController {
         return "admin/employee_overview";
     }
 
+    // Prepare employee update
     @GetMapping("/prepare_employee_update")
     public String prepareEmployeeUpdate(@RequestParam int employeeId, Model model) {
         Employee employee = adminService.getEmployeeById(employeeId);
@@ -54,19 +56,23 @@ public class AdminController {
         return "admin/update_employee";
     }
 
+    // Update employee
     @PostMapping("/update_employee")
     public String updateEmployee(@RequestParam int employeeId, @RequestParam String email, @RequestParam String employeePassword, @RequestParam String employeeRole, Model model) {
+        // Send an error message if email format is incorrect
         if (!email.contains(".")) {
             Employee employee = adminService.getEmployeeById(employeeId);
             model.addAttribute("employee", employee);
             model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
             return "admin/update_employee";
         } else {
+            // Else update the employee
             adminService.updateEmployee(employeeId, email, employeePassword, employeeRole);
             return "redirect:/admin/employee_overview";
         }
     }
 
+    // Prepare employee deletion - 'Are you sure?'
     @GetMapping("/prepare_employee_deletion")
     public String prepareEmployeeDeletion(@RequestParam int employeeId, Model model) {
         Employee employee = adminService.getEmployeeById(employeeId);
@@ -74,6 +80,7 @@ public class AdminController {
         return "admin/delete_employee";
     }
 
+    // Delete employee
     @PostMapping("/delete_employee")
     public String deleteEmployee(@RequestParam int employeeId) {
         adminService.deleteEmployeeById(employeeId);
