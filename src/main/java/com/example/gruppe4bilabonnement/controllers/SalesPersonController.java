@@ -61,7 +61,4 @@ public class SalesPersonController {
             return "home/unauthorized_access";
         }
     }
-
-
-
 }
