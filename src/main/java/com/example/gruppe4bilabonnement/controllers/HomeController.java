@@ -25,13 +25,13 @@ public class HomeController {
         model.addAttribute("invalidEmployeeInfo", "E-mail eller adgangskode er forkert");
         Employee employee = adminService.getEmployeeByEmailAndPassword(email, employeePassword);
 
-        Cookie cookie = new Cookie("employeeRole", employee.getEmployeeRole());
-        response.addCookie(cookie);
-
-        // Returns an invalid login message if the user-login doesn't exist or if the email doesn't include a '.'
-        if (employee.getEmployeeRole().equals("N/A") || !email.contains(".")) {
+        // Return an invalid login message if the user-login doesn't exist or if the email doesn't include a '.'
+        if (employee == null || !email.contains(".")) {
             return "home/login";
         } else {
+            // Assign employee's role to cookie
+            Cookie cookie = new Cookie("employeeRole", employee.getEmployeeRole());
+            response.addCookie(cookie);
             return "redirect:/employee_frontpage";
         }
     }
