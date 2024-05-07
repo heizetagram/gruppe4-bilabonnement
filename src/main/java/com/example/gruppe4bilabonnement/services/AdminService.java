@@ -20,7 +20,7 @@ public class AdminService {
         try {
             return adminRepository.getEmployeeByEmailAndPassword(email, employeePassword);
         } catch (EmptyResultDataAccessException e) {
-            return new Employee("N/A");
+            return null;
         }
     }
 

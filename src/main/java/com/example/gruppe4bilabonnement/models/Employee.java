@@ -9,10 +9,6 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String employeeRole) {
-        this.employeeRole = employeeRole;
-    }
-
     public int getId() {
         return id;
     }
