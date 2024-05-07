@@ -21,10 +21,24 @@ public class SalesPersonController {
         return "salesperson/new_customer";
     }
     @PostMapping("/insert")
-    public String insert(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
+    public String insert(Model model, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
                          @RequestParam String email, @RequestParam String address, @RequestParam int zipCode) {
-        salesPersonService.insert(firstName, lastName, phoneNumber, email, address, zipCode);
-        return "redirect:/new_lease_agreement";
+        boolean isEmailRegistered = salesPersonService.isEmailRegistered(email);
+
+        if (isEmailRegistered) {
+            // Send an invalid message if e-mail is already registered in the system
+            model.addAttribute("emailAlreadyRegistered", "E-mail er allerede i brug");
+            return "salesperson/new_customer";
+        } else if (!email.contains(".")) {
+            // Send an invalid message if e-mail doesn't contain "."
+            model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
+            return "salesperson/new_customer";
+        } else {
+            // Send a success message if customer is created
+            salesPersonService.insert(firstName, lastName, phoneNumber, email, address, zipCode);
+            model.addAttribute("success", "Kunde tilføjet");
+            return "redirect:/salesperson/new_lease";
+        }
     }
     @GetMapping("/prepare_update/{id}")
     public String prepareUpdate(@PathVariable int id, Model model) {
@@ -38,10 +52,14 @@ public class SalesPersonController {
         return "redirect:/";
     }
     @GetMapping("/customer_overview")
-    public String showCustomers(Model model) {
-        List<Customer> customers = salesPersonService.getAllCustomers();
-        model.addAttribute("customers", customers);
-        return "salesperson/customer_overview";
+    public String showCustomers(Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("SALESPERSON")) {
+            List<Customer> customers = salesPersonService.getAllCustomers();
+            model.addAttribute("customers", customers);
+            return "salesperson/customer_overview";
+        } else {
+            return "home/unauthorized_access";
+        }
     }
 
 

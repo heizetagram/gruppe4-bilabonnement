@@ -18,11 +18,19 @@
     <label for="phoneNumber">Mobilnummer:</label><br>
     <input type="text" maxlength="20" id="phoneNumber" name="phoneNumber" placeholder="Indtast mobil nummer" required><br>
     <label for="email">Email:</label><br>
+    <span th:if="${invalidInfo!=null || emailAlreadyRegistered!=null}">
+        <span th:text="${invalidInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
+        <span th:text="${emailAlreadyRegistered}"></span> <!-- Show an error message if the e-mail is already registered in the system -->
+        <br>
+    </span>
     <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" required><br>
     <label for="address">Adresse:</label><br>
     <input type="text" maxlength="100" id="address" name="address" placeholder="Indtast adresse" required><br>
     <label for="zipCode">Postnummer:</label><br>
     <input type="number" maxlength="100" id="zipCode" name="zipCode" placeholder="Indtast postnummer" required><br><br>
+    <br>
+    <span th:text="${success}"></span> <!-- Customer successfully registered message -->
+    <br>
     <input type="submit" value="Submit">
 </form>
 </body>

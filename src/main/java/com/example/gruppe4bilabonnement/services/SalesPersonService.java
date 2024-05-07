@@ -3,6 +3,7 @@ package com.example.gruppe4bilabonnement.services;
 import com.example.gruppe4bilabonnement.models.Customer;
 import com.example.gruppe4bilabonnement.repositories.SalesPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,17 +14,29 @@ public class SalesPersonService {
     SalesPersonRepository salesPersonRepository;
 
     public void insert(String firstName, String lastName, String phoneNumber, String email, String address, int zipCode) {
-    salesPersonRepository.insert(firstName, lastName, phoneNumber, email, address, zipCode);
+        salesPersonRepository.insert(firstName, lastName, phoneNumber, email, address, zipCode);
     }
 
     public Customer prepareUpdate(int id) {
-    return salesPersonRepository.getCustomer(id);
+        return salesPersonRepository.getCustomer(id);
     }
 
-    public void update(int id, String firstNamee, String lastName, String phoneNumber, String email, String address, int zipCode) {
-    salesPersonRepository.update(id, firstNamee, lastName, phoneNumber, email, address, zipCode);
+    public void update(int id, String firstName, String lastName, String phoneNumber, String email, String address, int zipCode) {
+        salesPersonRepository.update(id, firstName, lastName, phoneNumber, email, address, zipCode);
     }
+
     public List<Customer> getAllCustomers() {
         return salesPersonRepository.getAllCustomers();
+    }
+
+    public boolean isEmailRegistered(String email) {
+        boolean isEmailRegistered;
+        try {
+            salesPersonRepository.getCustomerByEmail(email);
+            isEmailRegistered = true; // Email exists, return true
+        } catch (EmptyResultDataAccessException e) {
+            isEmailRegistered = false; // Email doesn't exist, return false
+        }
+        return isEmailRegistered;
     }
 }
