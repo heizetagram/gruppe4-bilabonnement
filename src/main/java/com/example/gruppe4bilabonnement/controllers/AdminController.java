@@ -5,10 +5,7 @@ import com.example.gruppe4bilabonnement.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +16,12 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("/prepare_new_employee")
-    public String prepareNewEmployee() {
-        return "admin/create_employee";
+    public String prepareNewEmployee(@CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("ADMIN")) {
+            return "admin/create_employee";
+        } else {
+            return "/home/unauthorized_access";
+        }
     }
 
     @PostMapping("/create_employee")
@@ -42,18 +43,26 @@ public class AdminController {
 
     // Show all employees
     @GetMapping("/employee_overview")
-    public String showEmployees(Model model) {
-        List<Employee> employees = adminService.getAllEmployees();
-        model.addAttribute("employees", employees);
-        return "admin/employee_overview";
+    public String showEmployees(Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("ADMIN")) {
+            List<Employee> employees = adminService.getAllEmployees();
+            model.addAttribute("employees", employees);
+            return "admin/employee_overview";
+        } else {
+            return "/home/unauthorized_access";
+        }
     }
 
     // Prepare employee update
     @GetMapping("/prepare_employee_update")
-    public String prepareEmployeeUpdate(@RequestParam int employeeId, Model model) {
-        Employee employee = adminService.getEmployeeById(employeeId);
-        model.addAttribute("employee", employee);
-        return "admin/update_employee";
+    public String prepareEmployeeUpdate(@RequestParam int employeeId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("ADMIN")) {
+            Employee employee = adminService.getEmployeeById(employeeId);
+            model.addAttribute("employee", employee);
+            return "admin/update_employee";
+        } else {
+            return "/home/unauthorized_access";
+        }
     }
 
     // Update employee
@@ -74,10 +83,14 @@ public class AdminController {
 
     // Prepare employee deletion - 'Are you sure?'
     @GetMapping("/prepare_employee_deletion")
-    public String prepareEmployeeDeletion(@RequestParam int employeeId, Model model) {
-        Employee employee = adminService.getEmployeeById(employeeId);
-        model.addAttribute("employee", employee);
-        return "admin/delete_employee";
+    public String prepareEmployeeDeletion(@RequestParam int employeeId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("ADMIN")) {
+            Employee employee = adminService.getEmployeeById(employeeId);
+            model.addAttribute("employee", employee);
+            return "admin/delete_employee";
+        } else {
+            return "/home/unauthorized_access";
+        }
     }
 
     // Delete employee
