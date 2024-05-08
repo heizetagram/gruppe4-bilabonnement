@@ -1,6 +1,7 @@
 package com.example.gruppe4bilabonnement.repositories;
 
 import com.example.gruppe4bilabonnement.models.Customer;
+import com.example.gruppe4bilabonnement.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,7 +13,7 @@ import java.util.List;
 @Repository
 public class SalesPersonRepository {
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public void insert(String firstName, String lastName, String phoneNumber, String email, String address, int zipCode) {
         String query = "INSERT INTO customer (first_name, last_name, phone_number, email, address, zip_code)" +
@@ -42,4 +43,11 @@ public class SalesPersonRepository {
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
         return jdbcTemplate.query(query, rowMapper);
     }
+
+    public Customer getCustomerByEmail(String email) {
+        String query = "SELECT * FROM customer WHERE email = ?;";
+        RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        return jdbcTemplate.queryForObject(query, rowMapper, email);
+    }
+
 }

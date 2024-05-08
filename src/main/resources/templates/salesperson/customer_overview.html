@@ -18,7 +18,10 @@
     <th>Actions</th>
   </tr>
   <tr th:each="customer : ${customers}">
-    <td th:text="${customer.firstName}"></td>
+    <td hidden="" th:text="${customer.id}"></td>
+    <td>
+      <a th:href="@{/salesperson/prepare_update/{id}(id=${customer.id})}" th:text="${customer.firstName}"></a>
+    </td>
     <td th:text="${customer.lastName}"></td>
     <td th:text="${customer.phoneNumber}"></td>
     <td>
