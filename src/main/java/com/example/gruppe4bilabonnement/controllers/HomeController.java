@@ -14,9 +14,17 @@ public class HomeController {
     @Autowired
     private AdminService adminService;
 
+    // Redirect a user to their role's front page if they are logged on
     @GetMapping("/")
-    public String login() {
-        return "home/login";
+    public String login(HttpServletResponse response, @CookieValue(name = "employeeRole", defaultValue = "N/A") String cookieValue) {
+        // Check is user is assigned a staff member's role and redirect them to their appropriate front page
+        if (!cookieValue.equals("N/A")) {
+            return "redirect:/employee_frontpage";
+        } else {
+            Cookie cookie = new Cookie("employeeRole", cookieValue);
+            response.addCookie(cookie);
+            return "home/login";
+        }
     }
 
     // Attempt to find a user with given prompts
