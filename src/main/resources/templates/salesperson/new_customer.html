@@ -16,7 +16,7 @@
     <label for="lastName">Efternavn:</label><br>
     <input type="text" maxlength="50" id="lastName" name="lastName" placeholder="Indtast efternavn" required><br>
     <label for="phoneNumber">Mobilnummer:</label><br>
-    <input type="text" maxlength="20" id="phoneNumber" name="phoneNumber" placeholder="Indtast mobil nummer" required><br>
+    <input type="number"  min="00000000" max="99999999" id="phoneNumber" name="phoneNumber" placeholder="Indtast mobil nummer" required><br>
     <label for="email">Email:</label><br>
     <span th:if="${invalidInfo!=null || emailAlreadyRegistered!=null}">
         <span th:text="${invalidInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
@@ -27,7 +27,7 @@
     <label for="address">Adresse:</label><br>
     <input type="text" maxlength="100" id="address" name="address" placeholder="Indtast adresse" required><br>
     <label for="zipCode">Postnummer:</label><br>
-    <input type="number" maxlength="100" id="zipCode" name="zipCode" placeholder="Indtast postnummer" required><br><br>
+    <input type="number" min="1000"  max="9990" id="zipCode" name="zipCode" placeholder="Indtast postnummer" required><br><br>
     <br>
     <span th:text="${success}"></span> <!-- Customer successfully registered message -->
     <br>

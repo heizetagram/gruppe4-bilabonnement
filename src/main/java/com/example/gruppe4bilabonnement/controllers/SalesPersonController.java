@@ -23,6 +23,7 @@ public class SalesPersonController {
     @PostMapping("/insert")
     public String insert(Model model, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
                          @RequestParam String email, @RequestParam String address, @RequestParam int zipCode) {
+
         boolean isEmailRegistered = salesPersonService.isEmailRegistered(email);
 
         if (isEmailRegistered) {
