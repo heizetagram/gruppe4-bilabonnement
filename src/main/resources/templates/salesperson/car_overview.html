@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Biler</title>
+</head>
+<body>
+    <h1>Biler</h1>
+    <form action="/salesperson/prepare_new_car" method="get">
+        <button type="submit">+ Tilføj ny bil</button>
+    </form>
+    <br>
+    <form action="/salesperson/car_overview" method="get">
+        <span th:each="car : ${cars}">
+            <p th:text="${car.licensePlate}"></p>
+        </span>
+    </form>
+</body>
+</html>

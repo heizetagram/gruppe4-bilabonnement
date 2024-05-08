@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tilføj Bil</title>
+</head>
+<body>
+    <h1>Tilføj bil</h1>
+    <form action="/salesperson/create_car" method="post">
+        <label for="carModelBrand">Bilmærke:</label>
+        <select id="carModelBrand" name="carModelBrand">
+            <option value="">Vælg bilmærke:</option>
+            <option th:each="carBrand : ${carBrands}" th:text="${carBrand.brand}"></option>
+        </select>
+        <br>
+        <br>
+        <label for="fuelType">Vælg brændstofstype:</label>
+        <select id="fuelType" name="fuelType">
+            <option value="">Vælg brændstofstype</option>
+            <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.fuelType}"></option>
+        </select>
+        <!--<input type="fuelType" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}" required>-->
+    </form>
+</body>
+</html>
