@@ -20,7 +20,7 @@ public class AdminController {
         if (cookieValue.equals("ADMIN")) {
             return "admin/create_employee";
         } else {
-            return "/home/unauthorized_access";
+            return "redirect:/";
         }
     }
 
@@ -49,7 +49,7 @@ public class AdminController {
             model.addAttribute("employees", employees);
             return "admin/employee_overview";
         } else {
-            return "/home/unauthorized_access";
+            return "redirect:/";
         }
     }
 
@@ -61,7 +61,7 @@ public class AdminController {
             model.addAttribute("employee", employee);
             return "admin/update_employee";
         } else {
-            return "/home/unauthorized_access";
+            return "redirect:/";
         }
     }
 
@@ -77,7 +77,7 @@ public class AdminController {
         } else {
             // Else update the employee
             adminService.updateEmployee(employeeId, email, employeePassword, employeeRole);
-            return "redirect:/admin/employee_overview";
+            return "redirect:/";
         }
     }
 
@@ -89,7 +89,7 @@ public class AdminController {
             model.addAttribute("employee", employee);
             return "admin/delete_employee";
         } else {
-            return "/home/unauthorized_access";
+            return "redirect:/";
         }
     }
 
