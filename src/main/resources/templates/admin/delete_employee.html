@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slet Personale</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/admin/navbar}"></div>
+    </header>
+    <h1>Slet
+        <span th:switch="${employee.employeeRole}">
+            <span th:case="SALESPERSON">Medarbejder</span>
+            <span th:case="MECHANIC">Mekaniker</span>
+            <span th:case="BUSINESS_DEV">Forretningsudvikler</span>
+            <span th:case="ADMIN">Admin</span>
+        </span>
+    </h1>
+    <form action="/admin/employee_overview" method="get">
+        <button type="submit">< OVERBLIK</button>
+    </form>
+    <h2>Er du sikker på at du vil slette <span th:text="${employee.email}"></span>?</h2>
+    <form action="/admin/delete_employee" method="post">
+        <input type="hidden" name="employeeId" th:value="${employee.id}">
+        <button type="submit">SLET</button>
+    </form>
+    <form action="/admin/employee_overview" method="get">
+        <button type="submit">FORTRYD</button>
+    </form>
+</body>
+</html>
