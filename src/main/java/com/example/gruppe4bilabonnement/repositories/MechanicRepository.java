@@ -19,8 +19,8 @@ public class MechanicRepository {
     }
 
     public List<DamageReport> getAllDamageReports() {
-        String sql = "SELECT * FROM damage_report";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+        String query = "SELECT * FROM damage_report";
+        return jdbcTemplate.query(query, (rs, rowNum) -> {
             DamageReport damageReport = new DamageReport();
             damageReport.setId(rs.getLong("id"));
             damageReport.setCarId(rs.getLong("car_id"));
@@ -31,8 +31,8 @@ public class MechanicRepository {
     }
 
     public DamageReport getDamageReportById(Long id) {
-        String sql = "SELECT * FROM damage_report WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> {
+        String query = "SELECT * FROM damage_report WHERE id = ?";
+        return jdbcTemplate.queryForObject(query, new Object[]{id}, (rs, rowNum) -> {
             DamageReport damageReport = new DamageReport();
             damageReport.setId(rs.getLong("id"));
             damageReport.setCarId(rs.getLong("car_id"));
@@ -43,12 +43,12 @@ public class MechanicRepository {
     }
 
     public void updateDamageReport(DamageReport damageReport) {
-        String sql = "UPDATE damage_report SET car_id = ?, damage_text = ?, price = ? WHERE id = ?";
-        jdbcTemplate.update(sql, damageReport.getCarId(), damageReport.getDamageText(), damageReport.getPrice(), damageReport.getId());
+        String query = "UPDATE damage_report SET car_id = ?, damage_text = ?, price = ? WHERE id = ?";
+        jdbcTemplate.update(query, damageReport.getCarId(), damageReport.getDamageText(), damageReport.getPrice(), damageReport.getId());
     }
 
     public void deleteDamageReport(Long id) {
-        String sql = "DELETE FROM damage_report WHERE id = ?";
-        jdbcTemplate.update(sql, id);
+        String query = "DELETE FROM damage_report WHERE id = ?";
+        jdbcTemplate.update(query, id);
     }
 }
