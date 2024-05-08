@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Damage Reports</title>
+</head>
+<body>
+<h1>Damage Reports</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Car ID</th>
+        <th>Damage Description</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="damageReport : ${damageReports}">
+        <td th:text="${damageReport.id}"></td>
+        <td th:text="${damageReport.carId}"></td>
+        <td th:text="${damageReport.damageText}"></td>
+        <td th:text="${damageReport.price}"></td>
+        <td>
+            <a th:href="@{'/damage_reports/' + ${damageReport.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/damage_reports/' + ${damageReport.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

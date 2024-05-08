@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Damage Report</title>
+</head>
+<body>
+<h1>Edit Damage Report</h1>
+<form action="/damage_reports/{id}/update" method="post" th:action="@{'/damage_reports/' + ${damageReport.id} + '/update'}">
+    <input type="hidden" name="_method" value="PUT"/>
+    <input type="hidden" name="id" th:value="${damageReport.id}"/>
+
+    <label for="carId">Car ID:</label>
+    <input type="text" id="carId" name="carId" th:value="${damageReport.carId}" required><br>
+
+    <label for="damageText">Damage Description:</label>
+    <input type="text" id="damageText" name="damageText" th:value="${damageReport.damageText}" required><br>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" th:value="${damageReport.price}" required><br>
+
+    <button type="submit">Update Damage Report</button>
+</form>
+<a href="/damage_reports">Cancel</a>
+</body>
+</html>

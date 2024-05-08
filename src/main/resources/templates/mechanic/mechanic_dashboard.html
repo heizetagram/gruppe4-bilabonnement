@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mechanic Dashboard</title>
+</head>
+<body>
+<h1>Mechanic Dashboard</h1>
+
+<form action="/damage_report" method="post">
+    <label for="carId">Car ID:</label>
+    <input type="text" id="carId" name="carId" required><br>
+    <label for="damageText">Damage Description:</label>
+    <input type="text" id="damageText" name="damageText" required><br>
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" required><br>
+    <button type="submit">Submit Damage Report</button>
+</form>
+
+<form action="/damage_reports" method="get">
+    <button type="submit">View All Damage Reports</button>
+</form>
+
+</body>
+</html>
