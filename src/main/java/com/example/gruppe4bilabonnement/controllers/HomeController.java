@@ -14,9 +14,17 @@ public class HomeController {
     @Autowired
     private AdminService adminService;
 
+    // Redirect a user to their role's front page if they are logged on
     @GetMapping("/")
-    public String login() {
-        return "home/login";
+    public String login(HttpServletResponse response, @CookieValue(name = "employeeRole", defaultValue = "N/A") String cookieValue) {
+        // Check is user is assigned a staff member's role and redirect them to their appropriate front page
+        if (!cookieValue.equals("N/A")) {
+            return "redirect:/employee_frontpage";
+        } else {
+            Cookie cookie = new Cookie("employeeRole", cookieValue);
+            response.addCookie(cookie);
+            return "home/login";
+        }
     }
 
     // Attempt to find a user with given prompts
@@ -25,13 +33,13 @@ public class HomeController {
         model.addAttribute("invalidEmployeeInfo", "E-mail eller adgangskode er forkert");
         Employee employee = adminService.getEmployeeByEmailAndPassword(email, employeePassword);
 
-        Cookie cookie = new Cookie("employeeRole", employee.getEmployeeRole());
-        response.addCookie(cookie);
-
-        // Returns an invalid login message if the user-login doesn't exist or if the email doesn't include a '.'
-        if (employee.getEmployeeRole().equals("N/A") || !email.contains(".")) {
+        // Return an invalid login message if the user-login doesn't exist or if the email doesn't include a '.'
+        if (employee == null || !email.contains(".")) {
             return "home/login";
         } else {
+            // Assign employee's role to cookie
+            Cookie cookie = new Cookie("employeeRole", employee.getEmployeeRole());
+            response.addCookie(cookie);
             return "redirect:/employee_frontpage";
         }
     }
