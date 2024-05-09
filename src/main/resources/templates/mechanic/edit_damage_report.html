@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Edit Damage Report</h1>
-<form action="/damage_reports/{id}/update" method="post" th:action="@{'/damage_reports/' + ${damageReport.id} + '/update'}">
+<form action="/mechanic/damage_reports/{id}/update" method="post" th:action="@{'/damage_reports/' + ${damageReport.id} + '/update'}">
     <input type="hidden" name="_method" value="PUT"/>
     <input type="hidden" name="id" th:value="${damageReport.id}"/>
 
@@ -21,6 +21,6 @@
 
     <button type="submit">Update Damage Report</button>
 </form>
-<a href="/damage_reports">Cancel</a>
+<a href="/mechanic/damage_reports">Cancel</a>
 </body>
 </html>
