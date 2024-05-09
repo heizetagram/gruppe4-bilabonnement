@@ -13,26 +13,30 @@ public class TestCarService {
     @Autowired
     private TestCarRepository testCarRepository;
 
-    public void createCar(CarBrand carBrand, String carModelName, FuelType fuelType,
+    public void createCar(int carModelId, FuelType fuelType,
                           String licensePlate, String vin, String equipmentLevel,
-                          BigInteger km, double registrationFee, double steelPrice,
-                          int co2Emission) {
-        // Find car model id by its brand and model
-        int carModelId = getCarModelIdByBrandAndModelName(carBrand, carModelName);
-
-        // Make isRented = false by default
+                          long km, double registrationFee, double steelPrice,
+                          int co2Emission, String isRented) {
         if (carModelId != 0) {
-            testCarRepository.createCar(carModelId, fuelType, licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, false);
+            testCarRepository.createCar(carModelId, fuelType, licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, isRented);
         }
     }
 
+    public void createCarModel(CarBrand carBrand, String carModelName, CarType carType) {
+        testCarRepository.createCarModel(carBrand, carModelName, carType);
+    }
+
+    // Get carModelId by Brand and Model
     public int getCarModelIdByBrandAndModelName(CarBrand carBrand, String carModelName) {
-        // Get carModelId by Brand and Model
         try {
             return testCarRepository.getCarModelIdByBrandAndModelName(carBrand, carModelName);
         } catch (NullPointerException e) {
             return 0;
         }
+    }
+
+    public CarModel getCarModelByCarModelId(int carModelId) {
+        return testCarRepository.getCarModelByCarModelId(carModelId);
     }
 
     public List<CarModel> getAllCarModelsByBrand(CarBrand carBrand) {
@@ -49,6 +53,10 @@ public class TestCarService {
 
     public List<CarModel> getAllCarModels() {
         return testCarRepository.getAllCarModels();
+    }
+
+    public List<CarType> getAllCarTypes() {
+        return testCarRepository.getAllCarTypes();
     }
 
     public List<Car> getAllCars() {

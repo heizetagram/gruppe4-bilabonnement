@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 public class CarRowMapper implements RowMapper<Car> {
     // Create a row mapper for car model, that sets the car brand and car types as instances of their classes
+    @Override
     public Car mapRow(ResultSet rs, int rowNum) throws SQLException {
         int id = rs.getInt("id");
         int carModelId = rs.getInt("car_model_id");

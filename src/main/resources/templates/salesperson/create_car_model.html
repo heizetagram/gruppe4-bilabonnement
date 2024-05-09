@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tilføj Bilmodel</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Tilføj bilmodel</h1>
+    <form action="/salesperson/create_car_model" method="post">
+        <input type="hidden" name="carBrand" th:value="${selectedCarBrand}">
+        <label for="carModelName">Modelnavn:</label>
+        <input type="text" maxlength="50" id="carModelName" name="carModelName" placeholder="Indtast modelnavn" required>
+        <select id="carType" name="carType" required>
+            <option value="">Vælg biltype</option>
+            <option th:each="carType : ${carTypes}" th:text="${carType.carType}" th:value="${carType.carType}"></option>
+        </select>
+        <button type="submit">Opret model</button>
+    </form>
+</body>
+</html>

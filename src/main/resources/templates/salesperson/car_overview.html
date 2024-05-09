@@ -5,15 +5,21 @@
     <title>Biler</title>
 </head>
 <body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
     <h1>Biler</h1>
     <form action="/salesperson/prepare_new_car" method="get">
         <button type="submit">+ Tilføj ny bil</button>
     </form>
     <br>
-    <form action="/salesperson/car_overview" method="get">
-        <span th:each="car : ${cars}">
-            <p th:text="${car.licensePlate}"></p>
-        </span>
-    </form>
+    <table>
+        <thead><td>MÆRKE</td><td>MODEL</td><td>NUMMERPLADE</td></thead>
+        <tr th:each="car : ${cars}">
+            <td th:text="${testCarService.getCarModelByCarModelId(car.carModelId).brand}"></td>
+            <td th:text="${testCarService.getCarModelByCarModelId(car.carModelId).modelName}"></td>
+            <td th:text="${car.licensePlate}"></td>
+        </tr>
+    </table>
 </body>
 </html>
