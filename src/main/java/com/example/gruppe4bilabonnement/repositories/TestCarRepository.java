@@ -39,6 +39,12 @@ public class TestCarRepository {
         jdbcTemplate.update(query, carModelId, fuelType, licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, isRented);
     }
 
+    public List<CarModel> getAllCarModelsByBrand(CarBrand carBrand) {
+        String query = "SELECT * FROM car_model WHERE brand = ?;";
+        return jdbcTemplate.query(query, new CarModelRowMapper(), carBrand.getBrand());
+    }
+
+
     public List<CarBrand> getAllCarBrands() {
         String query = "SELECT * FROM car_brand;";
         BeanPropertyRowMapper<CarBrand> carBrandBeanPropertyRowMapper = new BeanPropertyRowMapper<>(CarBrand.class);
@@ -53,7 +59,6 @@ public class TestCarRepository {
 
     public List<CarModel> getAllCarModels() {
         String query = "SELECT * FROM car_model;";
-        //BeanPropertyRowMapper<CarModel> carModelBeanPropertyRowMapper = new BeanPropertyRowMapper<>(CarModel.class);
         return jdbcTemplate.query(query, new CarModelRowMapper());
     }
 

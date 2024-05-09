@@ -18,7 +18,7 @@ public class TestCarService {
                           BigInteger km, double registrationFee, double steelPrice,
                           int co2Emission) {
         // Find car model id by its brand and model
-        int carModelId = findCarModelIdByBrandAndModelName(carBrand, carModelName);
+        int carModelId = getCarModelIdByBrandAndModelName(carBrand, carModelName);
 
         // Make isRented = false by default
         if (carModelId != 0) {
@@ -26,13 +26,17 @@ public class TestCarService {
         }
     }
 
-    public int findCarModelIdByBrandAndModelName(CarBrand carBrand, String carModelName) {
-        // Find carModelId by Brand and Model
+    public int getCarModelIdByBrandAndModelName(CarBrand carBrand, String carModelName) {
+        // Get carModelId by Brand and Model
         try {
             return testCarRepository.getCarModelIdByBrandAndModelName(carBrand, carModelName);
         } catch (NullPointerException e) {
             return 0;
         }
+    }
+
+    public List<CarModel> getAllCarModelsByBrand(CarBrand carBrand) {
+        return testCarRepository.getAllCarModelsByBrand(carBrand);
     }
 
     public List<CarBrand> getAllCarBrands() {

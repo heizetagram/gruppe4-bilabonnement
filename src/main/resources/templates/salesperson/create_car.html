@@ -6,7 +6,17 @@
 </head>
 <body>
     <h1>Tilføj bil</h1>
-    <form action="/salesperson/create_car" method="post">
+    <span th:if="${carBrandSelected == null}">
+        <form action="/salesperson/select_car_brand" method="post">
+            <label for="carBrand">Bilmærke:</label>
+            <select id="carBrand" name="carBrand">
+                <option value="">Vælg bilmærke</option>
+                <option th:each="carBrand : ${carBrands}" th:text="${carBrand.brand}" th:value="${carBrand.brand}"></option>
+            </select>
+            <button type="submit">TEST</button>
+        </form>
+    </span>
+    <!--<form action="/salesperson/create_car" method="post">
         <label for="carModelBrand">Bilmærke:</label>
         <select id="carModelBrand" name="carModelBrand">
             <option value="">Vælg bilmærke:</option>
@@ -19,7 +29,7 @@
             <option value="">Vælg brændstofstype</option>
             <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.fuelType}"></option>
         </select>
-        <!--<input type="fuelType" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}" required>-->
-    </form>
+        <input type="fuelType" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}" required>
+    </form>-->
 </body>
 </html>

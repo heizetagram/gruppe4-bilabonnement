@@ -31,6 +31,22 @@ public class TestCarController {
         }
     }
 
+    @PostMapping("/select_car_brand")
+    public String prepareNewCarBrand(Model model, @RequestParam String carBrand) {
+        CarBrand carBrandSelected = new CarBrand(carBrand);
+        model.addAttribute("carBrand", carBrandSelected);
+        return "redirect:/salesperson/create_car?car_brand=" + carBrandSelected.getBrand();
+    }
+
+    @GetMapping("/show_car_models")
+    public String showCarModels(Model model, @RequestParam String carBrand) {
+        CarBrand carBrandSelected = new CarBrand(carBrand);
+        List<CarModel> carModels = testCarService.getAllCarModelsByBrand(carBrandSelected);
+        model.addAttribute("carModels", carModels);
+        return "/salesperson/create_car?car_brand=" + carBrand;
+    }
+
+
     @PostMapping("/create_car")
     public String createCar(@RequestParam CarBrand carBrand, @RequestParam String carModelName, @RequestParam CarType carType, @RequestParam FuelType fuelType,
                             @RequestParam String licensePlate, @RequestParam String vin, @RequestParam String equipmentLevel,
