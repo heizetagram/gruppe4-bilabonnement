@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${customer.firstName} + ' ' + ${customer.lastName} + ' Profil'">Kundeprofil</title>
+</head>
+<body>
+<h1 th:text="${customer.firstName} + ' ' + ${customer.lastName} + ' Profil'">Kundeprofil</h1>
+
+<hr>
+
+<h2>Leasingaftaler</h2>
+
+<table>
+    <tr>
+        <th>Start Dato</th>
+        <th>Slut Dato</th>
+        <th>Købte Kilometer</th>
+        <th>Start Kilometer</th>
+        <th>Pris</th>
+        <th>Bil</th>
+        <th>Status??</th>
+    </tr>
+</table>
+
+<hr>
+
+<table>
+    <tr>
+        <th>Fornavn:</th>
+        <td th:text="${customer.firstName}"></td>
+    </tr>
+    <tr>
+        <th>Efternavn:</th>
+        <td th:text="${customer.lastName}"></td>
+    </tr>
+    <tr>
+        <th>Mobilnummer:</th>
+        <td th:text="${customer.phoneNumber}"></td>
+    </tr>
+    <tr>
+        <th>Email:</th>
+        <td th:text="${customer.email}"></td>
+    </tr>
+    <tr>
+        <th>Adresse:</th>
+        <td th:text="${customer.address}"></td>
+    </tr>
+    <tr>
+        <th>Postnummer:</th>
+        <td th:text="${customer.zipCode}"></td>
+    </tr>
+</table>
+<form th:action="@{/salesperson/prepare_update/{id}(id=${customer.id})}" method="get">
+    <button type="submit">Opdater</button>
+</form>
+
+<form th:action="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}" method="post">
+    <button type="submit">Slet</button>
+</form>
+
+<form th:action="@{/salesperson/customer_overview}" method="get">
+    <button type="submit">Tilbage til oversigt</button>
+</form>
+
+</body>
+</html>

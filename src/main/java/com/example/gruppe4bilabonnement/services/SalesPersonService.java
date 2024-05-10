@@ -1,6 +1,7 @@
 package com.example.gruppe4bilabonnement.services;
 
 import com.example.gruppe4bilabonnement.models.Customer;
+import com.example.gruppe4bilabonnement.models.Employee;
 import com.example.gruppe4bilabonnement.repositories.SalesPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -38,5 +39,13 @@ public class SalesPersonService {
             isEmailRegistered = false; // Email doesn't exist, return false
         }
         return isEmailRegistered;
+    }
+
+    public void deleteCustomerById(int id) {
+    salesPersonRepository.deleteCustomerById(id);
+    }
+
+    public Customer getCustomerById(int id) {
+       return salesPersonRepository.getCustomerById(id);
     }
 }

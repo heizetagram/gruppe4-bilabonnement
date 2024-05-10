@@ -50,4 +50,14 @@ public class SalesPersonRepository {
         return jdbcTemplate.queryForObject(query, rowMapper, email);
     }
 
+    public void deleteCustomerById(int id) {
+        String query ="DELETE FROM customer WHERE id = ?;";
+        jdbcTemplate.update(query, id);
+    }
+
+    public Customer getCustomerById(int id) {
+        String query = "SELECT * FROM customer WHERE id = ?;";
+        RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        return jdbcTemplate.queryForObject(query, rowMapper, id);
+    }
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opret Kunde</title>
+</head>
+<body>
+<header>
+    <div th:replace="~{fragments/navbar/navbar}"></div>
+</header>
+<h1>Opret Kunde</h1>
+<form action="/salesperson/insert" method="post">
+    <label for="firstName">Fornavn:</label><br>
+    <input type="text" maxlength="50" id="firstName" name="firstName" placeholder="Indtast navn"
+           th:value="${param.firstName}" pattern="[A-Za-zÆØÅæøå\s]+" title="Indtast venligst et gyldigt navn"
+           required><br>
+    <label for="lastName">Efternavn:</label><br>
+    <input type="text" maxlength="50" id="lastName" name="lastName" placeholder="Indtast efternavn"
+           th:value="${param.lastName}" pattern="[A-Za-zÆØÅæøå\s]+" title="Indtast venligst et gyldigt efternavn"
+           required><br>
+    <label for="phoneNumber">Mobilnummer:</label><br>
+    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Indtast DK mobilnummer" pattern="[0-9]{8}"
+           th:value="${param.phoneNumber}" required title="8-cifret mobilnummer uden +45!"><br>
+    <label for="email">Email:</label><br>
+    <span th:if="${invalidInfo!=null || emailAlreadyRegistered!=null}">
+        <span th:text="${invalidInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
+        <span th:text="${emailAlreadyRegistered}"></span>
+        <!-- Show an error message if the e-mail is already registered in the system -->
+        <br>
+    </span>
+    <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}"
+           required><br>
+    <label for="address">Adresse:</label><br>
+    <input type="text" maxlength="100" id="address" name="address" placeholder="Indtast adresse"
+           th:value="${param.address}" required><br>
+    <label for="zipCode">Postnummer:</label><br>
+    <input type="number" min="1000" max="9990" id="zipCode" name="zipCode" placeholder="Indtast postnummer"
+           th:value="${param.zipCode}" required><br><br>
+    <input type="submit" value="OPRET">
+</form>
+<form action="/salesperson/customer_overview" method="get">
+    <button type="submit">FORTRYD</button>
+</form>
+</body>
+</html>
