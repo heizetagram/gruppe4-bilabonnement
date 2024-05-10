@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slet Kunde</title>
+</head>
+<body>
+<header>
+    <div th:replace="~{fragments/navbar/admin/navbar}"></div>
+</header>
+<h1>Slet Kunde</h1>
+<table>
+    <tr>
+        <td>ID</td><td th:text="${customer.id}"></td>
+    </tr>
+    <tr>
+        <td>Fulde navn</td><td th:text="${customer.firstName} + ' ' + ${customer.lastName}" ></td>
+    </tr>
+    <tr>
+        <td>Mobilnummer</td><td th:text="${customer.phoneNumber}"></td>
+    </tr>
+    <tr>
+        <td>Email</td><td th:text="${customer.email}"></td>
+    </tr>
+    <tr>
+        <td>Adresse</td><td th:text="${customer.address}"></td>
+    </tr>
+    <tr>
+        <td>Postnummer</td><td th:text="${customer.zipCode}"></td>
+    </tr>
+    <tr>
+        <td>
+            <form action="/salesperson/delete_customer" method="post">
+                <input type="hidden" name="id" th:value="${customer.id}">
+                <button type="submit">SLET</button>
+            </form>
+            <form action="/salesperson/customer_overview" method="get">
+                <button type="submit">FORTRYD</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
