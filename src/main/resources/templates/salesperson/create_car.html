@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tilføj Bil</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Tilføj bil</h1>
+
+    <!-- SELECT CAR BRAND -->
+    <form action="/salesperson/select_car_brand" method="post">
+        <label for="carBrand">Bilmærke:</label>
+        <select id="carBrand" name="carBrand" onchange="this.form.submit()"> <!--JAVASCRIPT-->
+            <option value="N/A">Vælg bilmærke</option>
+            <option th:each="carBrand : ${carBrands}" th:text="${carBrand.brand}" th:value="${carBrand.brand}" th:selected="${selectedCarBrand != null && selectedCarBrand.brand == carBrand.brand}"></option>
+        </select>
+        <!--<button type="submit">BILMÆRKE</button>-->
+    </form>
+
+
+    <span th:if="${selectedCarBrand} != null">
+        <!-- CREATE CAR MODEL -->
+        <form action="/salesperson/prepare_new_car_model" method="get">
+            <input type="hidden" name="carBrand" th:value="${selectedCarBrand.brand}">
+            <button type="submit">Er modellen ikke på listen?</button>
+        </form>
+        <br>
+
+        <!-- CREATE CAR -->
+        <form action="/salesperson/create_car" method="post">
+            <label for="carModelId">Model:</label>
+            <select id="carModelId" name="carModelId">
+                <option value="">Vælg model</option>
+                <option th:each="carModel : ${carModels}" th:text="${carModel.modelName}" th:value="${carModel.id}"></option>
+            </select>
+            <br>
+            <br>
+            <label for="fuelType">Brændstof:</label>
+            <select id="fuelType" name="fuelType">
+                <option value="">Vælg brændstof</option>
+                <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.fuelType}" th:value="${fuelType.fuelType}"></option>
+            </select>
+            <br>
+            <br>
+            <label for="licensePlate">Nummerplade:</label>
+            <input type="text" maxlength="20" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" required>
+            <br>
+            <br>
+            <label for="vin">VIN:</label>
+            <input type="text" maxlength="50" id="vin" name="vin" placeholder="Indtast VIN" required>
+            <br>
+            <br>
+            <label for="equipmentLevel">Udstyrsniveau:</label>
+            <input type="text" maxlength="50" id="equipmentLevel" name="equipmentLevel" placeholder="Indtast udstyrsniveau">
+            <br>
+            <br>
+            <label for="km">Kilometertal:</label>
+            <input type="number" min="0" id="km" name="km" placeholder="Indtast kilometertal" required>
+            <br>
+            <br>
+            <label for="registrationFee">Registreringsafgift:</label>
+            <input type="number" min="0" step="0.01" id="registrationFee" name="registrationFee" placeholder="Indtast registreringsafgift" required>
+            <br>
+            <br>
+            <label for="steelPrice">Stålpris:</label>
+            <input type="number" min="0" step="0.01" id="steelPrice" name="steelPrice" placeholder="Indtast stålpris" required>
+            <br>
+            <br>
+            <label for="co2Emission">CO2-ejerafgift:</label>
+            <input type="number" min="0" id="co2Emission" name="co2Emission" placeholder="Indtast CO2-ejerafgift" required>
+            <input type="hidden" id="isRented" name="isRented" value="FALSE">
+            <br>
+            <button type="submit">Tilføj bil</button>
+        </form>
+    </span>
+</body>
+</html>

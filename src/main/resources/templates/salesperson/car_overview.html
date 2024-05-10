@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Biler</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Biler</h1>
+    <form action="/salesperson/prepare_new_car" method="get">
+        <button type="submit">+ Tilføj ny bil</button>
+    </form>
+    <br>
+    <table>
+        <thead><td>MÆRKE</td><td>MODEL</td><td>NUMMERPLADE</td></thead>
+        <tr th:each="car : ${cars}">
+            <td th:text="${testCarService.getCarModelByCarModelId(car.carModelId).brand}"></td>
+            <td th:text="${testCarService.getCarModelByCarModelId(car.carModelId).modelName}"></td>
+            <td th:text="${car.licensePlate}"></td>
+        </tr>
+    </table>
+</body>
+</html>
