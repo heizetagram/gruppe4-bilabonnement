@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class TestCarRepository {
+public class CarRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

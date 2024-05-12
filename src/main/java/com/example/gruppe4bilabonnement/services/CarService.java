@@ -1,65 +1,63 @@
 package com.example.gruppe4bilabonnement.services;
 
 import com.example.gruppe4bilabonnement.models.*;
-import com.example.gruppe4bilabonnement.repositories.TestCarRepository;
+import com.example.gruppe4bilabonnement.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigInteger;
 import java.util.List;
 
 @Service
-public class TestCarService {
+public class CarService {
     @Autowired
-    private TestCarRepository testCarRepository;
+    private CarRepository carRepository;
 
     public void createCar(int carModelId, FuelType fuelType,
                           String licensePlate, String vin, String equipmentLevel,
                           long km, double registrationFee, double steelPrice,
                           int co2Emission, String isRented) {
         if (carModelId != 0) {
-            testCarRepository.createCar(carModelId, fuelType, licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, isRented);
+            carRepository.createCar(carModelId, fuelType, licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, isRented);
         }
     }
 
     public void createCarModel(CarBrand carBrand, String carModelName, CarType carType) {
-        testCarRepository.createCarModel(carBrand, carModelName, carType);
+        carRepository.createCarModel(carBrand, carModelName, carType);
     }
 
     // Get carModelId by Brand and Model
     public int getCarModelIdByBrandAndModelName(CarBrand carBrand, String carModelName) {
         try {
-            return testCarRepository.getCarModelIdByBrandAndModelName(carBrand, carModelName);
+            return carRepository.getCarModelIdByBrandAndModelName(carBrand, carModelName);
         } catch (NullPointerException e) {
             return 0;
         }
     }
 
     public CarModel getCarModelByCarModelId(int carModelId) {
-        return testCarRepository.getCarModelByCarModelId(carModelId);
+        return carRepository.getCarModelByCarModelId(carModelId);
     }
 
     public List<CarModel> getAllCarModelsByBrand(CarBrand carBrand) {
-        return testCarRepository.getAllCarModelsByBrand(carBrand);
+        return carRepository.getAllCarModelsByBrand(carBrand);
     }
 
     public List<CarBrand> getAllCarBrands() {
-        return testCarRepository.getAllCarBrands();
+        return carRepository.getAllCarBrands();
     }
 
     public List<FuelType> getAllFuelTypes() {
-        return testCarRepository.getAllFuelTypes();
+        return carRepository.getAllFuelTypes();
     }
 
     public List<CarModel> getAllCarModels() {
-        return testCarRepository.getAllCarModels();
+        return carRepository.getAllCarModels();
     }
 
     public List<CarType> getAllCarTypes() {
-        return testCarRepository.getAllCarTypes();
+        return carRepository.getAllCarTypes();
     }
 
     public List<Car> getAllCars() {
-        return testCarRepository.getAllCars();
+        return carRepository.getAllCars();
     }
 }

@@ -1,7 +1,7 @@
 package com.example.gruppe4bilabonnement.controllers;
 
 import com.example.gruppe4bilabonnement.models.*;
-import com.example.gruppe4bilabonnement.services.TestCarService;
+import com.example.gruppe4bilabonnement.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,14 +10,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/salesperson")
-public class TestCarController {
+public class CarController {
     @Autowired
-    private TestCarService testCarService;
+    private CarService carService;
 
     @GetMapping("/prepare_new_car")
     public String prepareNewCar(@CookieValue(name = "employeeRole") String cookieValue, Model model) {
         if (cookieValue.equals("SALESPERSON")) {
-            List<CarBrand> carBrands = testCarService.getAllCarBrands();
+            List<CarBrand> carBrands = carService.getAllCarBrands();
             model.addAttribute("carBrands", carBrands);
             return "salesperson/create_car";
         } else {
@@ -27,9 +27,9 @@ public class TestCarController {
 
     @PostMapping("/select_car_brand")
     public String selectCarBrand(Model model, @RequestParam CarBrand carBrand) {
-        List<CarBrand> carBrands = testCarService.getAllCarBrands();
-        List<CarModel> carModels = testCarService.getAllCarModelsByBrand(carBrand);
-        List<FuelType> fuelTypes = testCarService.getAllFuelTypes();
+        List<CarBrand> carBrands = carService.getAllCarBrands();
+        List<CarModel> carModels = carService.getAllCarModelsByBrand(carBrand);
+        List<FuelType> fuelTypes = carService.getAllFuelTypes();
         model.addAttribute("carBrands", carBrands);
         model.addAttribute("carModels", carModels);
         model.addAttribute("fuelTypes", fuelTypes);
@@ -42,14 +42,14 @@ public class TestCarController {
                             @RequestParam String licensePlate, @RequestParam String vin, @RequestParam String equipmentLevel,
                             @RequestParam long km, @RequestParam double registrationFee, @RequestParam double steelPrice,
                             @RequestParam int co2Emission, @RequestParam String isRented) {
-        testCarService.createCar(carModelId, fuelType, licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, isRented);
+        carService.createCar(carModelId, fuelType, licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, isRented);
         return "redirect:/salesperson/car_overview";
     }
 
     @GetMapping("/prepare_new_car_model")
     public String prepareNewCarModel(Model model, @RequestParam CarBrand carBrand, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
-            List<CarType> carTypes = testCarService.getAllCarTypes();
+            List<CarType> carTypes = carService.getAllCarTypes();
             model.addAttribute("carTypes", carTypes);
             model.addAttribute("selectedCarBrand", carBrand.getBrand());
             return "/salesperson/create_car_model";
@@ -60,16 +60,16 @@ public class TestCarController {
 
     @PostMapping("/create_car_model")
     public String createNewCarModel(@RequestParam CarBrand carBrand, @RequestParam String carModelName, @RequestParam CarType carType) {
-        testCarService.createCarModel(carBrand, carModelName, carType);
+        carService.createCarModel(carBrand, carModelName, carType);
         return "redirect:/salesperson/prepare_new_car";
     }
 
     @GetMapping("/car_overview")
     public String showCars(Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
-            List<Car> cars = testCarService.getAllCars();
+            List<Car> cars = carService.getAllCars();
             model.addAttribute("cars", cars);
-            model.addAttribute("testCarService", testCarService);
+            model.addAttribute("testCarService", carService);
             return "salesperson/car_overview";
         } else {
             return "redirect:/";
