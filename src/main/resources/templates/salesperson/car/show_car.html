@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vis Bil</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1><span th:text="${carModel.brand} + ' ' + ${carModel.modelName}"></span></h1>
+    <form action="/salesperson/car_overview" method="get">
+        <button type="submit">< OVERBLIK</button>
+    </form>
+    <br>
+    <table>
+        <tr>
+            <th>Nummerplade</th>
+            <td th:text="${car.licensePlate}"></td>
+        </tr>
+        <tr>
+            <th>Brændstof</th>
+            <td th:text="${car.fuelType.fuelType}"></td>
+        </tr>
+        <tr>
+            <th>Biltype</th>
+            <td th:text="${carModel.carType.carType}"></td>
+        </tr>
+        <tr>
+            <th>VIN</th>
+            <td th:text="${car.vin}"></td>
+        </tr>
+        <tr>
+            <th>Udstyrsniveau</th>
+            <td th:text="${car.equipmentLevel}"></td>
+        </tr>
+        <tr>
+            <th>Kilometertal</th>
+            <td th:text="${car.km}"></td>
+        </tr>
+        <tr>
+            <th>Registreringsafgift</th>
+            <td th:text="${car.registrationFee}"></td>
+        </tr>
+        <tr>
+            <th>Stålpris</th>
+            <td th:text="${car.steelPrice}"></td>
+        </tr>
+        <tr>
+            <th>CO2-ejerafgift</th>
+            <td th:text="${car.co2Emission}"></td>
+        </tr>
+        <tr>
+            <th>Udlejningsstatus</th>
+            <td th:text="${car.rented}"></td>
+        </tr>
+    </table>
+</body>
+</html>

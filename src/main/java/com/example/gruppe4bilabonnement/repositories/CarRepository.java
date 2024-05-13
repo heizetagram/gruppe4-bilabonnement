@@ -20,11 +20,6 @@ public class CarRepository {
         return jdbcTemplate.queryForObject(query, carModelBeanPropertyRowMapper, carBrand.getBrand(), carModelName);
     }
 
-    public CarModel getCarModelById(int carModelId) {
-        String query = "SELECT * FROM car_model WHERE id = ?;";
-        return jdbcTemplate.queryForObject(query, new CarModelRowMapper());
-    }
-
     public void createCar(int carModelId, FuelType fuelType,
                           String licensePlate, String vin, String equipmentLevel,
                           long km, double registrationFee, double steelPrice,
@@ -34,20 +29,44 @@ public class CarRepository {
         jdbcTemplate.update(query, carModelId, fuelType.getFuelType(), licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, isRented);
     }
 
+    public void updateCar(int carId, int carModelId, FuelType fuelType, String licensePlate,
+                           String vin, String equipmentLevel, long km, double registrationFee,
+                           double steelPrice, int co2Emission) {
+        String query = "UPDATE car SET car_model_id = ?, fuel_type = ?, license_plate = ?, vin = ?, equipment_level = ?," +
+                        "km = ?, registration_fee = ?, steel_price = ?, co2_emission = ? WHERE id = ?";
+        jdbcTemplate.update(query, carModelId, fuelType.getFuelType(), licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, carId);
+    }
+
+    public void deleteCarById(int carId) {
+        String query = "DELETE FROM car WHERE id = ?;";
+        jdbcTemplate.update(query, carId);
+    }
+
     public void createCarModel(CarBrand carBrand, String carModelName, CarType carType) {
         String query = "INSERT INTO car_model(brand, model_name, car_type) " +
                 "VALUES (?, ?, ?);";
         jdbcTemplate.update(query, carBrand.getBrand(),carModelName, carType.getCarType());
     }
 
-    public CarModel getCarModelByCarModelId(int carModelId) {
+    public CarModel getCarModelById(int carModelId) {
         String query = "SELECT * FROM car_model WHERE id = ?;";
         return jdbcTemplate.queryForObject(query, new CarModelRowMapper(), carModelId);
+    }
+
+    public Car getCarById(int carId) {
+        String query = "SELECT * FROM car WHERE id = ?;";
+        return jdbcTemplate.queryForObject(query, new CarRowMapper(), carId);
     }
 
     public List<CarModel> getAllCarModelsByBrand(CarBrand carBrand) {
         String query = "SELECT * FROM car_model WHERE brand = ?;";
         return jdbcTemplate.query(query, new CarModelRowMapper(), carBrand.getBrand());
+    }
+
+    // Overloaded method
+    public List<CarModel> getAllCarModelsByBrand(String carBrand) {
+        String query = "SELECT * FROM car_model WHERE brand = ?;";
+        return jdbcTemplate.query(query, new CarModelRowMapper(), carBrand);
     }
 
     public List<CarBrand> getAllCarBrands() {
