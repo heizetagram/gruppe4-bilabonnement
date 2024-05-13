@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Lease Agreement</title>
+</head>
+<body>
+<h1>New Lease Agreement</h1>
+<form method="post" action="/salesperson/create_lease_agreement">
+    <label for="customerId">Customer ID:</label>
+    <input type="text" id="customerId" name="customerId" required><br>
+    <label for="carId">Select Car:</label>
+    <select id="carId" name="leaseAgreement.car.id">
+        <option value="">Select Car</option>
+        <th:block th:each="car : ${cars}">
+            <option th:value="${car.id}" th:text="${car.brand + ' ' + car.model_name}"></option>
+        </th:block>
+    </select><br>
+    <button type="submit">Create Lease Agreement</button>
+</form>
+</body>
+</html>

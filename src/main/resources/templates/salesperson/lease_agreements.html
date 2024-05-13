@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Lease Agreements</title>
+</head>
+<body>
+<h1>All Lease Agreements</h1>
+<ul>
+    <th:block th:each="leaseAgreement : ${leaseAgreements}">
+        <li><a th:href="@{'/salesperson/lease_agreement/' + ${leaseAgreement.id}}" th:text="${leaseAgreement.id}"></a></li>
+    </th:block>
+</ul>
+</body>
+</html>
