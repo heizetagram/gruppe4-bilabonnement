@@ -2,7 +2,7 @@ package com.example.gruppe4bilabonnement.services.rowmappers;
 
 import com.example.gruppe4bilabonnement.models.CarBrand;
 import com.example.gruppe4bilabonnement.models.CarModel;
-import com.example.gruppe4bilabonnement.models.CarType;
+import com.example.gruppe4bilabonnement.models.enums.CarType;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ public class CarModelRowMapper implements RowMapper<CarModel> {
         int id = rs.getInt("id");
         CarBrand brand = new CarBrand(rs.getString("brand"));
         String modelName = rs.getString("model_name");
-        CarType carType = new CarType(rs.getString("car_type"));
+        CarType carType = CarType.valueOf(rs.getString("car_type"));
         return new CarModel(id, brand, modelName, carType);
     }
 }

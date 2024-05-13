@@ -14,16 +14,17 @@
     </form>
     <br>
     <table>
-        <thead><td>MÆRKE</td><td>MODEL</td><td>NUMMERPLADE</td></thead>
+        <thead><th>MÆRKE</th><th>MODEL</th><th>NUMMERPLADE</th></thead>
         <tr th:each="car : ${cars}">
             <td><form action="/salesperson/show_car" method="get">
                 <input type="hidden" name="carId" th:value="${car.id}">
+                <input type="hidden" name="carModelId" th:value="${car.carModelId}">
                 <span th:text="${carService.getCarModelById(car.carModelId).brand}"></span>
                 <button type="submit"></button>
             </form></td>
             <td th:text="${carService.getCarModelById(car.carModelId).modelName}"></td>
             <td th:text="${car.licensePlate}"></td>
-            <td><form action="/salesperson/prepare_car_update" method="get">
+            <!--<td><form action="/salesperson/prepare_car_update" method="get">
                 <input type="hidden" name="carId" th:value="${car.id}">
                 <input type="hidden" name="carModelId" th:value="${car.carModelId}">
                 <button type="submit">✎ Rediger</button>
@@ -31,7 +32,7 @@
             <td><form action="/salesperson/prepare_car_deletion" method="get">
                 <input type="hidden" name="carId" th:value="${car.id}">
                 <button type="submit">🗑 Slet</button>
-            </form></td>
+            </form></td>-->
         </tr>
     </table>
 </body>

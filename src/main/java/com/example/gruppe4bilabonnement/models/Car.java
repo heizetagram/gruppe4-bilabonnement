@@ -1,5 +1,7 @@
 package com.example.gruppe4bilabonnement.models;
 
+import com.example.gruppe4bilabonnement.models.enums.FuelType;
+
 public class Car {
     private int id;
     private int carModelId;

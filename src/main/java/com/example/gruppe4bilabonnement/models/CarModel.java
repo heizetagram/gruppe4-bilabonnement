@@ -1,5 +1,7 @@
 package com.example.gruppe4bilabonnement.models;
 
+import com.example.gruppe4bilabonnement.models.enums.CarType;
+
 public class CarModel {
     private int id;
     private CarBrand brand;

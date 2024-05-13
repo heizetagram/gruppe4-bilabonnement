@@ -23,13 +23,16 @@
         </select>
         <!--<button type="submit">BILMÆRKE</button>-->
     </form>
+    <form action="/salesperson/prepare_new_car_brand" method="get">
+        <button type="submit">+ Tilføj nyt bilmærke</button>
+    </form>
 
 
     <span th:if="${selectedCarBrand} != null">
         <!-- CREATE CAR MODEL -->
         <form action="/salesperson/prepare_new_car_model" method="get">
             <input type="hidden" name="carBrand" th:value="${selectedCarBrand.brand}">
-            <button type="submit">Er modellen ikke på listen?</button>
+            <button type="submit">+ Tilføj ny bilmodel</button>
         </form>
         <br>
 
@@ -45,12 +48,12 @@
             <label for="fuelType">Brændstof:</label>
             <select id="fuelType" name="fuelType">
                 <option value="">Vælg brændstof</option>
-                <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.fuelType}" th:value="${fuelType.fuelType}"></option>
+                <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.displayValue}" th:value="${fuelType}"></option>
             </select>
             <br>
             <br>
             <label for="licensePlate">Nummerplade:</label>
-            <input type="text" maxlength="20" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" required>
+            <input type="text" minlength="2" maxlength="7" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" required>
             <br>
             <br>
             <label for="vin">VIN:</label>
