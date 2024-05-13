@@ -5,6 +5,9 @@
     <title th:text="${customer.firstName} + ' ' + ${customer.lastName} + ' Profil'">Kundeprofil</title>
 </head>
 <body>
+<header>
+    <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+</header>
 <h1 th:text="${customer.firstName} + ' ' + ${customer.lastName} + ' Profil'">Kundeprofil</h1>
 
 <hr>
