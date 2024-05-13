@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opdater Bil</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Opdater <span th:text="${carService.getCarModelById(car.id).brand} + ' ' + ${carService.getCarModelById(car.id).modelName}"></span></h1>
+    <form action="/salesperson/car_overview" method="get">
+        <button type="submit">< OVERBLIK</button>
+    </form>
+    <br>
+    <h2><span th:text="${car.licensePlate}"></span></h2>
+    <form action="/salesperson/update_car" method="post">
+        <input type="hidden" name="carId" th:value="${car.id}">
+        <label for="carModelId">Model:</label>
+        <select id="carModelId" name="carModelId">
+            <option value="">Vælg model</option>
+            <option th:each="carModel : ${carModels}" th:text="${carModel.modelName}"
+                    th:selected="${carModel.id == car.carModelId}" th:value="${carModel.id}"></option>
+        </select>
+        <br>
+        <br>
+        <label for="fuelType">Brændstof:</label>
+        <select id="fuelType" name="fuelType">
+            <option value="">Vælg brændstof</option>
+            <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.fuelType}"
+                    th:selected="${fuelType.fuelType == car.fuelType.fuelType}" th:value="${fuelType.fuelType}"></option>
+        </select>
+        <br>
+        <br>
+        <label for="licensePlate">Nummerplade:</label>
+        <input type="text" maxlength="20" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" th:value="${car.licensePlate}" required>
+        <br>
+        <br>
+        <label for="vin">VIN:</label>
+        <input type="text" maxlength="50" id="vin" name="vin" placeholder="Indtast VIN" th:value="${car.vin}" required>
+        <br>
+        <br>
+        <label for="equipmentLevel">Udstyrsniveau:</label>
+        <input type="text" maxlength="50" id="equipmentLevel" name="equipmentLevel" placeholder="Indtast udstyrsniveau" th:value="${car.equipmentLevel}">
+        <br>
+        <br>
+        <label for="km">Kilometertal:</label>
+        <input type="number" min="0" id="km" name="km" placeholder="Indtast kilometertal" th:value="${car.km}" required>
+        <br>
+        <br>
+        <label for="registrationFee">Registreringsafgift:</label>
+        <input type="number" min="0" step="0.01" id="registrationFee" name="registrationFee" placeholder="Indtast registreringsafgift" th:value="${car.registrationFee}" required>
+        <br>
+        <br>
+        <label for="steelPrice">Stålpris:</label>
+        <input type="number" min="0" step="0.01" id="steelPrice" name="steelPrice" placeholder="Indtast stålpris" th:value="${car.steelPrice}" required>
+        <br>
+        <br>
+        <label for="co2Emission">CO2-ejerafgift:</label>
+        <input type="number" min="0" id="co2Emission" name="co2Emission" placeholder="Indtast CO2-ejerafgift" th:value="${car.co2Emission}" required>
+        <br>
+        <button type="submit">Opdater bil</button>
+    </form>
+</body>
+</html>

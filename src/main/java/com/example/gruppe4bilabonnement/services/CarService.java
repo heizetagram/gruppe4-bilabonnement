@@ -4,6 +4,9 @@ import com.example.gruppe4bilabonnement.models.*;
 import com.example.gruppe4bilabonnement.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -20,6 +23,13 @@ public class CarService {
         }
     }
 
+    public void updateCar(int carId, int carModelId, FuelType fuelType, String licensePlate, String vin, String equipmentLevel,
+                          long km, double registrationFee, double steelPrice, int co2Emission) {
+        if (carModelId != 0) {
+            carRepository.updateCar(carId, carModelId, fuelType, licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission);
+        }
+    }
+
     public void createCarModel(CarBrand carBrand, String carModelName, CarType carType) {
         carRepository.createCarModel(carBrand, carModelName, carType);
     }
@@ -33,11 +43,24 @@ public class CarService {
         }
     }
 
-    public CarModel getCarModelByCarModelId(int carModelId) {
-        return carRepository.getCarModelByCarModelId(carModelId);
+    public CarModel getCarModelById(int carModelId) {
+        return carRepository.getCarModelById(carModelId);
+    }
+
+    public Car getCarById(int carId) {
+        return carRepository.getCarById( carId);
+    }
+
+    public void deleteCarById(int carId) {
+        carRepository.deleteCarById(carId);
     }
 
     public List<CarModel> getAllCarModelsByBrand(CarBrand carBrand) {
+        return carRepository.getAllCarModelsByBrand(carBrand);
+    }
+
+    // Overloaded method
+    public List<CarModel> getAllCarModelsByBrand(String carBrand) {
         return carRepository.getAllCarModelsByBrand(carBrand);
     }
 

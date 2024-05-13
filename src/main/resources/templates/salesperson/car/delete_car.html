@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slet bil</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Slet <span th:text="${carService.getCarModelById(car.id).brand} + ' ' + ${carService.getCarModelById(car.id).modelName}"></span></h1>
+    <form action="/salesperson/car_overview" method="get">
+        <button type="submit">< OVERBLIK</button>
+    </form>
+    <br>
+    <h2>Er du sikker på at du vil slette <span th:text="${car.licensePlate}"></span> ?</h2>
+    <form action="/salesperson/delete_car" method="post">
+        <input type="hidden" name="carId" th:value="${car.id}">
+        <button type="submit">SLET</button>
+    </form>
+    <form action="/salesperson/car_overview" method="get">
+        <button type="submit">FORTRYD</button>
+    </form>
+    <br>
+
+</body>
+</html>

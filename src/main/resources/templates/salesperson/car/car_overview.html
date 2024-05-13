@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Biler</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Biler</h1>
+    <form action="/salesperson/prepare_new_car" method="get">
+        <button type="submit">+ Tilføj ny bil</button>
+    </form>
+    <br>
+    <table>
+        <thead><td>MÆRKE</td><td>MODEL</td><td>NUMMERPLADE</td></thead>
+        <tr th:each="car : ${cars}">
+            <td><form action="/salesperson/show_car" method="get">
+                <input type="hidden" name="carId" th:value="${car.id}">
+                <span th:text="${carService.getCarModelById(car.carModelId).brand}"></span>
+                <button type="submit"></button>
+            </form></td>
+            <td th:text="${carService.getCarModelById(car.carModelId).modelName}"></td>
+            <td th:text="${car.licensePlate}"></td>
+            <td><form action="/salesperson/prepare_car_update" method="get">
+                <input type="hidden" name="carId" th:value="${car.id}">
+                <input type="hidden" name="carModelId" th:value="${car.carModelId}">
+                <button type="submit">✎ Rediger</button>
+            </form></td>
+            <td><form action="/salesperson/prepare_car_deletion" method="get">
+                <input type="hidden" name="carId" th:value="${car.id}">
+                <button type="submit">🗑 Slet</button>
+            </form></td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -9,6 +9,10 @@
         <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
     </header>
     <h1>Tilføj bil</h1>
+    <form action="/salesperson/car_overview" method="get">
+        <button type="submit">< OVERBLIK</button>
+    </form>
+    <br>
 
     <!-- SELECT CAR BRAND -->
     <form action="/salesperson/select_car_brand" method="post">
