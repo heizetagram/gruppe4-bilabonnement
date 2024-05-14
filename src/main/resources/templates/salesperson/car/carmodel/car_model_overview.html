@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilmodeller</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1><span th:text="${carBrand.brand}"></span>-modeller</h1>
+
+    <!-- CREATE CAR MODEL -->
+    <form action="/salesperson/prepare_new_car_model" method="get">
+        <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+        <button type="submit">+ Tilføj ny bilmodel</button>
+    </form>
+    <br>
+    <table>
+        <thead><th>MODEL</th><th>TYPE</th></thead>
+        <tr th:each="carModel : ${carModels}">
+            <td><span th:text="${carModel.modelName}"></span></td>
+            <td><span th:text="${carModel.carType}"></span></td>
+
+            <td><form action="/salesperson/prepare_car_model_update" method="get">
+                <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                <input type="hidden" name="carModelId" th:value="${carModel.id}">
+                <button type="submit">✎ Rediger</button>
+            </form></td>
+
+            <td><form action="/salesperson/prepare_car_model_deletion" method="get">
+                <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                <input type="hidden" name="carModelId" th:value="${carModel.id}">
+                <button type="submit">🗑 Slet</button>
+            </form></td>
+
+        </tr>
+    </table>
+</body>
+</html>

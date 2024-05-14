@@ -23,19 +23,7 @@
         </select>
         <!--<button type="submit">BILMÆRKE</button>-->
     </form>
-    <form action="/salesperson/prepare_new_car_brand" method="get">
-        <button type="submit">+ Tilføj nyt bilmærke</button>
-    </form>
-
-
     <span th:if="${selectedCarBrand} != null">
-        <!-- CREATE CAR MODEL -->
-        <form action="/salesperson/prepare_new_car_model" method="get">
-            <input type="hidden" name="carBrand" th:value="${selectedCarBrand.brand}">
-            <button type="submit">+ Tilføj ny bilmodel</button>
-        </form>
-        <br>
-
         <!-- CREATE CAR -->
         <form action="/salesperson/create_car" method="post">
             <label for="carModelId">Model:</label>
@@ -52,10 +40,22 @@
             </select>
             <br>
             <br>
+            <!-- IN PROGRESS
+            <span th:if="${licensePlateExists != null}">
+                <span th:text="${licensePlateExists}"></span> Show an error message if the license plate already exists
+                <br>
+            </span>
+            -->
             <label for="licensePlate">Nummerplade:</label>
             <input type="text" minlength="2" maxlength="7" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" required>
             <br>
             <br>
+            <!-- IN PROGRESS
+            <span th:if="${vinExists != null}">
+                <span th:text="${vinExists}"></span> Show an error message if the VIN already exists
+                <br>
+            </span>
+            -->
             <label for="vin">VIN:</label>
             <input type="text" maxlength="50" id="vin" name="vin" placeholder="Indtast VIN" required>
             <br>

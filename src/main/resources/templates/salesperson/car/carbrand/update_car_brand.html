@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opdater Bilmærke</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Opdater <span th:text="${carBrand.brand}"></span></h1>
+    <form action="/salesperson/update_car_brand" method="post">
+        <span th:if="${carBrandExists != null}">
+            <span th:text="${carBrandExists}"></span> <!-- Show an error message if the car brand already exists -->
+            <br>
+        </span>
+        <input type="hidden" name="oldCarBrand" th:value="${carBrand.brand}">
+        <label for="newCarBrand">Bilmærke:</label>
+        <input type="text" maxlength="50" name="newCarBrand" id="newCarBrand" placeholder="Indtast bilmærke" th:value="${carBrand.brand}" required>
+        <br>
+        <br>
+        <button type="submit">Opdater bilmærke</button>
+    </form>
+</body>
+</html>

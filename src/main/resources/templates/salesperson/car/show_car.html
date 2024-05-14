@@ -15,11 +15,13 @@
     <br>
     <table>
         <tr><form action="/salesperson/prepare_car_update" method="get">
+            <input type="hidden" name="origin" value="car">
             <input type="hidden" name="carId" th:value="${car.id}">
             <input type="hidden" name="carModelId" th:value="${car.carModelId}">
             <button type="submit">✎ Rediger</button>
         </form></tr>
         <tr><form action="/salesperson/prepare_car_deletion" method="get">
+            <input type="hidden" name="origin" value="car">
             <input type="hidden" name="carId" th:value="${car.id}">
             <button type="submit">🗑 Slet</button>
         </form></tr>

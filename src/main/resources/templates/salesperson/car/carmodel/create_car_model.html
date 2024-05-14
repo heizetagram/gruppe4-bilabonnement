@@ -8,15 +8,20 @@
     <header>
         <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
     </header>
-    <h1>Tilføj ny <span th:text="${selectedCarBrand}"></span>-model</h1>
+    <h1>Tilføj ny <span th:text="${carBrand.brand}"></span>-model</h1>
     <form action="/salesperson/prepare_new_car" method="get">
         <button type="submit">< OVERBLIK</button>
     </form>
     <br>
     <form action="/salesperson/create_car_model" method="post">
-        <input type="hidden" name="carBrand" th:value="${selectedCarBrand}">
+        <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+        <span th:if="${carModelExists != null}">
+            <span th:text="${carModelExists}"></span>
+            <br>
+            <br>
+        </span>
         <label for="carModelName">Modelnavn:</label>
-        <input type="text" maxlength="50" id="carModelName" name="carModelName" placeholder="Indtast modelnavn" required>
+        <input type="text" maxlength="50" id="carModelName" name="carModelName" placeholder="Indtast modelnavn" th:value="${param.carModelName}" required>
         <br>
         <br>
         <label for="carType">Biltype:</label>

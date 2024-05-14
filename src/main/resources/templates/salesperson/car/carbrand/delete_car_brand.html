@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slet Bilmærke</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Slet <span th:text="${carBrand.brand}"></span></h1>
+    <h2>Er du sikker på at du vil slette <span th:text="${carBrand.brand}"></span>?</h2>
+    <form action="/salesperson/delete_car_brand" method="post">
+        <span th:if="${carBrandHasModelsError != null}">
+            <span th:text="${carBrandHasModelsError}"></span>
+            <br>
+            <br>
+        </span>
+        <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+        <button type="submit">Slet bilmærke</button>
+    </form>
+</body>
+</html>

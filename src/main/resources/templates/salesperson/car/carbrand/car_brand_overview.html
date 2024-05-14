@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilmærker</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Bilmærker</h1>
+    <form action="/salesperson/prepare_new_car_brand" method="get">
+        <button type="submit">+ Tilføj nyt bilmærke</button>
+    </form>
+    <br>
+    <table>
+        <thead><th>BILMÆRKE</th></thead>
+        <tr th:each="carBrand : ${carBrands}">
+            <td><form action="/salesperson/car_model_overview" method="get">
+                <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                <span th:text="${carBrand.brand}"></span>
+                <button type="submit"></button>
+            </form></td>
+            <td><form action="/salesperson/prepare_car_brand_update" method="get">
+                <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                <button type="submit">✎ Rediger</button>
+            </form></td>
+            <td><form action="/salesperson/prepare_car_brand_deletion" method="get">
+                <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                <button type="submit">🗑 Slet</button>
+            </form></td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -10,17 +10,20 @@
     </header>
     <h1>Slet <span th:text="${carModel.brand} + ' ' + ${carModel.modelName}"></span></h1>
     <form action="/salesperson/show_car" method="get">
+        <input type="hidden" name="origin" th:value="${origin}">
         <input type="hidden" name="carId" th:value="${car.id}">
-        <input type="hidden" name="carModelId" th:value="${car.carModelId}">
+        <input type="hidden" name="carModelId" th:value="${carModel.id}">
         <button type="submit">< OVERBLIK</button>
     </form>
     <br>
     <h2>Er du sikker på at du vil slette <span th:text="${car.licensePlate}"></span> ?</h2>
     <form action="/salesperson/delete_car" method="post">
+        <input type="hidden" name="origin" th:value="${origin}">
         <input type="hidden" name="carId" th:value="${car.id}">
         <button type="submit">SLET</button>
     </form>
     <form action="/salesperson/show_car" method="get">
+        <input type="hidden" name="origin" th:value="${origin}">
         <input type="hidden" name="carId" th:value="${car.id}">
         <input type="hidden" name="carModelId" th:value="${car.carModelId}">
         <button type="submit">FORTRYD</button>
