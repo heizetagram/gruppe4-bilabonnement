@@ -108,4 +108,9 @@ public class CarRepository {
                 "VALUES (?);";
         jdbcTemplate.update(query, carBrand.getBrand());
     }
+
+    public CarModel getCarModelByModelId(int carModelId) {
+        String query = "SELECT * FROM car_model WHERE id = ?;";
+        return jdbcTemplate.queryForObject(query, new CarModelRowMapper(), carModelId);
+    }
 }

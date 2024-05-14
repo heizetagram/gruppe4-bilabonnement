@@ -99,4 +99,7 @@ public class CarService {
     public void createCarBrand(CarBrand carBrand) {
         carRepository.createCarBrand(carBrand);
     }
+    public CarModel getCarModelByModelId(int carModelId) {
+        return carRepository.getCarModelByModelId(carModelId);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.gruppe4bilabonnement.controllers;
 
 import com.example.gruppe4bilabonnement.models.Car;
+import com.example.gruppe4bilabonnement.models.CarModel;
 import com.example.gruppe4bilabonnement.models.Customer;
 
 import com.example.gruppe4bilabonnement.models.LeaseAgreement;
@@ -116,6 +117,7 @@ public class SalesPersonController {
     public String showNewLeaseAgreementForm(Model model) {
         List<Car> cars = carService.getAllCars();
         model.addAttribute("cars", cars);
+        model.addAttribute("carService", carService);
         return "salesperson/new_lease_agreement";
     }
 
