@@ -1,7 +1,11 @@
 package com.example.gruppe4bilabonnement.controllers;
 
+import com.example.gruppe4bilabonnement.models.Car;
 import com.example.gruppe4bilabonnement.models.Customer;
-import com.example.gruppe4bilabonnement.services.AdminService;
+
+import com.example.gruppe4bilabonnement.models.LeaseAgreement;
+import com.example.gruppe4bilabonnement.services.CarService;
+import com.example.gruppe4bilabonnement.services.LeaseAgreementService;
 import com.example.gruppe4bilabonnement.services.SalesPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +19,17 @@ import java.util.List;
 public class SalesPersonController {
     @Autowired
     private SalesPersonService salesPersonService;
-    //Prepare for customer creation
+    @Autowired
+    private LeaseAgreementService leaseAgreementService;
+    @Autowired
+    private CarService carService;
+
+
     @GetMapping("/new_customer")
     public String insert() {
         return "/salesperson/create_customer";
     }
+
     //Customer creation
     @PostMapping("/insert")
     public String insert(Model model, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
@@ -42,12 +52,14 @@ public class SalesPersonController {
             return "redirect:/salesperson/new_lease";
         }
     }
+
     // Prepare customer update
     @GetMapping("/prepare_update/{id}")
     public String prepareUpdate(@PathVariable int id, Model model) {
         model.addAttribute("customer", salesPersonService.prepareUpdate(id));
         return "salesperson/update_customer";
     }
+
     // Update customer
     @PostMapping("/update_customer")
     public String update(@RequestParam int id, @RequestParam String firstName, @RequestParam String lastName,
@@ -55,6 +67,7 @@ public class SalesPersonController {
         salesPersonService.update(id, firstName, lastName, phoneNumber, email, address, zipCode);
         return "redirect:/salesperson/customer_overview";
     }
+
     //Show all customers
     @GetMapping("/customer_overview")
     public String showCustomers(Model model, @CookieValue(name = "employeeRole") String cookieValue) {
@@ -66,6 +79,7 @@ public class SalesPersonController {
             return "redirect:/";
         }
     }
+
     //Prepare customer deletion
     @GetMapping("/confirm_delete_customer/{id}")
     public String confirmDelete(@PathVariable int id, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
@@ -77,12 +91,14 @@ public class SalesPersonController {
             return "redirect:/";
         }
     }
+
     //Customer deletion
     @PostMapping("/delete_customer")
     public String delete(@RequestParam int id) {
         salesPersonService.deleteCustomerById(id);
         return "redirect:/salesperson/customer_overview";
     }
+
 
     //Show selected customer profile
     @GetMapping("/customer_profile/{id}")
@@ -96,4 +112,57 @@ public class SalesPersonController {
         }
     }
 
+    @GetMapping("/new_lease_agreement")
+    public String showNewLeaseAgreementForm(Model model) {
+        List<Car> cars = carService.getAllCars();
+        model.addAttribute("cars", cars);
+        return "salesperson/new_lease_agreement";
+    }
+
+    @PostMapping("/create_lease_agreement")
+    public String createLeaseAgreement(@RequestParam int customerId, @ModelAttribute LeaseAgreement leaseAgreement) {
+        leaseAgreementService.createLeaseAgreement(customerId, leaseAgreement);
+        return "redirect:/salesperson/customer_overview";
+    }
+
+    @GetMapping("/lease_agreement/{id}")
+    public String showLeaseAgreementDetails(@PathVariable int id, Model model) {
+        LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementById(id);
+        if (leaseAgreement != null) {
+            model.addAttribute("leaseAgreement", leaseAgreement);
+            return "salesperson/lease_agreement_details";
+        } else {
+            return "redirect:/salesperson/customer_overview";
+        }
+    }
+
+    @GetMapping("/lease_agreement")
+    public String showAllLeaseAgreements(Model model) {
+        List<LeaseAgreement> leaseAgreements = leaseAgreementService.getAllLeaseAgreements();
+        model.addAttribute("leaseAgreements", leaseAgreements);
+        return "lease_agreement";
+    }
+
+    @GetMapping("/update_lease_agreement/{id}")
+    public String showUpdateLeaseAgreementForm(@PathVariable int id, Model model) {
+        LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementById(id);
+        if (leaseAgreement != null) {
+            model.addAttribute("leaseAgreement", leaseAgreement);
+            return "salesperson/update_lease_agreement";
+        } else {
+            return "redirect:/salesperson/customer_overview";
+        }
+    }
+
+    @PostMapping("/update_lease_agreement")
+    public String updateLeaseAgreement(@ModelAttribute LeaseAgreement leaseAgreement) {
+        leaseAgreementService.updateLeaseAgreement(leaseAgreement);
+        return "redirect:/salesperson/customer_overview";
+    }
+
+    @PostMapping("/delete_lease_agreement/{id}")
+    public String deleteLeaseAgreement(@PathVariable int id) {
+        leaseAgreementService.deleteLeaseAgreement(id);
+        return "redirect:/salesperson/customer_overview";
+    }
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Lease Agreement</title>
+</head>
+<body>
+<h1>Update Lease Agreement</h1>
+<form method="post" action="/salesperson/update_lease_agreement">
+    <input type="hidden" name="leaseAgreement.id" th:value="${leaseAgreement.id}">
+
+    <button type="submit">Update Lease Agreement</button>
+</form>
+</body>
+</html>
