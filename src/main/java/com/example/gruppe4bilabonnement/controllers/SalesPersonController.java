@@ -136,11 +136,11 @@ public class SalesPersonController {
         }
     }
 
-    @GetMapping("/lease_agreements")
+    @GetMapping("/lease_agreement")
     public String showAllLeaseAgreements(Model model) {
         List<LeaseAgreement> leaseAgreements = leaseAgreementService.getAllLeaseAgreements();
         model.addAttribute("leaseAgreements", leaseAgreements);
-        return "salesperson/lease_agreements";
+        return "lease_agreement";
     }
 
     @GetMapping("/update_lease_agreement/{id}")
