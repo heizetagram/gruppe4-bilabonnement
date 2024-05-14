@@ -25,7 +25,7 @@
         <td th:text="${customer.phoneNumber}"></td>
         <td>
             <form th:action="@{/salesperson/prepare_update/{id}(id=${customer.id})}" method="get">
-                <input type="hidden" name="origin" value="not">
+                <input type="hidden" name="origin" value="overview">
                 <button type="submit">OPDATER</button>
             </form>
             <a th:href="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}">
