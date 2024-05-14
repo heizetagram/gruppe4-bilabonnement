@@ -67,7 +67,7 @@ public class SalesPersonController {
     public String update(@RequestParam int id, @RequestParam String firstName, @RequestParam String lastName,
                          @RequestParam String phoneNumber, @RequestParam String email, @RequestParam String address, @RequestParam int zipCode, @RequestParam String origin) {
         salesPersonService.update(id, firstName, lastName, phoneNumber, email, address, zipCode);
-        if (origin.equals("not")) {
+        if (origin.equals("overview")) {
             return "redirect:/salesperson/customer_overview";
         } else {
             return "redirect:/salesperson/customer_profile/" + id;
