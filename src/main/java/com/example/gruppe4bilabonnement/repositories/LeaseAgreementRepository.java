@@ -25,7 +25,7 @@ public class LeaseAgreementRepository {
     public void updateLeaseAgreement(LeaseAgreement leaseAgreement) {
         String query = "UPDATE lease_agreement SET customer_id = ?, car_model_id = ?, license_plate = ?, " +
                 "vin = ?, brand = ?, model = ?, equipment_level = ?, steel_price = ?, registration_fee = ?, " +
-                "co2_emission = ?, is_rented = ? WHERE id = ?";
+                "co2_emission = ?, is_rented = ? WHERE id = ?;";
         jdbcTemplate.update(query, leaseAgreement.getCustomerId(), leaseAgreement.getCarModelId(),
                 leaseAgreement.getLicensePlate(), leaseAgreement.getVin(), leaseAgreement.getBrand(),
                 leaseAgreement.getModel(), leaseAgreement.getEquipmentLevel(), leaseAgreement.getSteelPrice(),
@@ -33,15 +33,15 @@ public class LeaseAgreementRepository {
                 leaseAgreement.isRented() ? "true" : "false", leaseAgreement.getId());
     }
     public void deleteById(int id) {
-        String query = "DELETE FROM lease_agreement WHERE id = ?";
+        String query = "DELETE FROM lease_agreement WHERE id = ?;";
         jdbcTemplate.update(query, id);
     }
     public LeaseAgreement findById(int id) {
-        String query = "SELECT * FROM lease_agreement WHERE id = ?";
+        String query = "SELECT * FROM lease_agreement WHERE id = ?;";
         return jdbcTemplate.queryForObject(query, new LeaseAgreementRowMapper(), id);
     }
     public List<LeaseAgreement> findAll() {
-        String query = "SELECT * FROM lease_agreement";
+        String query = "SELECT * FROM lease_agreement;";
         return jdbcTemplate.query(query, new LeaseAgreementRowMapper());
     }
 
