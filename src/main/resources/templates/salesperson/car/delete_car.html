@@ -8,8 +8,10 @@
     <header>
         <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
     </header>
-    <h1>Slet <span th:text="${carService.getCarModelById(car.id).brand} + ' ' + ${carService.getCarModelById(car.id).modelName}"></span></h1>
-    <form action="/salesperson/car_overview" method="get">
+    <h1>Slet <span th:text="${carModel.brand} + ' ' + ${carModel.modelName}"></span></h1>
+    <form action="/salesperson/show_car" method="get">
+        <input type="hidden" name="carId" th:value="${car.id}">
+        <input type="hidden" name="carModelId" th:value="${car.carModelId}">
         <button type="submit">< OVERBLIK</button>
     </form>
     <br>
@@ -18,10 +20,11 @@
         <input type="hidden" name="carId" th:value="${car.id}">
         <button type="submit">SLET</button>
     </form>
-    <form action="/salesperson/car_overview" method="get">
+    <form action="/salesperson/show_car" method="get">
+        <input type="hidden" name="carId" th:value="${car.id}">
+        <input type="hidden" name="carModelId" th:value="${car.carModelId}">
         <button type="submit">FORTRYD</button>
     </form>
     <br>
-
 </body>
 </html>

@@ -1,8 +1,9 @@
 package com.example.gruppe4bilabonnement.repositories;
 
 import com.example.gruppe4bilabonnement.models.*;
-import com.example.gruppe4bilabonnement.services.rowmappers.CarModelRowMapper;
-import com.example.gruppe4bilabonnement.services.rowmappers.CarRowMapper;
+import com.example.gruppe4bilabonnement.models.enums.CarType;
+import com.example.gruppe4bilabonnement.models.enums.FuelType;
+import com.example.gruppe4bilabonnement.services.rowmappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,7 +27,7 @@ public class CarRepository {
                           int co2Emission, String isRented) {
         String query = "INSERT INTO car(car_model_id, fuel_type, license_plate, vin, equipment_level, km, registration_fee, steel_price, co2_emission, is_rented)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        jdbcTemplate.update(query, carModelId, fuelType.getFuelType(), licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, isRented);
+        jdbcTemplate.update(query, carModelId, fuelType.name(), licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, isRented);
     }
 
     public void updateCar(int carId, int carModelId, FuelType fuelType, String licensePlate,
@@ -34,7 +35,7 @@ public class CarRepository {
                            double steelPrice, int co2Emission) {
         String query = "UPDATE car SET car_model_id = ?, fuel_type = ?, license_plate = ?, vin = ?, equipment_level = ?," +
                         "km = ?, registration_fee = ?, steel_price = ?, co2_emission = ? WHERE id = ?";
-        jdbcTemplate.update(query, carModelId, fuelType.getFuelType(), licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, carId);
+        jdbcTemplate.update(query, carModelId, fuelType.name(), licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission, carId);
     }
 
     public void deleteCarById(int carId) {
@@ -45,7 +46,7 @@ public class CarRepository {
     public void createCarModel(CarBrand carBrand, String carModelName, CarType carType) {
         String query = "INSERT INTO car_model(brand, model_name, car_type) " +
                 "VALUES (?, ?, ?);";
-        jdbcTemplate.update(query, carBrand.getBrand(),carModelName, carType.getCarType());
+        jdbcTemplate.update(query, carBrand.getBrand(),carModelName, carType.name());
     }
 
     public CarModel getCarModelById(int carModelId) {
@@ -77,8 +78,8 @@ public class CarRepository {
 
     public List<FuelType> getAllFuelTypes() {
         String query = "SELECT * FROM fuel_type;";
-        BeanPropertyRowMapper<FuelType> fuelTypeBeanPropertyRowMapper = new BeanPropertyRowMapper<>(FuelType.class);
-        return jdbcTemplate.query(query, fuelTypeBeanPropertyRowMapper);
+        //BeanPropertyRowMapper<FuelType> fuelTypeBeanPropertyRowMapper = new BeanPropertyRowMapper<>(FuelType.class);
+        return jdbcTemplate.query(query, new FuelTypeRowMapper());
     }
 
     public List<CarModel> getAllCarModels() {
@@ -88,11 +89,23 @@ public class CarRepository {
 
     public List<CarType> getAllCarTypes() {
         String query = "SELECT * FROM car_type;";
-        return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(CarType.class));
+        return jdbcTemplate.query(query, new CarTypeRowMapper());
     }
 
     public List<Car> getAllCars() {
         String query = "SELECT * FROM car;";
         return jdbcTemplate.query(query, new CarRowMapper());
+    }
+
+    public CarBrand getCarBrandByBrand(CarBrand carBrand) {
+        String query = "SELECT * FROM car_brand WHERE brand = ?;";
+        BeanPropertyRowMapper<CarBrand> carBrandBeanPropertyRowMapper = new BeanPropertyRowMapper<>(CarBrand.class);
+        return jdbcTemplate.queryForObject(query, carBrandBeanPropertyRowMapper, carBrand.getBrand());
+    }
+
+    public void createCarBrand(CarBrand carBrand) {
+        String query = "INSERT INTO car_brand(brand) " +
+                "VALUES (?);";
+        jdbcTemplate.update(query, carBrand.getBrand());
     }
 }

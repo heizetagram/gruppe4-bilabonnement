@@ -1,4 +1,4 @@
-package com.example.gruppe4bilabonnement.models;
+package com.example.gruppe4bilabonnement.models.enums;
 
 // BLIVER IKKE BRUGT LIGE NU
 public enum Role {

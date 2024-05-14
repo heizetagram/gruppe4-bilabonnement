@@ -14,17 +14,26 @@
     </form>
     <br>
     <table>
+        <tr><form action="/salesperson/prepare_car_update" method="get">
+            <input type="hidden" name="carId" th:value="${car.id}">
+            <input type="hidden" name="carModelId" th:value="${car.carModelId}">
+            <button type="submit">✎ Rediger</button>
+        </form></tr>
+        <tr><form action="/salesperson/prepare_car_deletion" method="get">
+            <input type="hidden" name="carId" th:value="${car.id}">
+            <button type="submit">🗑 Slet</button>
+        </form></tr>
         <tr>
             <th>Nummerplade</th>
             <td th:text="${car.licensePlate}"></td>
         </tr>
         <tr>
             <th>Brændstof</th>
-            <td th:text="${car.fuelType.fuelType}"></td>
+            <td th:text="${car.fuelType.displayValue}"></td>
         </tr>
         <tr>
             <th>Biltype</th>
-            <td th:text="${carModel.carType.carType}"></td>
+            <td th:text="${carModel.carType.displayValue}"></td>
         </tr>
         <tr>
             <th>VIN</th>

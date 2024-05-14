@@ -8,12 +8,13 @@
     <header>
         <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
     </header>
-    <h1>Opdater <span th:text="${carService.getCarModelById(car.id).brand} + ' ' + ${carService.getCarModelById(car.id).modelName}"></span></h1>
-    <form action="/salesperson/car_overview" method="get">
+    <h1>Opdater <span th:text="${carModel.brand} + ' ' + ${carModel.modelName} + ' - ' + ${car.licensePlate}"></span></h1>
+    <form action="/salesperson/show_car" method="get">
+        <input type="hidden" name="carId" th:value="${car.id}">
+        <input type="hidden" name="carModelId" th:value="${carModel.id}">
         <button type="submit">< OVERBLIK</button>
     </form>
     <br>
-    <h2><span th:text="${car.licensePlate}"></span></h2>
     <form action="/salesperson/update_car" method="post">
         <input type="hidden" name="carId" th:value="${car.id}">
         <label for="carModelId">Model:</label>
@@ -27,13 +28,14 @@
         <label for="fuelType">Brændstof:</label>
         <select id="fuelType" name="fuelType">
             <option value="">Vælg brændstof</option>
-            <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.fuelType}"
-                    th:selected="${fuelType.fuelType == car.fuelType.fuelType}" th:value="${fuelType.fuelType}"></option>
+            <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.displayValue}"
+                    th:selected="${fuelType.displayValue == car.fuelType.displayValue}" th:value="${fuelType}"></option>
         </select>
         <br>
         <br>
         <label for="licensePlate">Nummerplade:</label>
-        <input type="text" maxlength="20" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" th:value="${car.licensePlate}" required>
+        <input type="hidden" name="carModelId" th:value="${car.carModelId}">
+        <input type="text" minlength="2" maxlength="7" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" th:value="${car.licensePlate}" required>
         <br>
         <br>
         <label for="vin">VIN:</label>

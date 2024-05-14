@@ -1,6 +1,8 @@
 package com.example.gruppe4bilabonnement.controllers;
 
 import com.example.gruppe4bilabonnement.models.*;
+import com.example.gruppe4bilabonnement.models.enums.CarType;
+import com.example.gruppe4bilabonnement.models.enums.FuelType;
 import com.example.gruppe4bilabonnement.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -77,10 +79,10 @@ public class CarController {
     }
 
     @GetMapping("/show_car")
-    public String showCar(@RequestParam int carId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+    public String showCar(@RequestParam int carId, @RequestParam int carModelId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
             Car car = carService.getCarById(carId);
-            CarModel carModel = carService.getCarModelById(carId);
+            CarModel carModel = carService.getCarModelById(carModelId);
             model.addAttribute("car", car);
             model.addAttribute("carModel", carModel);
             return "salesperson/car/show_car";
@@ -89,7 +91,7 @@ public class CarController {
         }
     }
 
-    @GetMapping("prepare_car_update")
+    @GetMapping("/prepare_car_update")
     public String prepareCarUpdate(@RequestParam int carId, @RequestParam int carModelId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
             Car car = carService.getCarById(carId);
@@ -99,7 +101,7 @@ public class CarController {
             List<FuelType> fuelTypes = carService.getAllFuelTypes();
 
             model.addAttribute("car", car);
-            model.addAttribute("carService", carService);
+            model.addAttribute("carModel", carModel);
             model.addAttribute("carModels", carModels);
             model.addAttribute("fuelTypes", fuelTypes);
             return "salesperson/car/update_car";
@@ -108,30 +110,58 @@ public class CarController {
         }
     }
 
-    @PostMapping("update_car")
+    @PostMapping("/update_car")
     public String updateCar(@RequestParam int carId, @RequestParam int carModelId, @RequestParam FuelType fuelType,
                             @RequestParam String licensePlate, @RequestParam String vin, @RequestParam String equipmentLevel,
                             @RequestParam long km, @RequestParam double registrationFee, @RequestParam double steelPrice,
                             @RequestParam int co2Emission) {
         carService.updateCar(carId, carModelId, fuelType, licensePlate, vin, equipmentLevel, km, registrationFee, steelPrice, co2Emission);
-        return "redirect:/salesperson/car_overview";
+        return "redirect:/salesperson/show_car" + "?carId=" + carId + "&carModelId=" + carModelId;
     }
 
-    @GetMapping("prepare_car_deletion")
+    @GetMapping("/prepare_car_deletion")
     public String prepareCarDeletion(@RequestParam int carId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
             Car car = carService.getCarById(carId);
+            CarModel carModel = carService.getCarModelById(car.getCarModelId());
+
             model.addAttribute("car", car);
-            model.addAttribute("carService", carService);
+            model.addAttribute("carModel", carModel);
             return "salesperson/car/delete_car";
         } else {
             return "redirect:/";
         }
     }
 
-    @PostMapping("delete_car")
+    @PostMapping("/delete_car")
     public String deleteCar(@RequestParam int carId) {
         carService.deleteCarById(carId);
         return "redirect:/salesperson/car_overview";
+    }
+
+    @GetMapping("/prepare_new_car_brand")
+    public String prepareNewCarBrand(@CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("SALESPERSON")) {
+            return "salesperson/car/create_car_brand";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/create_car_brand")
+    public String createCarBrand(@RequestParam CarBrand carBrand, Model model) {
+        boolean carBrandExists = carService.checkIfCarBrandExists(carBrand);
+        if (carBrandExists) {
+            model.addAttribute("carBrandExists", "Bilmærke findes allerede");
+            return "salesperson/car/create_car_brand";
+        } else {
+            carService.createCarBrand(carBrand);
+            return "redirect:/salesperson/prepare_new_car";
+        }
+    }
+
+    @GetMapping("/prepare_car_brand_deletion")
+    public String prepareCarBrandDeletion(@RequestParam CarBrand carBrand) {
+        return "/";
     }
 }

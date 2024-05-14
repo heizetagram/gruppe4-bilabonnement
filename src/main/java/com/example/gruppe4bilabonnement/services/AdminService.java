@@ -26,6 +26,7 @@ public class AdminService {
         }
     }
 
+    // Rename til checkIfEmailIsRegistered
     public boolean isEmailRegistered(String email) {
         boolean isEmailRegistered;
         try {

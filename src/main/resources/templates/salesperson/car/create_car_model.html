@@ -22,7 +22,7 @@
         <label for="carType">Biltype:</label>
         <select id="carType" name="carType" required>
             <option value="">Vælg biltype</option>
-            <option th:each="carType : ${carTypes}" th:text="${carType.carType}" th:value="${carType.carType}"></option>
+            <option th:each="carType : ${carTypes}" th:text="${carType.displayValue}" th:value="${carType}"></option>
         </select>
         <br>
         <br>
