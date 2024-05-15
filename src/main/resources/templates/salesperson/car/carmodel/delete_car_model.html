@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slet Bilmodel</title>
+</head>
+<body>
+<header>
+    <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Slet <span th:text="${carBrand.brand} + ' ' + ${carModel.modelName}"></span></h1>
+    <h2>Er du sikker på at du vil slette <span th:text="${carBrand.brand} + ' ' + ${carModel.modelName}"></span>?</h2>
+    <form action="/salesperson/delete_car_model" method="post">
+        <input type="hidden" name="carModelId" th:value="${carModel.id}">
+        <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+        <button type="submit">Slet bilmodel</button>
+    </form>
+</body>
+</html>

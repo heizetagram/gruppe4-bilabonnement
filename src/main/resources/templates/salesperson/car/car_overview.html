@@ -13,10 +13,14 @@
         <button type="submit">+ Tilføj ny bil</button>
     </form>
     <br>
+    <form action="/salesperson/car_brand_overview" method="get">
+        <button type="submit">Rediger bilmærker</button>
+    </form>
     <table>
         <thead><th>MÆRKE</th><th>MODEL</th><th>NUMMERPLADE</th></thead>
         <tr th:each="car : ${cars}">
             <td><form action="/salesperson/show_car" method="get">
+                <input type="hidden" name="origin" value="car">
                 <input type="hidden" name="carId" th:value="${car.id}">
                 <input type="hidden" name="carModelId" th:value="${car.carModelId}">
                 <span th:text="${carService.getCarModelById(car.carModelId).brand}"></span>
@@ -24,15 +28,16 @@
             </form></td>
             <td th:text="${carService.getCarModelById(car.carModelId).modelName}"></td>
             <td th:text="${car.licensePlate}"></td>
-            <!--<td><form action="/salesperson/prepare_car_update" method="get">
+            <td><form action="/salesperson/prepare_car_update" method="get">
+                <input type="hidden" name="origin" value="overview">
                 <input type="hidden" name="carId" th:value="${car.id}">
-                <input type="hidden" name="carModelId" th:value="${car.carModelId}">
                 <button type="submit">✎ Rediger</button>
             </form></td>
             <td><form action="/salesperson/prepare_car_deletion" method="get">
+                <input type="hidden" name="origin" value="overview">
                 <input type="hidden" name="carId" th:value="${car.id}">
                 <button type="submit">🗑 Slet</button>
-            </form></td>-->
+            </form></td>
         </tr>
     </table>
 </body>

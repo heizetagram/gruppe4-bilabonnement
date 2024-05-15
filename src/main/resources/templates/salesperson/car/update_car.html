@@ -10,12 +10,14 @@
     </header>
     <h1>Opdater <span th:text="${carModel.brand} + ' ' + ${carModel.modelName} + ' - ' + ${car.licensePlate}"></span></h1>
     <form action="/salesperson/show_car" method="get">
+        <input type="hidden" name="origin" th:value="${origin}">
         <input type="hidden" name="carId" th:value="${car.id}">
         <input type="hidden" name="carModelId" th:value="${carModel.id}">
         <button type="submit">< OVERBLIK</button>
     </form>
     <br>
     <form action="/salesperson/update_car" method="post">
+        <input type="hidden" name="origin" th:value="${origin}">
         <input type="hidden" name="carId" th:value="${car.id}">
         <label for="carModelId">Model:</label>
         <select id="carModelId" name="carModelId">
@@ -29,7 +31,7 @@
         <select id="fuelType" name="fuelType">
             <option value="">Vælg brændstof</option>
             <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.displayValue}"
-                    th:selected="${fuelType.displayValue == car.fuelType.displayValue}" th:value="${fuelType}"></option>
+                    th:selected="${fuelType == car.fuelType}" th:value="${fuelType}"></option>
         </select>
         <br>
         <br>

@@ -24,6 +24,28 @@ public class CarService {
         }
     }
 
+    public boolean checkIfLicensePlateExists(String licensePlate) {
+        boolean licensePlateExists;
+        try {
+            carRepository.getCarByLicensePlate(licensePlate);
+            licensePlateExists = true;
+        } catch (EmptyResultDataAccessException e) {
+            licensePlateExists = false;
+        }
+        return licensePlateExists;
+    }
+
+    public boolean checkIfVinExists(String vin) {
+        boolean vinExists;
+        try {
+            carRepository.getCarByVin(vin);
+            vinExists = true;
+        } catch (EmptyResultDataAccessException e) {
+            vinExists = false;
+        }
+        return vinExists;
+    }
+
     public void updateCar(int carId, int carModelId, FuelType fuelType, String licensePlate, String vin, String equipmentLevel,
                           long km, double registrationFee, double steelPrice, int co2Emission) {
         if (carModelId != 0) {
@@ -33,15 +55,6 @@ public class CarService {
 
     public void createCarModel(CarBrand carBrand, String carModelName, CarType carType) {
         carRepository.createCarModel(carBrand, carModelName, carType);
-    }
-
-    // Get carModelId by Brand and Model
-    public int getCarModelIdByBrandAndModelName(CarBrand carBrand, String carModelName) {
-        try {
-            return carRepository.getCarModelIdByBrandAndModelName(carBrand, carModelName);
-        } catch (NullPointerException e) {
-            return 0;
-        }
     }
 
     public CarModel getCarModelById(int carModelId) {
@@ -86,20 +99,65 @@ public class CarService {
     }
 
     public boolean checkIfCarBrandExists(CarBrand carBrand) {
-        boolean doesCarBrandExist;
+        boolean carBrandExists;
         try {
             carRepository.getCarBrandByBrand(carBrand);
-            doesCarBrandExist = true;
+            carBrandExists = true;
         } catch (EmptyResultDataAccessException e) {
-            doesCarBrandExist = false;
+            carBrandExists = false;
         }
-        return doesCarBrandExist;
+        return carBrandExists;
     }
 
     public void createCarBrand(CarBrand carBrand) {
         carRepository.createCarBrand(carBrand);
     }
+
+    public void updateCarBrand(CarBrand newCarBrand, CarBrand oldCarBrand) {
+        carRepository.updateCarBrand(newCarBrand, oldCarBrand);
+    }
+
+    public boolean doesCarBrandHaveModels(CarBrand carBrand) {
+        List<CarModel> carModels = carRepository.getAllCarModelsByBrand(carBrand);
+        return !carModels.isEmpty();
+    }
+
+    public void deleteCarBrand(CarBrand carBrand) {
+        carRepository.deleteCarBrand(carBrand);
+    }
+
     public CarModel getCarModelByModelId(int carModelId) {
         return carRepository.getCarModelByModelId(carModelId);
+    }
+
+    public boolean checkIfCarModelExists(CarBrand carBrand, String modelName, CarType carType) {
+        boolean carModelNameExists;
+        try {
+            carRepository.getCarModelByBrandAndModelNameAndCarType(carBrand, modelName, carType);
+            carModelNameExists = true;
+        } catch (EmptyResultDataAccessException e) {
+            carModelNameExists = false;
+        }
+        return carModelNameExists;
+    }
+
+    // Overloaded method
+    public boolean checkIfCarModelExists(CarBrand carBrand, String modelName) {
+        boolean carModelNameEXists;
+        try {
+            carRepository.getCarModelByBrandAndModelName(carBrand, modelName);
+            carModelNameEXists = true;
+        } catch (EmptyResultDataAccessException e) {
+            carModelNameEXists = false;
+        }
+        return carModelNameEXists;
+    }
+
+    public void updateCarModel(int carModelId, String modelName, CarType carType) {
+        carRepository.updateCarModel(carModelId, modelName, carType);
+    }
+
+    public void deleteCarModelById(int carModelId) {
+        carRepository.deleteCarModelById(carModelId);
     }
 }

@@ -9,7 +9,7 @@
         <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
     </header>
     <h1>Tilføj bilmærke</h1>
-    <form action="/salesperson/prepare_new_car" method="get">
+    <form action="/salesperson/car_brand_overview" method="get">
         <button type="submit">< OVERBLIK</button>
     </form>
     <br>
@@ -19,7 +19,7 @@
             <br>
         </span>
         <label for="carBrand">Bilmærke:</label>
-        <input type="text" minlength="0" maxlength="50" name="carBrand" id="carBrand" placeholder="Indtast bilmærke" required>
+        <input type="text" maxlength="50" name="carBrand" id="carBrand" placeholder="Indtast bilmærke" required>
         <br>
         <br>
         <button type="submit">Opret bilmærke</button>

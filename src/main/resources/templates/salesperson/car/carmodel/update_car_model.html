@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opdater Bilmodel</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Opdater <span th:text="${carBrand.brand} + ' ' + ${carModel.modelName}"></span></h1>
+    <form action="/salesperson/update_car_model" method="post">
+        <input type="hidden" name="carModelId" th:value="${carModel.id}">
+        <input type="hidden" name="carBrand" th:value="${carModel.brand}">
+        <span th:if="${carModelExists != null}">
+            <span th:text="${carModelExists}"></span>
+            <br>
+            <br>
+        </span>
+        <label for="modelName">Bilmærke:</label>
+        <input type="text" maxlength="50" name="modelName" id="modelName" placeholder="Indtast modelnavn" th:value="${carModel.modelName}" required>
+        <br>
+        <br>
+        <label for="carType">Biltype:</label>
+        <select id="carType" name="carType" required>
+            <option value="">Vælg biltype</option>
+            <option th:each="carType : ${carTypes}" th:text="${carType.displayValue}"
+                    th:selected="${carType == carModel.carType}" th:value="${carType}"></option>
+        </select>
+        <br>
+        <br>
+        <button type="submit">Opdater bilmærke</button>
+    </form>
+</body>
+</html>
