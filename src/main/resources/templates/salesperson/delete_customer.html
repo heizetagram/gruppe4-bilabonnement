@@ -32,9 +32,11 @@
         <td>
             <form action="/salesperson/delete_customer" method="post">
                 <input type="hidden" name="id" th:value="${customer.id}">
+                <input type="hidden" name="origin" th:value="${origin}">
                 <button type="submit">SLET</button>
             </form>
-            <form action="/salesperson/customer_overview" method="get">
+            <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
+                <input type="hidden" name="origin" th:value="${origin}">
                 <button type="submit">FORTRYD</button>
             </form>
         </td>

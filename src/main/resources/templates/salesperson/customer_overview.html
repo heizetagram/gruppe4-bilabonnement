@@ -32,9 +32,10 @@
                 <input type="hidden" name="origin" value="overview">
                 <button type="submit">OPDATER</button>
             </form>
-            <a th:href="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}">
-                <button type="button">SLET</button>
-            </a>
+            <form th:action="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}" method="get">
+                <input type="hidden" name="origin" value="overview">
+                <button type="submit">SLET</button>
+            </form>
             <a th:href="@{/salesperson/show_lease_agreement_details/{id}(id=${customer.id})}">
                 <button type="submit">Vis leasingaftale</button>
             </a>
