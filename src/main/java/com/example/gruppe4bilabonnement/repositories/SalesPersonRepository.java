@@ -2,6 +2,8 @@ package com.example.gruppe4bilabonnement.repositories;
 
 import com.example.gruppe4bilabonnement.models.Customer;
 import com.example.gruppe4bilabonnement.models.Employee;
+import com.example.gruppe4bilabonnement.models.LeaseAgreement;
+import com.example.gruppe4bilabonnement.services.rowmappers.LeaseAgreementRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -59,5 +61,14 @@ public class SalesPersonRepository {
         String query = "SELECT * FROM customer WHERE id = ?;";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
         return jdbcTemplate.queryForObject(query, rowMapper, id);
+    }
+
+    public LeaseAgreement getLeaseAgreementCustomerId(int customerId) {
+        String query = "SELECT * FROM lease_agreement WHERE customer_id = ?;";
+        List<LeaseAgreement> leaseAgreements = jdbcTemplate.query(query, new LeaseAgreementRowMapper(), customerId);
+        if (leaseAgreements.isEmpty()) {
+            return null;
+        }
+        return leaseAgreements.get(0);
     }
 }

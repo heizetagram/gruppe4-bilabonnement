@@ -144,8 +144,7 @@ public class SalesPersonController {
 
    @GetMapping("/show_lease_agreement_details/{leaseAgreementIdStr}")
    public String showLeaseAgreementDetails(@PathVariable String leaseAgreementIdStr, Model model) {
-       int leaseAgreementId = Integer.parseInt(leaseAgreementIdStr);
-       LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementById(leaseAgreementId);
+       LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementByCustomerId(Integer.parseInt(leaseAgreementIdStr));
        if (leaseAgreement != null) {
            model.addAttribute("leaseAgreement", leaseAgreement);
            return "salesperson/lease_agreement_details";
