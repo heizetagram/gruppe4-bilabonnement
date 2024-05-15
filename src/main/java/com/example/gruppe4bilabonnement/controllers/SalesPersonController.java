@@ -33,25 +33,21 @@ public class SalesPersonController {
 
     //Customer creation
     @PostMapping("/insert")
-    public String insert(Model model, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
+    public String insert(Model model,
+                         @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
                          @RequestParam String email, @RequestParam String address, @RequestParam int zipCode) {
-
         boolean isEmailRegistered = salesPersonService.isEmailRegistered(email);
-
         if (isEmailRegistered) {
             // Send an invalid message if e-mail is already registered in the system
             model.addAttribute("emailAlreadyRegistered", "E-mail er allerede i brug");
-            return "create_customer";
         } else if (!email.contains(".")) {
             // Send an invalid message if e-mail doesn't contain "."
             model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
-            return "create_customer";
         } else {
-            // Send a success message if customer is created
             salesPersonService.insert(firstName, lastName, phoneNumber, email, address, zipCode);
-            model.addAttribute("success", "Kunde tilføjet");
-            return "redirect:/salesperson/new_lease";
+            return "redirect:/salesperson/new_lease_agreement";
         }
+        return "salesperson/create_customer";
     }
 
     // Prepare customer update
