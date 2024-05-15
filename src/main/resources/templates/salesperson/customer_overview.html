@@ -23,7 +23,11 @@
     </tr>
     <tr th:each="customer : ${customers}">
         <td>
-            <a th:href="@{/salesperson/customer_profile/{id}(id=${customer.id})}" th:text="${customer.firstName}"></a>
+            <span th:text="${customer.firstName}"></span>
+            <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
+                <input type="hidden" name="origin" value="profile">
+                <button type="submit">Se profil</button>
+            </form>
         </td>
         <td th:text="${customer.lastName}"></td>
         <td th:text="${customer.phoneNumber}"></td>

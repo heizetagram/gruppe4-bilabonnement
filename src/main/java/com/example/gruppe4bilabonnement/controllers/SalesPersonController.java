@@ -115,11 +115,18 @@ public class SalesPersonController {
 
     //Show selected customer profile
     @GetMapping("/customer_profile/{id}")
-    public String customerProfile(@PathVariable int id, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+    public String customerProfile(@PathVariable int id, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
             Customer customer = salesPersonService.getCustomerById(id);
             model.addAttribute("customer", customer);
-            return "salesperson/customer_profile";
+
+            if (origin.equals("overview")) {
+                List<Customer> customers = salesPersonService.getAllCustomers();
+                model.addAttribute("customers", customers);
+                return "/salesperson/customer_overview";
+            } else {
+                return "salesperson/customer_profile";
+            }
         } else {
             return "redirect:/";
         }
