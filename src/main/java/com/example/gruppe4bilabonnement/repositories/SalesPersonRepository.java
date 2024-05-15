@@ -71,4 +71,9 @@ public class SalesPersonRepository {
         }
         return leaseAgreements.get(0);
     }
+
+    public LeaseAgreement getLeaseAgreementById(int leaseAgreementId) {
+        String query = "SELECT * FROM lease_agreement WHERE id = ?;";
+        return jdbcTemplate.queryForObject(query, new LeaseAgreementRowMapper(), leaseAgreementId);
+    }
 }

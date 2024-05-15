@@ -1,6 +1,16 @@
 package com.example.gruppe4bilabonnement.models;
 
 public class DamageReport {
+    public DamageReport() {
+    }
+
+    public DamageReport(Long id, Long carId, String damageText, Double price) {
+        this.id = id;
+        this.carId = carId;
+        this.damageText = damageText;
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }

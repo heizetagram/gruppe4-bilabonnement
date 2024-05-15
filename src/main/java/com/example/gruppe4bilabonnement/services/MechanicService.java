@@ -2,6 +2,7 @@ package com.example.gruppe4bilabonnement.services;
 
 import com.example.gruppe4bilabonnement.models.DamageReport;
 import com.example.gruppe4bilabonnement.repositories.MechanicRepository;
+import com.example.gruppe4bilabonnement.services.rowmappers.DamageReportRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,10 @@ public class MechanicService {
 
     public DamageReport getDamageReportById(Long id) {
         return mechanicRepository.getDamageReportById(id);
+    }
+
+    public List<DamageReport> getAllDamageReportsByCarId(Long carId) {
+        return mechanicRepository.getAllDamageReportsByCarId(carId);
     }
 
     public void updateDamageReport(DamageReport damageReport) {

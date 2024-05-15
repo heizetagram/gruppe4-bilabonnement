@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret Faktura</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Opret Faktura</h1>
+    <form action="/salesperson/create_invoice" method="post">
+        <input type="hidden" name="leaseAgreementId" th:value="${leaseAgreement.id}">
+        <br>
+        <label for="price">Totalt beregnet pris:</label>
+        <input type="number" min="0" step="0.01" id="price" name="price" placeholder="Indtast pris" th:value="${totalPrice}" required>
+        <br>
+        <br>
+        <span>Skader:</span>
+        <br>
+        <span th:each="damageReport : ${damageReports}">
+            <span th:text="'Beskrivelse: ' + ${damageReport.damageText}"></span>
+            <br>
+            <span th:text="'Pris: ' + ${damageReport.price}"></span>
+            <br>
+            <br>
+        </span>
+        <button type="submit">Opret faktura</button>
+    </form>
+</body>
+</html>

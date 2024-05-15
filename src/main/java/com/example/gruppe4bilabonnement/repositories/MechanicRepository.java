@@ -1,6 +1,7 @@
 package com.example.gruppe4bilabonnement.repositories;
 
 import com.example.gruppe4bilabonnement.models.DamageReport;
+import com.example.gruppe4bilabonnement.services.rowmappers.DamageReportRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -50,5 +51,10 @@ public class MechanicRepository {
     public void deleteDamageReport(Long id) {
         String query = "DELETE FROM damage_report WHERE id = ?;";
         jdbcTemplate.update(query, id);
+    }
+
+    public List<DamageReport> getAllDamageReportsByCarId(Long carId) {
+        String query = "SELECT * FROM damage_report WHERE car_id = ?;";
+        return jdbcTemplate.query(query, new DamageReportRowMapper(), carId);
     }
 }

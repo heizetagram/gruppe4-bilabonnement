@@ -57,4 +57,8 @@ public class SalesPersonService {
     public LeaseAgreement getLeaseAgreementByCustomerId(int customerId) {
         return salesPersonRepository.getLeaseAgreementCustomerId(customerId);
     }
+
+    public LeaseAgreement getLeaseAgreementById(int leaseAgreementId) {
+        return salesPersonRepository.getLeaseAgreementById(leaseAgreementId);
+    }
 }
