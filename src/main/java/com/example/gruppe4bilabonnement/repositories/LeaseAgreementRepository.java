@@ -60,7 +60,7 @@ public class LeaseAgreementRepository {
         return jdbcTemplate.query(query, new LeaseAgreementRowMapper());
     }
     public LeaseAgreement findByCustomerId(int customerId) {
-        String query = "SELECT * FROM lease_agreement WHERE customer_id = ?";
+        String query = "SELECT * FROM lease_agreement WHERE customer_id = ?;";
         return jdbcTemplate.queryForObject(query, new LeaseAgreementRowMapper(), customerId);
     }
 }
