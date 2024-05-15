@@ -34,7 +34,7 @@ public class LeaseAgreementRepository {
     } */
     public void createLeaseAgreement(int customerId, LeaseAgreement leaseAgreement) {
         String query = "INSERT INTO lease_agreement (customer_id, car_id, start_date, end_date, bought_km, start_km, " +
-                "payment_time, transport_time, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "payment_time, transport_time, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         jdbcTemplate.update(query, customerId, leaseAgreement.getCarId(), leaseAgreement.getStartDate(),
                 leaseAgreement.getEndDate(), leaseAgreement.getBoughtKm(), leaseAgreement.getStartKm(),
                 leaseAgreement.getPaymentTime(), leaseAgreement.getTransportTime(), leaseAgreement.getPrice());
