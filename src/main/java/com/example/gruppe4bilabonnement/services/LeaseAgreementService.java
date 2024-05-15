@@ -24,6 +24,9 @@ public class LeaseAgreementService {
     public void updateLeaseAgreement(LeaseAgreement leaseAgreement) {
         leaseAgreementRepository.updateLeaseAgreement(leaseAgreement);
     }
+    public LeaseAgreement getLeaseAgreementByCustomerId(int customerId) {
+        return leaseAgreementRepository.findByCustomerId(customerId);
+    }
     public void deleteLeaseAgreement(int id) {
         leaseAgreementRepository.deleteById(id);
     }

@@ -9,6 +9,7 @@ import com.example.gruppe4bilabonnement.services.CarService;
 import com.example.gruppe4bilabonnement.services.LeaseAgreementService;
 import com.example.gruppe4bilabonnement.services.SalesPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Converter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,25 +34,21 @@ public class SalesPersonController {
 
     //Customer creation
     @PostMapping("/insert")
-    public String insert(Model model, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
+    public String insert(Model model,
+                         @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
                          @RequestParam String email, @RequestParam String address, @RequestParam int zipCode) {
-
         boolean isEmailRegistered = salesPersonService.isEmailRegistered(email);
-
         if (isEmailRegistered) {
             // Send an invalid message if e-mail is already registered in the system
             model.addAttribute("emailAlreadyRegistered", "E-mail er allerede i brug");
-            return "create_customer";
         } else if (!email.contains(".")) {
             // Send an invalid message if e-mail doesn't contain "."
             model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
-            return "create_customer";
         } else {
-            // Send a success message if customer is created
             salesPersonService.insert(firstName, lastName, phoneNumber, email, address, zipCode);
-            model.addAttribute("success", "Kunde tilføjet");
-            return "redirect:/salesperson/new_lease";
+            return "redirect:/salesperson/new_lease_agreement";
         }
+        return "salesperson/create_customer";
     }
 
     // Prepare customer update
@@ -127,6 +124,16 @@ public class SalesPersonController {
         model.addAttribute("customer", customer);
         return "salesperson/new_lease_agreement";
     }
+// BRUG NEDENSTÅENDE SENERE, når vi sender id'et med
+    /*@GetMapping("/new_lease_agreement")
+    public String showNewLeaseAgreementForm(@RequestParam int customerId, Model model) {
+        List<Car> cars = carService.getAllCars();
+        Customer customer = salesPersonService.getCustomerById(customerId);
+        model.addAttribute("cars", cars);
+        model.addAttribute("carService", carService);
+        model.addAttribute("customer", customer);
+        return "salesperson/new_lease_agreement";
+    } */
 
     @PostMapping("/create_lease_agreement")
     public String createLeaseAgreement(@RequestParam int customerId, @ModelAttribute LeaseAgreement leaseAgreement) {
@@ -134,16 +141,17 @@ public class SalesPersonController {
         return "redirect:/salesperson/customer_overview";
     }
 
-    @GetMapping("/lease_agreement/{id}")
-    public String showLeaseAgreementDetails(@PathVariable int id, Model model) {
-        LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementById(id);
-        if (leaseAgreement != null) {
-            model.addAttribute("leaseAgreement", leaseAgreement);
-            return "salesperson/lease_agreement_details";
-        } else {
-            return "redirect:/salesperson/customer_overview";
-        }
-    }
+   @GetMapping("/show_lease_agreement_details/{leaseAgreementIdStr}")
+   public String showLeaseAgreementDetails(@PathVariable String leaseAgreementIdStr, Model model) {
+       int leaseAgreementId = Integer.parseInt(leaseAgreementIdStr);
+       LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementById(leaseAgreementId);
+       if (leaseAgreement != null) {
+           model.addAttribute("leaseAgreement", leaseAgreement);
+           return "salesperson/lease_agreement_details";
+       } else {
+           return "redirect:/salesperson/customer_overview";
+       }
+   }
 
     @GetMapping("/lease_agreement")
     public String showAllLeaseAgreements(Model model) {

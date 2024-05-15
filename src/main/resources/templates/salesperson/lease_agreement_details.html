@@ -7,6 +7,14 @@
 </head>
 <body>
 <h1>Lease Agreement Details</h1>
-<p>Lease Agreement ID: ${leaseAgreement.id}</p>
+<p>ID: <span th:text="${leaseAgreement.id}"></span></p>
+<p>Start date: <span th:text="${leaseAgreement.startDate}">
+<p>End date: <span th:text="${leaseAgreement.endDate}">
+<p>Bought kilometers: <span th:text="${leaseAgreement.boughtKm}">
+<p>Starting kilometers: <span th:text="${leaseAgreement.startKm}">
+<p>Payment time: <span th:text="${leaseAgreement.paymentTime}">
+<p>Transport time: <span th:text="${leaseAgreement.transportTime}">
+<p>Price: <span th:text="${leaseAgreement.price}">
+</span></p>
 </body>
 </html>

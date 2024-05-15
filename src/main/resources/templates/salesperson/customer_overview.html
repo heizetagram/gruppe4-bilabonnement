@@ -10,6 +10,10 @@
 </header>
 <h1>Kunde Overblik</h1>
 
+<a href="/salesperson/new_customer">
+    <button type="button">NY KUNDE</button>
+</a>
+
 <table>
     <tr>
         <th>Fornavn</th>
@@ -31,13 +35,13 @@
             <a th:href="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}">
                 <button type="button">SLET</button>
             </a>
+            <a th:href="@{/salesperson/show_lease_agreement_details/{id}(id=${customer.id})}">
+                <button type="submit">Vis leasingaftale</button>
+            </a>
+            </a>
         </td>
     </tr>
 </table>
-
-<a href="/salesperson/new_customer">
-    <button type="button">NY KUNDE</button>
-</a>
 
 </body>
 </html>
