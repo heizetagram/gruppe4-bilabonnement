@@ -54,10 +54,14 @@ public class SalesPersonController {
 
     // Prepare customer update
     @GetMapping("/prepare_update/{id}")
-    public String prepareUpdate(@PathVariable int id, @RequestParam String origin, Model model) {
-        model.addAttribute("customer", salesPersonService.prepareUpdate(id));
-        model.addAttribute("origin", origin);
-        return "salesperson/update_customer";
+    public String prepareUpdate(@PathVariable int id, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("SALESPERSON")) {
+            model.addAttribute("customer", salesPersonService.prepareUpdate(id));
+            model.addAttribute("origin", origin);
+            return "salesperson/update_customer";
+        } else {
+            return "redirect:/";
+        }
     }
 
     // Update customer
@@ -86,10 +90,11 @@ public class SalesPersonController {
 
     //Prepare customer deletion
     @GetMapping("/confirm_delete_customer/{id}")
-    public String confirmDelete(@PathVariable int id, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+    public String confirmDelete(@PathVariable int id, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
             Customer customer = salesPersonService.getCustomerById(id);
             model.addAttribute("customer", customer);
+            model.addAttribute("origin", origin);
             return "salesperson/delete_customer";
         } else {
             return "redirect:/";
@@ -98,19 +103,30 @@ public class SalesPersonController {
 
     //Customer deletion
     @PostMapping("/delete_customer")
-    public String delete(@RequestParam int id) {
+    public String delete(@RequestParam int id, @RequestParam String origin) {
         salesPersonService.deleteCustomerById(id);
-        return "redirect:/salesperson/customer_overview";
+        if (origin.equals("overview")) {
+            return "redirect:/salesperson/customer_overview";
+        } else {
+            return "redirect:/salesperson/customer_profile/" + id;
+        }
     }
 
 
     //Show selected customer profile
     @GetMapping("/customer_profile/{id}")
-    public String customerProfile(@PathVariable int id, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+    public String customerProfile(@PathVariable int id, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
             Customer customer = salesPersonService.getCustomerById(id);
             model.addAttribute("customer", customer);
-            return "salesperson/customer_profile";
+
+            if (origin.equals("overview")) {
+                List<Customer> customers = salesPersonService.getAllCustomers();
+                model.addAttribute("customers", customers);
+                return "/salesperson/customer_overview";
+            } else {
+                return "salesperson/customer_profile";
+            }
         } else {
             return "redirect:/";
         }
