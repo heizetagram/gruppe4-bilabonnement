@@ -33,7 +33,7 @@
                 <input type="hidden" name="carId" th:value="${car.id}">
                 <button type="submit">✎ Rediger</button>
             </form></td>
-            <td><form action="/salesperson/prepare_car_deletion" method="get">
+            <td><form action="/salesperson/confirm_car_deletion" method="get">
                 <input type="hidden" name="origin" value="overview">
                 <input type="hidden" name="carId" th:value="${car.id}">
                 <button type="submit">🗑 Slet</button>
