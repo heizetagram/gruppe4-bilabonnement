@@ -12,7 +12,7 @@ import java.util.List;
 public class LeaseAgreementRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    public void createLeaseAgreement(int customerId, LeaseAgreement leaseAgreement) {
+    /*public void createLeaseAgreement(int customerId, LeaseAgreement leaseAgreement) {
         String query = "INSERT INTO lease_agreement (customer_id, car_model_id, license_plate, vin, brand, model, " +
                 "equipment_level, steel_price, registration_fee, co2_emission, is_rented) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -31,6 +31,21 @@ public class LeaseAgreementRepository {
                 leaseAgreement.getModel(), leaseAgreement.getEquipmentLevel(), leaseAgreement.getSteelPrice(),
                 leaseAgreement.getRegistrationFee(), leaseAgreement.getCo2Emission(),
                 leaseAgreement.isRented() ? "true" : "false", leaseAgreement.getId());
+    } */
+    public void createLeaseAgreement(int customerId, LeaseAgreement leaseAgreement) {
+        String query = "INSERT INTO lease_agreement (customer_id, car_id, start_date, end_date, bought_km, start_km, " +
+                "payment_time, transport_time, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        jdbcTemplate.update(query, customerId, leaseAgreement.getCarId(), leaseAgreement.getStartDate(),
+                leaseAgreement.getEndDate(), leaseAgreement.getBoughtKm(), leaseAgreement.getStartKm(),
+                leaseAgreement.getPaymentTime(), leaseAgreement.getTransportTime(), leaseAgreement.getPrice());
+    }
+    public void updateLeaseAgreement(LeaseAgreement leaseAgreement) {
+        String query = "UPDATE lease_agreement SET customer_id = ?, car_id = ?, start_date = ?, end_date = ?, " +
+                "bought_km = ?, start_km = ?, payment_time = ?, transport_time = ?, price = ? WHERE id = ?";
+        jdbcTemplate.update(query, leaseAgreement.getCustomerId(),
+                leaseAgreement.getStartDate(), leaseAgreement.getEndDate(), leaseAgreement.getBoughtKm(),
+                leaseAgreement.getStartKm(), leaseAgreement.getPaymentTime(), leaseAgreement.getTransportTime(),
+                leaseAgreement.getPrice(), leaseAgreement.getId());
     }
     public void deleteById(int id) {
         String query = "DELETE FROM lease_agreement WHERE id = ?;";
@@ -44,5 +59,8 @@ public class LeaseAgreementRepository {
         String query = "SELECT * FROM lease_agreement;";
         return jdbcTemplate.query(query, new LeaseAgreementRowMapper());
     }
-
+    public LeaseAgreement findByCustomerId(int customerId) {
+        String query = "SELECT * FROM lease_agreement WHERE customer_id = ?;";
+        return jdbcTemplate.queryForObject(query, new LeaseAgreementRowMapper(), customerId);
+    }
 }

@@ -34,6 +34,10 @@
             <a th:href="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}">
                 <button type="button">SLET</button>
             </a>
+            <a th:href="@{/salesperson/show_lease_agreement_details/{id}(id=${customer.id})}">
+                <button type="submit">Vis leasingaftale</button>
+            </a>
+            </a>
         </td>
     </tr>
 </table>
