@@ -9,8 +9,8 @@
 <h1>New Lease Agreement</h1>
 <form method="post" action="/salesperson/create_lease_agreement">
     <label for="customerId">Customer ID:</label>
-    <input type="text" id="customerId" name="customerId" required><br>
-
+    <input type="hidden" id="customerId" name="customerId" th:value="${customer.id}" required>
+    
     <!-- BRUG DENNE SENERE NÅR VI SENDER ID <label for="customerId">Customer ID:</label>
     <input type="hidden" id="customerId" name="customerId" th:value="${customer.id}"> -->
 
