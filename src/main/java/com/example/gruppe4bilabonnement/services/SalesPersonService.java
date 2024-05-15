@@ -48,4 +48,8 @@ public class SalesPersonService {
     public Customer getCustomerById(int id) {
        return salesPersonRepository.getCustomerById(id);
     }
+
+    public Customer getCustomerByEmail(String email) {
+        return salesPersonRepository.getCustomerByEmail(email);
+    }
 }

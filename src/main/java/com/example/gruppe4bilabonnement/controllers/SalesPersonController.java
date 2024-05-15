@@ -46,7 +46,8 @@ public class SalesPersonController {
             model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
         } else {
             salesPersonService.insert(firstName, lastName, phoneNumber, email, address, zipCode);
-            return "redirect:/salesperson/new_lease_agreement";
+            Customer customer = salesPersonService.getCustomerByEmail(email);
+            return "redirect:/salesperson/new_lease_agreement?customerId=" + customer.getId();
         }
         return "salesperson/create_customer";
     }
