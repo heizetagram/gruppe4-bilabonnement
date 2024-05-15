@@ -11,21 +11,6 @@
 <h1 th:text="${customer.firstName} + ' ' + ${customer.lastName} + ' Profil'">Kundeprofil</h1>
 
 <hr>
-
-<h2>Leasingaftaler</h2>
-
-<table>
-    <tr>
-        <th>Start Dato</th>
-        <th>Slut Dato</th>
-        <th>Købte Kilometer</th>
-        <th>Start Kilometer</th>
-        <th>Pris</th>
-        <th>Bil</th>
-        <th>Status??</th>
-    </tr>
-</table>
-
 <hr>
 
 <table>
@@ -65,6 +50,21 @@
 <form th:action="@{/salesperson/customer_overview}" method="get">
     <button type="submit">Tilbage til oversigt</button>
 </form>
+<hr>
+<hr>
+<h2>Leasingaftaler</h2>
+
+<table>
+    <tr>
+        <th>Start Dato</th>
+        <th>Slut Dato</th>
+        <th>Købte Kilometer</th>
+        <th>Start Kilometer</th>
+        <th>Pris</th>
+        <th>Bil</th>
+        <th>Status??</th>
+    </tr>
+</table>
 
 </body>
 </html>

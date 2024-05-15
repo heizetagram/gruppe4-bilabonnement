@@ -18,8 +18,6 @@ public class AdminRepositoryIntegrationTest {
     @Autowired
     private AdminRepository adminRepository;
 
-    // Make sure to have a fresh DB before you run the following
-
     @Test
     public void testGetEmployeeByEmail() {
         // Arrange
@@ -29,7 +27,6 @@ public class AdminRepositoryIntegrationTest {
         adminRepository.createEmployee(email, password, role);
 
         // Act
-        // Employee employee = adminRepository.getEmployeeById(1); We use email because id gets auto incremented in the DB
         Employee employee = adminRepository.getEmployeeByEmail(email);
 
         // Assert
