@@ -40,6 +40,7 @@
     </tr>
 </table>
 <form th:action="@{/salesperson/prepare_update/{id}(id=${customer.id})}" method="get">
+    <input type="hidden" name="origin" value="profile">
     <button type="submit">Opdater</button>
 </form>
 

@@ -53,17 +53,22 @@ public class SalesPersonController {
 
     // Prepare customer update
     @GetMapping("/prepare_update/{id}")
-    public String prepareUpdate(@PathVariable int id, Model model) {
+    public String prepareUpdate(@PathVariable int id, @RequestParam String origin, Model model) {
         model.addAttribute("customer", salesPersonService.prepareUpdate(id));
+        model.addAttribute("origin", origin);
         return "salesperson/update_customer";
     }
 
     // Update customer
     @PostMapping("/update_customer")
     public String update(@RequestParam int id, @RequestParam String firstName, @RequestParam String lastName,
-                         @RequestParam String phoneNumber, @RequestParam String email, @RequestParam String address, @RequestParam int zipCode) {
+                         @RequestParam String phoneNumber, @RequestParam String email, @RequestParam String address, @RequestParam int zipCode, @RequestParam String origin) {
         salesPersonService.update(id, firstName, lastName, phoneNumber, email, address, zipCode);
-        return "redirect:/salesperson/customer_overview";
+        if (origin.equals("overview")) {
+            return "redirect:/salesperson/customer_overview";
+        } else {
+            return "redirect:/salesperson/customer_profile/" + id;
+        }
     }
 
     //Show all customers
@@ -111,10 +116,12 @@ public class SalesPersonController {
     }
 
     @GetMapping("/new_lease_agreement")
-    public String showNewLeaseAgreementForm(Model model) {
+    public String showNewLeaseAgreementForm(@RequestParam int customerId, Model model) {
         List<Car> cars = carService.getAllCars();
+        Customer customer = salesPersonService.getCustomerById(customerId);
         model.addAttribute("cars", cars);
         model.addAttribute("carService", carService);
+        model.addAttribute("customer", customer);
         return "salesperson/new_lease_agreement";
     }
 // BRUG NEDENSTÅENDE SENERE, når vi sender id'et med
