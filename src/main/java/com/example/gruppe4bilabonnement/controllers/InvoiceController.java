@@ -1,7 +1,10 @@
 package com.example.gruppe4bilabonnement.controllers;
 
+import com.example.gruppe4bilabonnement.models.Car;
+import com.example.gruppe4bilabonnement.models.CarModel;
 import com.example.gruppe4bilabonnement.models.DamageReport;
 import com.example.gruppe4bilabonnement.models.LeaseAgreement;
+import com.example.gruppe4bilabonnement.services.CarService;
 import com.example.gruppe4bilabonnement.services.InvoiceService;
 import com.example.gruppe4bilabonnement.services.MechanicService;
 import com.example.gruppe4bilabonnement.services.SalesPersonService;
@@ -25,16 +28,36 @@ public class InvoiceController {
     @Autowired
     MechanicService mechanicService;
 
+    @Autowired
+    CarService carService;
+
     @GetMapping("/prepare_new_invoice")
     public String prepareNewInvoice(@RequestParam int leaseAgreementId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
+            // Lease agreement
             LeaseAgreement leaseAgreement = salesPersonService.getLeaseAgreementById(leaseAgreementId);
             model.addAttribute("leaseAgreement", leaseAgreement);
 
-            double totalPrice = invoiceService.calculatePriceForLeaseAgreement(leaseAgreement);
-            model.addAttribute("totalPrice", totalPrice);
+            // Down payment
+            Car car = carService.getCarById(leaseAgreement.getCarId());
+            CarModel carModel = carService.getCarModelById(car.getCarModelId());
+            double downPayment = invoiceService.getDownPaymentByCarType(carModel.getCarType());
+            model.addAttribute("downPayment", downPayment);
 
-            long carId = leaseAgreement.getCarId();
+            // Get lease period
+            long period = invoiceService.getLeasePeriodMonths(leaseAgreement);
+            model.addAttribute("period", period);
+
+            // Gross price
+            double grossPrice = invoiceService.calculateGrossPriceForLeaseAgreement(leaseAgreement);
+            model.addAttribute("grossPrice", grossPrice);
+
+            // Net price
+            double netPrice = invoiceService.calculateNetPrice(grossPrice, carModel);
+            model.addAttribute("netPrice", netPrice);
+
+            // Damage reports
+            int carId = leaseAgreement.getCarId();
             List<DamageReport> damageReports = mechanicService.getAllDamageReportsByCarId(carId);
             model.addAttribute("damageReports", damageReports);
 
@@ -45,9 +68,9 @@ public class InvoiceController {
     }
 
     @PostMapping("/create_invoice")
-    public String createInvoice(@RequestParam int leaseAgreementId, @RequestParam double price) {
-        LocalDate createdAt = LocalDate.now();
-        invoiceService.createInvoice(leaseAgreementId, price, createdAt);
+    public String createInvoice(@RequestParam int leaseAgreementId, @RequestParam double downPayment, @RequestParam double grossPrice, @RequestParam double netPrice) {
+        LocalDate createdAt = invoiceService.getCurrentDate();
+        invoiceService.createInvoice(leaseAgreementId, downPayment, grossPrice, netPrice, createdAt);
         return "redirect:/salesperson/customer_overview";
     }
 }
