@@ -151,13 +151,9 @@ public class CarController {
 
     // DELETE car
     @PostMapping("/delete_car")
-    public String deleteCar(@RequestParam int carId, @RequestParam String origin) {
+    public String deleteCar(@RequestParam int carId) {
         carService.deleteCarById(carId);
-        if (origin.equals("overview")) {
-            return "redirect:/salesperson/car_overview";
-        } else {
-            return "/salesperson/car/show_car";
-        }
+        return "redirect:/salesperson/car_overview";
     }
 
     ///////////////////////
