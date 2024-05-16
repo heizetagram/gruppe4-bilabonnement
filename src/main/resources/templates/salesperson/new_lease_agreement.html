@@ -18,8 +18,8 @@
     <select id="carId" name="carId">
         <option value="">Select Car</option>
         <th:block th:each="car : ${cars}">
-            <option th:value="${car.id}" th:text="${carService.getCarModelByModelId(car.carModelId).brand} +
-             ' ' + ${carService.getCarModelByModelId(car.carModelId).modelName} +
+            <option th:value="${car.id}" th:text="${carService.getCarModelById(car.carModelId).brand} +
+             ' ' + ${carService.getCarModelById(car.carModelId).modelName} +
              ' - ' + ${car.licensePlate}"></option>
         </th:block>
     </select><br>
