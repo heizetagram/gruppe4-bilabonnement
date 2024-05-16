@@ -126,10 +126,6 @@ public class CarService {
         carRepository.deleteCarBrand(carBrand);
     }
 
-    public CarModel getCarModelByModelId(int carModelId) {
-        return carRepository.getCarModelByModelId(carModelId);
-    }
-
     public boolean checkIfCarModelExists(CarBrand carBrand, String modelName, CarType carType) {
         boolean carModelNameExists;
         try {
@@ -159,5 +155,13 @@ public class CarService {
 
     public void deleteCarModelById(int carModelId) {
         carRepository.deleteCarModelById(carModelId);
+    }
+
+    public void rentCar(int carId) {
+        carRepository.rentCar(carId);
+    }
+
+    public void makeCarAvailable(int carId) {
+        carRepository.makeCarAvailable(carId);
     }
 }

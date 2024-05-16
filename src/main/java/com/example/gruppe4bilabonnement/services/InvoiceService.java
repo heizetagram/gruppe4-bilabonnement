@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -94,6 +95,11 @@ public class InvoiceService {
             case SPORT -> 10000;
             case LUXURY -> 15000;
         };
+    }
+
+    public String getDanishFormattedDate(LocalDate date) {
+        DateTimeFormatter dateTimeFormatter =  DateTimeFormatter.ofPattern("dd/MM-yyyy");
+        return date.format(dateTimeFormatter);
     }
 
     public LocalDate getCurrentDate() {
