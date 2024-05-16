@@ -1,8 +1,8 @@
 package com.example.gruppe4bilabonnement.services;
 
 import com.example.gruppe4bilabonnement.models.Customer;
-import com.example.gruppe4bilabonnement.models.Employee;
 import com.example.gruppe4bilabonnement.models.LeaseAgreement;
+import com.example.gruppe4bilabonnement.models.ZipCode;
 import com.example.gruppe4bilabonnement.repositories.SalesPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -60,5 +60,9 @@ public class SalesPersonService {
 
     public LeaseAgreement getLeaseAgreementById(int leaseAgreementId) {
         return salesPersonRepository.getLeaseAgreementById(leaseAgreementId);
+    }
+
+    public ZipCode getZipCodeByZipCode(int zipCode) {
+        return salesPersonRepository.getZipCodeByZipCode(zipCode);
     }
 }
