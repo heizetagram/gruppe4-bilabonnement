@@ -8,8 +8,8 @@ import java.sql.SQLException;
 public class DamageReportRowMapper implements RowMapper<DamageReport> {
     @Override
     public DamageReport mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Long id = rs.getLong("id");
-        Long carId = rs.getLong("car_id");
+        int id = rs.getInt("id");
+        int carId = rs.getInt("car_id");
         String damageText = rs.getString("damage_text");
         double price = rs.getDouble("price");
         return new DamageReport(id, carId, damageText, price);

@@ -12,8 +12,8 @@ public class LeaseAgreementRowMapper implements RowMapper<LeaseAgreement> {
         leaseAgreement.setId(rs.getInt("id"));
         leaseAgreement.setCustomerId(rs.getInt("customer_id"));
         leaseAgreement.setCarId(rs.getInt("car_id"));
-        leaseAgreement.setStartDate(rs.getDate("start_date"));
-        leaseAgreement.setEndDate(rs.getDate("end_date"));
+        leaseAgreement.setStartDate(rs.getDate("start_date").toLocalDate());
+        leaseAgreement.setEndDate(rs.getDate("end_date").toLocalDate());
         leaseAgreement.setBoughtKm(rs.getLong("bought_km"));
         leaseAgreement.setStartKm(rs.getLong("start_km"));
         leaseAgreement.setPrice(rs.getDouble("price"));

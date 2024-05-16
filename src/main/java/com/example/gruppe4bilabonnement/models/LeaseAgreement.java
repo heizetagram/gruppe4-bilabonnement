@@ -2,31 +2,21 @@ package com.example.gruppe4bilabonnement.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class LeaseAgreement {
     private int id;
     private int customerId;
-    private int carModelId;
-    private String licensePlate;
-    private String vin;
-    private String brand;
-    private String model;
-    private String equipmentLevel;
-    private double steelPrice;
-    private double registrationFee;
-    private double co2Emission;
-    private boolean isRented;
+    private int carId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date startDate;
+    private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date endDate;
+    private LocalDate endDate;
     private long boughtKm;
     private long startKm;
     private double price;
     private int paymentTime;
     private int transportTime;
-    private int carId;
 
     public int getId() {
         return id;
@@ -40,76 +30,17 @@ public class LeaseAgreement {
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
-    public int getCarModelId() {
-        return carModelId;
-    }
-    public void setCarModelId(int carModelId) {
-        this.carModelId = carModelId;
-    }
-    public String getLicensePlate() {
-        return licensePlate;
-    }
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
-    }
-    public String getVin() {
-        return vin;
-    }
-    public void setVin(String vin) {
-        this.vin = vin;
-    }
-    public String getBrand() {
-        return brand;
-    }
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-    public String getModel() {
-        return model;
-    }
-    public void setModel(String model) {
-        this.model = model;
-    }
-    public String getEquipmentLevel() {
-        return equipmentLevel;
-    }
-    public void setEquipmentLevel(String equipmentLevel) {
-        this.equipmentLevel = equipmentLevel;
-    }
-    public double getSteelPrice() {
-        return steelPrice;
-    }
-    public void setSteelPrice(double steelPrice) {
-        this.steelPrice = steelPrice;
-    }
-    public double getRegistrationFee() {
-        return registrationFee;
-    }
-    public void setRegistrationFee(double registrationFee) {
-        this.registrationFee = registrationFee;
-    }
-    public double getCo2Emission() {
-        return co2Emission;
-    }
-    public void setCo2Emission(double co2Emission) {
-        this.co2Emission = co2Emission;
-    }
-    public boolean isRented() {
-        return isRented;
-    }
-    public void setRented(boolean rented) {
-        isRented = rented;
-    }
-    public Date getStartDate() {
+
+    public LocalDate getStartDate() {
         return startDate;
     }
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
     public long getBoughtKm() {

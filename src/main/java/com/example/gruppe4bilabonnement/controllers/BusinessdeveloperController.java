@@ -29,7 +29,7 @@ public class BusinessdeveloperController {
         //gennemsnitlig Leasetid
 
     @GetMapping("/leasing_speed")
-    public String getLeasingSpeedForCar(@RequestParam long carId, Model model) {
+    public String getLeasingSpeedForCar(@RequestParam int carId, Model model) {
         double leasingSpeed = businessdeveloperService.getLeasingSpeedForCar(carId);
         model.addAttribute("carId", carId);
         model.addAttribute("leasingSpeed", leasingSpeed);

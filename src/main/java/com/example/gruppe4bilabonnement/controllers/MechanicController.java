@@ -35,20 +35,20 @@ public class MechanicController {
     }
 
     @PostMapping("/damage_reports/{id}/delete")
-    public String deleteDamageReport(@PathVariable("id") Long id) {
+    public String deleteDamageReport(@PathVariable("id") int id) {
         mechanicService.deleteDamageReport(id);
         return "redirect:/damage_reports";
     }
 
     @PostMapping("/damage_reports/{id}/update")
-    public String updateDamageReport(@PathVariable("id") Long id, @ModelAttribute DamageReport damageReport) {
+    public String updateDamageReport(@PathVariable("id") int id, @ModelAttribute DamageReport damageReport) {
         damageReport.setId(id);
         mechanicService.updateDamageReport(damageReport);
         return "redirect:/damage_reports";
     }
 
     @GetMapping("/damage_reports/{id}/edit")
-    public String showEditDamageReportForm(@PathVariable("id") Long id, Model model) {
+    public String showEditDamageReportForm(@PathVariable("id") int id, Model model) {
         DamageReport damageReport = mechanicService.getDamageReportById(id);
         model.addAttribute("damageReport", damageReport);
         return "mechanic/edit_damage_report";
