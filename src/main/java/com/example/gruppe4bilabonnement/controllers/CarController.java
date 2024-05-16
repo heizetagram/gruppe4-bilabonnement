@@ -287,7 +287,7 @@ public class CarController {
     @GetMapping("/prepare_car_model_update")
     public String prepareCarModelUpdate(@RequestParam int carModelId, @RequestParam CarBrand carBrand, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
-            CarModel carModel = carService.getCarModelByModelId(carModelId);
+            CarModel carModel = carService.getCarModelById(carModelId);
             List<CarType> carTypes = carService.getAllCarTypes();
             model.addAttribute("carModel", carModel);
             model.addAttribute("carTypes", carTypes);
@@ -306,7 +306,7 @@ public class CarController {
         if (doesCarModelExist) {
             model.addAttribute("carModelExists", "Modellen findes allerede til dette bilmærke");
             model.addAttribute("carBrand", carBrand);
-            CarModel carModel = carService.getCarModelByModelId(carModelId);
+            CarModel carModel = carService.getCarModelById(carModelId);
             model.addAttribute("carModel", carModel);
 
             List<CarType> carTypes = carService.getAllCarTypes();
@@ -321,7 +321,7 @@ public class CarController {
     // Prepare car model DELETION
     @GetMapping("/prepare_car_model_deletion")
     public String prepareCarModelDeletion(@RequestParam int carModelId, @RequestParam CarBrand carBrand, Model model) {
-        CarModel carModel = carService.getCarModelByModelId(carModelId);
+        CarModel carModel = carService.getCarModelById(carModelId);
         model.addAttribute("carBrand", carBrand);
         model.addAttribute("carModel", carModel);
         return "salesperson/car/carmodel/delete_car_model";
