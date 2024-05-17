@@ -21,15 +21,19 @@ public class MechanicService {
         return mechanicRepository.getAllDamageReports();
     }
 
-    public DamageReport getDamageReportById(Long id) {
+    public DamageReport getDamageReportById(int id) {
         return mechanicRepository.getDamageReportById(id);
+    }
+
+    public List<DamageReport> getAllDamageReportsByCarId(int carId) {
+        return mechanicRepository.getAllDamageReportsByCarId(carId);
     }
 
     public void updateDamageReport(DamageReport damageReport) {
         mechanicRepository.updateDamageReport(damageReport);
     }
 
-    public void deleteDamageReport(Long id) {
+    public void deleteDamageReport(int id) {
         mechanicRepository.deleteDamageReport(id);
     }
 }

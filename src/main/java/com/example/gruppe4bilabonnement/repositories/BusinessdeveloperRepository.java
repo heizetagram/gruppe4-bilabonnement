@@ -25,7 +25,7 @@ public class BusinessdeveloperRepository {
     }
 
     // Hvor hurtigt bliver biler leaset.
-    public Double calculateLeasingSpeedForCar(long carId) {
+    public Double calculateLeasingSpeedForCar(int carId) {
         String query = "SELECT leasing_speed FROM leasing_speed WHERE id = ?;";
         try {
             Double leasingSpeed = jdbcTemplate.queryForObject(query, new Object[]{carId}, Double.class);
