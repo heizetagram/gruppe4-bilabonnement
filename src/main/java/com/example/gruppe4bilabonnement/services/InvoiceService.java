@@ -48,7 +48,7 @@ public class InvoiceService {
 
     // Calculate net price (25% VAT)
     public double calculateNetPrice(double grossPrice, Car car, CarModel carModel) {
-        double netPrice = grossPrice;
+        double netPrice;
 
         // Add 25% VAT
         netPrice = grossPrice * 1.25;
