@@ -43,21 +43,26 @@ public class InvoiceService {
         // Calculate price of lease period
         grossPrice += leaseAgreement.getPrice() * leasePeriodInMonths;
 
-        // Calculate damage report prices
-        grossPrice += calculateTotalDamageReportPriceForCarId(carId);
-
         return grossPrice;
     }
 
     // Calculate net price (25% VAT)
-    public double calculateNetPrice(double grossPrice, CarModel carModel) {
+    public double calculateNetPrice(double grossPrice, Car car, CarModel carModel) {
+        double netPrice = grossPrice;
+
         // Add 25% VAT
-        grossPrice = grossPrice * 1.25;
+        netPrice = grossPrice * 1.25;
+
+        // Calculate damage report prices
+        netPrice += calculateTotalDamageReportPriceForCarId(car.getId());
 
         // Calculate down payment by car type
-        return grossPrice += getDownPaymentByCarType(carModel.getCarType());
+        netPrice += getDownPaymentByCarType(carModel.getCarType());
+
+        return netPrice;
     }
 
+    // Calculate total damage report price
     private double calculateTotalDamageReportPriceForCarId(int carId) {
         double totalPrice = 0;
         List<DamageReport> damageReports = mechanicRepository.getAllDamageReportsByCarId(carId);

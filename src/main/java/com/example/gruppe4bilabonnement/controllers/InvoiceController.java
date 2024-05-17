@@ -76,7 +76,7 @@ public class InvoiceController {
             model.addAttribute("grossPrice", grossPrice);
 
             // Net price
-            double netPrice = invoiceService.calculateNetPrice(grossPrice, carModel);
+            double netPrice = invoiceService.calculateNetPrice(grossPrice, car, carModel);
             model.addAttribute("netPrice", netPrice);
 
             // Damage reports
