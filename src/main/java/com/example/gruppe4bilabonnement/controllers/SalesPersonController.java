@@ -13,8 +13,13 @@ import org.springframework.cglib.core.Converter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
+
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 @Controller
 @RequestMapping("/salesperson")
@@ -26,6 +31,51 @@ public class SalesPersonController {
     @Autowired
     private CarService carService;
 
+    private static final int PAGE_SIZE = 5;
+
+    // Initialize the customer queue in the session
+    @ModelAttribute("customerQueue")
+    public Queue<Customer> initializeCustomerQueue() {
+        return new LinkedList<>();
+    }
+
+    // Show initial set of customers or more customers
+    @GetMapping("/customer_overview")
+    public String showCustomers(@RequestParam(name = "page", defaultValue = "1") int page,
+                                @RequestParam(name = "origin", defaultValue = "overview") String origin,
+                                Model model, @CookieValue(name = "employeeRole") String cookieValue,
+                                @ModelAttribute("customerQueue") Queue<Customer> customerQueue) {
+        if (cookieValue.equals("SALESPERSON")) {
+            if (customerQueue.isEmpty()) {
+                List<Customer> customers = salesPersonService.getAllCustomers();
+                customerQueue.addAll(customers);  // Populate the queue with all customers initially
+            }
+
+            List<Customer> customers = getNextCustomers(customerQueue, page);
+            model.addAttribute("customers", customers);
+            model.addAttribute("page", page);
+            model.addAttribute("origin", origin);
+            model.addAttribute("moreCustomersAvailable", customerQueue.size() > PAGE_SIZE);
+
+            return "salesperson/customer_overview";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    // Get the next set of customers from the queue
+    private List<Customer> getNextCustomers(Queue<Customer> customerQueue, int page) {
+        List<Customer> customers = new LinkedList<>();
+        for (int i = 0; i < PAGE_SIZE * (page - 1) && !customerQueue.isEmpty(); i++) {
+            customerQueue.offer(customerQueue.poll());  // Move customers ahead to skip previous pages
+        }
+        for (int i = 0; i < PAGE_SIZE && !customerQueue.isEmpty(); i++) {
+            Customer customer = customerQueue.poll();  // Dequeue customer
+            customers.add(customer);
+            customerQueue.offer(customer);  // Re-enqueue customer to the end
+        }
+        return customers;
+    }
 
     @GetMapping("/new_customer")
     public String insert() {
@@ -38,12 +88,14 @@ public class SalesPersonController {
                          @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
                          @RequestParam String email, @RequestParam String address, @RequestParam int zipCode) {
         boolean isEmailRegistered = salesPersonService.isEmailRegistered(email);
+        boolean isZipCodeValid = salesPersonService.isZipCodeValid(zipCode);
+
         if (isEmailRegistered) {
-            // Send an invalid message if e-mail is already registered in the system
             model.addAttribute("emailAlreadyRegistered", "E-mail er allerede i brug");
         } else if (!email.contains(".")) {
-            // Send an invalid message if e-mail doesn't contain "."
             model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
+        } else if (!isZipCodeValid) {
+            model.addAttribute("invalidZipCode", "Postnummeret findes ikke");
         } else {
             salesPersonService.insert(firstName, lastName, phoneNumber, email, address, zipCode);
             Customer customer = salesPersonService.getCustomerByEmail(email);
@@ -76,19 +128,7 @@ public class SalesPersonController {
         }
     }
 
-    //Show all customers
-    @GetMapping("/customer_overview")
-    public String showCustomers(Model model, @CookieValue(name = "employeeRole") String cookieValue) {
-        if (cookieValue.equals("SALESPERSON")) {
-            List<Customer> customers = salesPersonService.getAllCustomers();
-            model.addAttribute("customers", customers);
-            return "salesperson/customer_overview";
-        } else {
-            return "redirect:/";
-        }
-    }
-
-    //Prepare customer deletion
+    // Prepare customer deletion
     @GetMapping("/confirm_delete_customer/{id}")
     public String confirmDelete(@PathVariable int id, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
@@ -101,7 +141,7 @@ public class SalesPersonController {
         }
     }
 
-    //Customer deletion
+    // Customer deletion
     @PostMapping("/delete_customer")
     public String delete(@RequestParam int id, @RequestParam String origin) {
         salesPersonService.deleteCustomerById(id);
@@ -112,8 +152,7 @@ public class SalesPersonController {
         }
     }
 
-
-    //Show selected customer profile
+    // Show selected customer profile
     @GetMapping("/customer_profile/{id}")
     public String customerProfile(@PathVariable int id, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {

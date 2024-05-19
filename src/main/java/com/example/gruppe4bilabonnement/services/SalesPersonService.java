@@ -18,6 +18,17 @@ public class SalesPersonService {
     public void insert(String firstName, String lastName, String phoneNumber, String email, String address, int zipCode) {
         salesPersonRepository.insert(firstName, lastName, phoneNumber, email, address, zipCode);
     }
+    // Checks if zipcode exits in the databse
+    public boolean isZipCodeValid(int zipCode) {
+        boolean isValid;
+        try {
+            salesPersonRepository.getZipCodeByZipCode(zipCode);
+            isValid = true;
+        } catch (EmptyResultDataAccessException e) {
+            isValid = false;
+        }
+        return isValid;
+    }
 
     public Customer prepareUpdate(int id) {
         return salesPersonRepository.getCustomer(id);

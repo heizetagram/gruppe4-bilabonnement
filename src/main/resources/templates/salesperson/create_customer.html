@@ -26,7 +26,6 @@
     <span th:if="${invalidInfo!=null || emailAlreadyRegistered!=null}">
         <span th:text="${invalidInfo}"></span>
         <span th:text="${emailAlreadyRegistered}"></span>
-        <!-- Show an error message if the e-mail is already registered in the system -->
         <br>
     </span>
     <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}"
@@ -35,6 +34,10 @@
     <input type="text" maxlength="100" id="address" name="address" placeholder="Indtast adresse"
            th:value="${param.address}" required><br>
     <label for="zipCode">Postnummer:</label><br>
+    <span th:if="${invalidZipCode!=null}">
+        <span th:text="${invalidZipCode}"></span>
+        <br>
+    </span>
     <input type="number" min="1000" max="9990" id="zipCode" name="zipCode" placeholder="Indtast postnummer"
            th:value="${param.zipCode}" required><br><br>
     <input type="submit" value="OPRET">

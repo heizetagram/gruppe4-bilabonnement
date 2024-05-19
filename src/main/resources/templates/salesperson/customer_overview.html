@@ -14,39 +14,48 @@
     <button type="button">NY KUNDE</button>
 </a>
 
-<table>
-    <tr>
-        <th>Fornavn</th>
-        <th>Efternavn</th>
-        <th>Mobilnummer</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="customer : ${customers}">
-        <td>
-            <span th:text="${customer.firstName}"></span>
-            <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
-                <input type="hidden" name="origin" value="profile">
-                <button type="submit">Se profil</button>
-            </form>
-        </td>
-        <td th:text="${customer.lastName}"></td>
-        <td th:text="${customer.phoneNumber}"></td>
-        <td>
-            <form th:action="@{/salesperson/prepare_update/{id}(id=${customer.id})}" method="get">
-                <input type="hidden" name="origin" value="overview">
-                <button type="submit">OPDATER</button>
-            </form>
-            <form th:action="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}" method="get">
-                <input type="hidden" name="origin" value="overview">
-                <button type="submit">SLET</button>
-            </form>
-            <a th:href="@{/salesperson/show_lease_agreement_details/{id}(id=${customer.id})}">
-                <button type="submit">Vis leasingaftale</button>
-            </a>
-            </a>
-        </td>
-    </tr>
-</table>
+<div id="customerList">
+    <table>
+        <tr>
+            <th>Fornavn</th>
+            <th>Efternavn</th>
+            <th>Mobilnummer</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="customer : ${customers}">
+            <td>
+                <span th:text="${customer.firstName}"></span>
+                <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
+                    <input type="hidden" name="origin" th:value="${origin}">
+                    <button type="submit">Se profil</button>
+                </form>
+            </td>
+            <td th:text="${customer.lastName}"></td>
+            <td th:text="${customer.phoneNumber}"></td>
+            <td>
+                <form th:action="@{/salesperson/prepare_update/{id}(id=${customer.id})}" method="get">
+                    <input type="hidden" name="origin" th:value="${origin}">
+                    <button type="submit">OPDATER</button>
+                </form>
+                <form th:action="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}" method="get">
+                    <input type="hidden" name="origin" th:value="${origin}">
+                    <button type="submit">SLET</button>
+                </form>
+                <a th:href="@{/salesperson/show_lease_agreement_details/{id}(id=${customer.id})}">
+                    <button type="submit">Vis leasingaftale</button>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <form th:action="@{/salesperson/customer_overview}" method="get">
+        <input type="hidden" name="page" th:value="${page + 1}" />
+        <input type="hidden" name="origin" th:value="${origin}" />
+        <button type="submit" th:if="${moreCustomersAvailable}">Vis flere kunder</button>
+    </form>
+</div>
 
 </body>
 </html>
