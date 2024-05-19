@@ -98,6 +98,10 @@ public class CarService {
         return carRepository.getAllCars();
     }
 
+    public List<Car> getAllAvailableCars() {
+        return carRepository.getAllAvailableCars();
+    }
+
     public boolean checkIfCarBrandExists(CarBrand carBrand) {
         boolean carBrandExists;
         try {

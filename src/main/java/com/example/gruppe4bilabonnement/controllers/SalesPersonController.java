@@ -1,7 +1,6 @@
 package com.example.gruppe4bilabonnement.controllers;
 
 import com.example.gruppe4bilabonnement.models.Car;
-import com.example.gruppe4bilabonnement.models.CarModel;
 import com.example.gruppe4bilabonnement.models.Customer;
 
 import com.example.gruppe4bilabonnement.models.LeaseAgreement;
@@ -9,7 +8,6 @@ import com.example.gruppe4bilabonnement.services.CarService;
 import com.example.gruppe4bilabonnement.services.LeaseAgreementService;
 import com.example.gruppe4bilabonnement.services.SalesPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Converter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -125,6 +123,10 @@ public class SalesPersonController {
                 model.addAttribute("customers", customers);
                 return "/salesperson/customer_overview";
             } else {
+                List<LeaseAgreement> leaseAgreements = leaseAgreementService.getAllLeaseAgreementsByCustomerId(id);
+                model.addAttribute("leaseAgreements", leaseAgreements);
+
+                model.addAttribute("carService", carService);
                 return "salesperson/customer_profile";
             }
         } else {
@@ -134,7 +136,7 @@ public class SalesPersonController {
 
     @GetMapping("/new_lease_agreement")
     public String showNewLeaseAgreementForm(@RequestParam int customerId, Model model) {
-        List<Car> cars = carService.getAllCars();
+        List<Car> cars = carService.getAllAvailableCars();
         Customer customer = salesPersonService.getCustomerById(customerId);
         model.addAttribute("cars", cars);
         model.addAttribute("carService", carService);
@@ -154,13 +156,20 @@ public class SalesPersonController {
 
     @PostMapping("/create_lease_agreement")
     public String createLeaseAgreement(@RequestParam int customerId, @ModelAttribute LeaseAgreement leaseAgreement) {
+        Car car = carService.getCarById(leaseAgreement.getCarId());
+        long startKm = car.getKm();
+
+        leaseAgreement.setStartKm(startKm);
+
+        carService.rentCar(leaseAgreement.getCarId());
+
         leaseAgreementService.createLeaseAgreement(customerId, leaseAgreement);
         return "redirect:/salesperson/customer_overview";
     }
 
-   @GetMapping("/show_lease_agreement_details/{leaseAgreementIdStr}")
-   public String showLeaseAgreementDetails(@PathVariable String leaseAgreementIdStr, Model model) {
-       LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementByCustomerId(Integer.parseInt(leaseAgreementIdStr));
+   @GetMapping("/show_lease_agreement_details/{leaseAgreementId}")
+   public String showLeaseAgreementDetails(@PathVariable int leaseAgreementId, Model model) {
+       LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementById(leaseAgreementId);
        if (leaseAgreement != null) {
            model.addAttribute("leaseAgreement", leaseAgreement);
            return "salesperson/lease_agreement_details";

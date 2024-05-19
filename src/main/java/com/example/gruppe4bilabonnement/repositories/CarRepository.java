@@ -111,6 +111,11 @@ public class CarRepository {
         return jdbcTemplate.query(query, new CarRowMapper());
     }
 
+    public List<Car> getAllAvailableCars() {
+        String query = "SELECT * FROM car WHERE is_rented = 'false';";
+        return jdbcTemplate.query(query, new CarRowMapper());
+    }
+
     public CarBrand getCarBrandByBrand(CarBrand carBrand) {
         String query = "SELECT * FROM car_brand WHERE brand = ?;";
         BeanPropertyRowMapper<CarBrand> carBrandBeanPropertyRowMapper = new BeanPropertyRowMapper<>(CarBrand.class);

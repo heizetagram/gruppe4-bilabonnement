@@ -8,13 +8,16 @@
 <body>
 <h1>Lease Agreement Details</h1>
 <p>ID: <span th:text="${leaseAgreement.id}"></span></p>
-<p>Start date: <span th:text="${leaseAgreement.startDate}">
-<p>End date: <span th:text="${leaseAgreement.endDate}">
-<p>Bought kilometers: <span th:text="${leaseAgreement.boughtKm}">
-<p>Starting kilometers: <span th:text="${leaseAgreement.startKm}">
-<p>Payment time: <span th:text="${leaseAgreement.paymentTime}">
-<p>Transport time: <span th:text="${leaseAgreement.transportTime}">
-<p>Price: <span th:text="${leaseAgreement.price}">
-</span></p>
+<p>Start date: <span th:text="${leaseAgreement.startDate}"></span></p>
+<p>End date: <span th:text="${leaseAgreement.endDate}"></span></p>
+<p>Bought kilometers: <span th:text="${leaseAgreement.boughtKm}"></span></p>
+<p>Starting kilometers: <span th:text="${leaseAgreement.startKm}"></span></p>
+<p>Payment time: <span th:text="${leaseAgreement.paymentTime}"></span></p>
+<p>Transport time: <span th:text="${leaseAgreement.transportTime}"></span></p>
+<p>Price: <span th:text="${leaseAgreement.price}"></span></p>
+<form action="/salesperson/prepare_new_invoice" method="get">
+    <input type="hidden" name="leaseAgreementId" th:value="${leaseAgreement.id}">
+    <button type="submit">Opret faktura</button>
+</form>
 </body>
 </html>

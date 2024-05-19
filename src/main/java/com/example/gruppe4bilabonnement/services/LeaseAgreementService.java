@@ -13,6 +13,7 @@ public class LeaseAgreementService {
     private LeaseAgreementRepository leaseAgreementRepository;
 
     public void createLeaseAgreement(int customerId, LeaseAgreement leaseAgreement) {
+
         leaseAgreementRepository.createLeaseAgreement(customerId, leaseAgreement);
     }
     public LeaseAgreement getLeaseAgreementById(int id) {
@@ -24,10 +25,11 @@ public class LeaseAgreementService {
     public void updateLeaseAgreement(LeaseAgreement leaseAgreement) {
         leaseAgreementRepository.updateLeaseAgreement(leaseAgreement);
     }
-    public LeaseAgreement getLeaseAgreementByCustomerId(int customerId) {
-        return leaseAgreementRepository.findByCustomerId(customerId);
-    }
     public void deleteLeaseAgreement(int id) {
         leaseAgreementRepository.deleteById(id);
+    }
+
+    public List<LeaseAgreement> getAllLeaseAgreementsByCustomerId(int customerId) {
+        return leaseAgreementRepository.getAllLeaseAgreementsByCustomerId(customerId);
     }
 }

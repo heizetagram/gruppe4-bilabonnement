@@ -103,7 +103,7 @@ public class InvoiceService {
     }
 
     public String getDanishFormattedDate(LocalDate date) {
-        DateTimeFormatter dateTimeFormatter =  DateTimeFormatter.ofPattern("dd/MM-yyyy");
+        DateTimeFormatter dateTimeFormatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return date.format(dateTimeFormatter);
     }
 

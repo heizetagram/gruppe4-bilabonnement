@@ -63,4 +63,9 @@ public class LeaseAgreementRepository {
         String query = "SELECT * FROM lease_agreement WHERE customer_id = ?;";
         return jdbcTemplate.queryForObject(query, new LeaseAgreementRowMapper(), customerId);
     }
+
+    public List<LeaseAgreement> getAllLeaseAgreementsByCustomerId(int customerId) {
+        String query = "SELECT * FROM lease_agreement WHERE customer_id = ?;";
+        return jdbcTemplate.query(query, new LeaseAgreementRowMapper(), customerId);
+    }
 }
