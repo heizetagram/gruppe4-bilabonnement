@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Biler på værksted</title>
+</head>
+<body>
+<header>
+    <div th:replace="~{fragments/navbar/mechanic/navbar}"></div>
+</header>
+<h1>Biler på værksted</h1>
+<span th:if="${carsInService.isEmpty()}">
+    <p>Der er på nuværende tidspunkt ingen biler på værkstedet.</p>
+</span>
+<span th:each="carInService : ${carsInService}">
+    <form th:action="@{/mechanic/damage_reports/{carId} (carId = ${carInService.carId})}" method="get">
+        <!--Receive a Car Model object by the Car ID that the car in service has -->
+        <button type="submit"><span th:text="${carService.getCarModelById(carInService.carId).brand} + ' ' + ${carService.getCarModelById(carInService.carId).modelName}"></span></button>
+    </form>
+</span>
+</body>
+</html>

@@ -1,19 +1,29 @@
 package com.example.gruppe4bilabonnement.models;
 
 public class DamageReport {
-    public Long getId() {
+    public DamageReport() {
+    }
+
+    public DamageReport(int id, int carId, String damageText, Double price) {
+        this.id = id;
+        this.carId = carId;
+        this.damageText = damageText;
+        this.price = price;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getCarId() {
+    public int getCarId() {
         return carId;
     }
 
-    public void setCarId(Long carId) {
+    public void setCarId(int carId) {
         this.carId = carId;
     }
 
@@ -33,8 +43,8 @@ public class DamageReport {
         this.price = price;
     }
 
-    private Long id;
-    private Long carId;
+    private int id;
+    private int carId;
     private String damageText;
     private Double price;
 

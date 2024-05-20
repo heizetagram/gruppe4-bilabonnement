@@ -16,6 +16,11 @@ public class CarController {
     @Autowired
     private CarService carService;
 
+    ///////////////////////
+    ///////// CAR /////////
+    ///////////////////////
+
+    // Prepare car CREATION
     @GetMapping("/prepare_new_car")
     public String prepareNewCar(@CookieValue(name = "employeeRole") String cookieValue, Model model) {
         if (cookieValue.equals("SALESPERSON")) {
@@ -27,6 +32,7 @@ public class CarController {
         }
     }
 
+    // Select car brand
     @PostMapping("/select_car_brand")
     public String selectCarBrand(Model model, @RequestParam CarBrand carBrand) {
         List<CarBrand> carBrands = carService.getAllCarBrands();
@@ -39,6 +45,7 @@ public class CarController {
         return "/salesperson/car/create_car";
     }
 
+    // CREATE car
     @PostMapping("/create_car")
     public String createCar(@RequestParam int carModelId, @RequestParam FuelType fuelType,
                             @RequestParam String licensePlate, @RequestParam String vin, @RequestParam String equipmentLevel,
@@ -60,6 +67,7 @@ public class CarController {
         //return "salesperson/car/create_car";
     }
 
+    // READ cars
     @GetMapping("/car_overview")
     public String showCars(Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
@@ -72,6 +80,7 @@ public class CarController {
         }
     }
 
+    // READ car
     @GetMapping("/show_car")
     public String showCar(@RequestParam int carId, @RequestParam int carModelId, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
@@ -89,6 +98,7 @@ public class CarController {
         }
     }
 
+    // Prepare car UPDATE
     @GetMapping("/prepare_car_update")
     public String prepareCarUpdate(@RequestParam int carId, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
@@ -109,6 +119,7 @@ public class CarController {
         }
     }
 
+    // UPDATE car
     @PostMapping("/update_car")
     public String updateCar(@RequestParam int carId, @RequestParam int carModelId, @RequestParam FuelType fuelType,
                             @RequestParam String licensePlate, @RequestParam String vin, @RequestParam String equipmentLevel,
@@ -122,8 +133,9 @@ public class CarController {
         }
     }
 
-    @GetMapping("/prepare_car_deletion")
-    public String prepareCarDeletion(@RequestParam int carId, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+    // Confirm CAR deletion
+    @GetMapping("/confirm_car_deletion")
+    public String confirmCarDeletion(@RequestParam int carId, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
             Car car = carService.getCarById(carId);
             CarModel carModel = carService.getCarModelById(car.getCarModelId());
@@ -137,14 +149,11 @@ public class CarController {
         }
     }
 
+    // DELETE car
     @PostMapping("/delete_car")
-    public String deleteCar(@RequestParam int carId, @RequestParam String origin) {
+    public String deleteCar(@RequestParam int carId) {
         carService.deleteCarById(carId);
-        if (origin.equals("overview")) {
-            return "redirect:/salesperson/car_overview";
-        } else {
-            return "/salesperson/car/show_car";
-        }
+        return "redirect:/salesperson/car_overview";
     }
 
     ///////////////////////
@@ -287,7 +296,7 @@ public class CarController {
     @GetMapping("/prepare_car_model_update")
     public String prepareCarModelUpdate(@RequestParam int carModelId, @RequestParam CarBrand carBrand, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
-            CarModel carModel = carService.getCarModelByModelId(carModelId);
+            CarModel carModel = carService.getCarModelById(carModelId);
             List<CarType> carTypes = carService.getAllCarTypes();
             model.addAttribute("carModel", carModel);
             model.addAttribute("carTypes", carTypes);
@@ -306,7 +315,7 @@ public class CarController {
         if (doesCarModelExist) {
             model.addAttribute("carModelExists", "Modellen findes allerede til dette bilmærke");
             model.addAttribute("carBrand", carBrand);
-            CarModel carModel = carService.getCarModelByModelId(carModelId);
+            CarModel carModel = carService.getCarModelById(carModelId);
             model.addAttribute("carModel", carModel);
 
             List<CarType> carTypes = carService.getAllCarTypes();
@@ -321,7 +330,7 @@ public class CarController {
     // Prepare car model DELETION
     @GetMapping("/prepare_car_model_deletion")
     public String prepareCarModelDeletion(@RequestParam int carModelId, @RequestParam CarBrand carBrand, Model model) {
-        CarModel carModel = carService.getCarModelByModelId(carModelId);
+        CarModel carModel = carService.getCarModelById(carModelId);
         model.addAttribute("carBrand", carBrand);
         model.addAttribute("carModel", carModel);
         return "salesperson/car/carmodel/delete_car_model";

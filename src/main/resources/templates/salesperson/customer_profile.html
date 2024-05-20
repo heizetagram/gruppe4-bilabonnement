@@ -43,29 +43,30 @@
     <input type="hidden" name="origin" value="profile">
     <button type="submit">Opdater</button>
 </form>
-
-<form th:action="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}" method="post">
-    <button type="submit">Slet</button>
+<form th:action="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}" method="get">
+    <input type="hidden" name="origin" value="profile">
+    <button type="submit">SLET</button>
 </form>
-
 <form th:action="@{/salesperson/customer_overview}" method="get">
     <button type="submit">Tilbage til oversigt</button>
+</form>
+<td>
+
+</td>
+<form action="/salesperson/new_lease_agreement" method="get">
+    <input type="hidden" name="customerId" th:value="${customer.id}">
+    <button type="submit">Ny Leasingaftale</button>
 </form>
 <hr>
 <hr>
 <h2>Leasingaftaler</h2>
-
-<table>
-    <tr>
-        <th>Start Dato</th>
-        <th>Slut Dato</th>
-        <th>Købte Kilometer</th>
-        <th>Start Kilometer</th>
-        <th>Pris</th>
-        <th>Bil</th>
-        <th>Status??</th>
-    </tr>
-</table>
-
+<span th:each="leaseAgreement : ${leaseAgreements}">
+    <form th:action="@{/salesperson/show_lease_agreement_details/{leaseAgreementId} (leaseAgreementId = ${leaseAgreement.id})}" method="get">
+        <div class="">
+            <!--Receive a Car Model object by the Car ID that the lease agreement has -->
+            <button type="submit"><span th:text="${carService.getCarModelById(leaseAgreement.carId).brand} + ' ' + ${carService.getCarModelById(leaseAgreement.carId).modelName}"></span></button>
+        </div>
+    </form>
+</span>
 </body>
 </html>

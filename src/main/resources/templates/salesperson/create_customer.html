@@ -24,7 +24,7 @@
            th:value="${param.phoneNumber}" required title="8-cifret mobilnummer uden +45!"><br>
     <label for="email">Email:</label><br>
     <span th:if="${invalidInfo!=null || emailAlreadyRegistered!=null}">
-        <span th:text="${invalidInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
+        <span th:text="${invalidInfo}"></span>
         <span th:text="${emailAlreadyRegistered}"></span>
         <!-- Show an error message if the e-mail is already registered in the system -->
         <br>
