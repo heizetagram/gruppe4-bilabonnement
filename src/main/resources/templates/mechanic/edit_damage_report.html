@@ -5,6 +5,9 @@
     <title>Edit Damage Report</title>
 </head>
 <body>
+<header>
+    <div th:replace="~{fragments/navbar/mechanic/navbar}"></div>
+</header>
 <h1>Edit Damage Report</h1>
 <form action="/mechanic/damage_reports/{id}/update" method="post" th:action="@{'/damage_reports/' + ${damageReport.id} + '/update'}">
     <input type="hidden" name="_method" value="PUT"/>

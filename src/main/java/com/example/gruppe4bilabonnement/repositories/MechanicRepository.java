@@ -1,9 +1,14 @@
 package com.example.gruppe4bilabonnement.repositories;
 
+import com.example.gruppe4bilabonnement.models.Car;
 import com.example.gruppe4bilabonnement.models.DamageReport;
+import com.example.gruppe4bilabonnement.models.Workshop;
+import com.example.gruppe4bilabonnement.services.rowmappers.CarRowMapper;
 import com.example.gruppe4bilabonnement.services.rowmappers.DamageReportRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -56,5 +61,27 @@ public class MechanicRepository {
     public List<DamageReport> getAllDamageReportsByCarId(int carId) {
         String query = "SELECT * FROM damage_report WHERE car_id = ?;";
         return jdbcTemplate.query(query, new DamageReportRowMapper(), carId);
+    }
+
+    public void addCarToWorkshop(int carId) {
+        String query = "INSERT INTO workshop (car_id) VALUES (?);";
+        jdbcTemplate.update(query, carId);
+    }
+
+    public Workshop getWorkshopByCarId(int carId) {
+        String query = "SELECT * FROM workshop WHERE car_id = ?;";
+        RowMapper<Workshop> workshopRowMapper = new BeanPropertyRowMapper<>(Workshop.class);
+        return jdbcTemplate.queryForObject(query, workshopRowMapper, carId);
+    }
+
+    public List<Workshop> getAllCarsInWorkshop() {
+        String query = "SELECT * FROM workshop;";
+        RowMapper<Workshop> workshopRowMapper = new BeanPropertyRowMapper<>(Workshop.class);
+        return jdbcTemplate.query(query, workshopRowMapper);
+    }
+
+    public void removeCarFromWorkshop(int carId) {
+        String query = "DELETE FROM workshop WHERE car_id = ?;";
+        jdbcTemplate.update(query, carId);
     }
 }

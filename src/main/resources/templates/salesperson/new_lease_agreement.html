@@ -6,7 +6,15 @@
     <title>New Lease Agreement</title>
 </head>
 <body>
+<header>
+    <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+</header>
 <h1>New Lease Agreement</h1>
+<form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
+    <input type="hidden" name="origin" value="profile">
+    <button type="submit">< Overblik</button>
+</form>
+<br>
 <form method="post" action="/salesperson/create_lease_agreement">
     <label for="customerId">Customer ID:</label>
     <input type="hidden" id="customerId" name="customerId" th:value="${customer.id}" required>
@@ -32,8 +40,9 @@
     <label for="boughtKm">Bought KM:</label>
     <input type="text" id="boughtKm" name="boughtKm" required><br>
 
-    <label for="startKm">Start KM:</label>
-    <input type="text" id="startKm" name="startKm" required><br>
+    <!--<label for="startKm">Start KM:</label>
+    <input type="text" id="startKm" name="startKm" required><br>-->
+    <input type="hidden" name="startKm" value="0">
 
     <label for="paymentTime">Payment Time:</label>
     <input type="text" id="paymentTime" name="paymentTime" required><br>

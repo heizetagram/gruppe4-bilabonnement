@@ -111,6 +111,11 @@ public class CarRepository {
         return jdbcTemplate.query(query, new CarRowMapper());
     }
 
+    public List<Car> getAllAvailableCars() {
+        String query = "SELECT * FROM car WHERE is_rented = 'false';";
+        return jdbcTemplate.query(query, new CarRowMapper());
+    }
+
     public CarBrand getCarBrandByBrand(CarBrand carBrand) {
         String query = "SELECT * FROM car_brand WHERE brand = ?;";
         BeanPropertyRowMapper<CarBrand> carBrandBeanPropertyRowMapper = new BeanPropertyRowMapper<>(CarBrand.class);
@@ -154,5 +159,11 @@ public class CarRepository {
     public void makeCarAvailable(int carId) {
         String query = "UPDATE car SET is_rented = 'false' WHERE id = ?;";
         jdbcTemplate.update(query, carId);
+    }
+
+    // Check if car is rented
+    public void getRentedCarById(int carId) {
+        String query = "SELECT * FROM car WHERE is_rented = 'true' AND id = ?;";
+        jdbcTemplate.queryForObject(query, new CarRowMapper(), carId);
     }
 }

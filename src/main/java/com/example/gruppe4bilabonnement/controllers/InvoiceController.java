@@ -1,10 +1,7 @@
 package com.example.gruppe4bilabonnement.controllers;
 
 import com.example.gruppe4bilabonnement.models.*;
-import com.example.gruppe4bilabonnement.services.CarService;
-import com.example.gruppe4bilabonnement.services.InvoiceService;
-import com.example.gruppe4bilabonnement.services.MechanicService;
-import com.example.gruppe4bilabonnement.services.SalesPersonService;
+import com.example.gruppe4bilabonnement.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +24,8 @@ public class InvoiceController {
 
     @Autowired
     CarService carService;
+    @Autowired
+    private LeaseAgreementService leaseAgreementService;
 
     @GetMapping("/prepare_new_invoice")
     public String prepareNewInvoice(@RequestParam int leaseAgreementId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
@@ -91,7 +90,7 @@ public class InvoiceController {
     }
 
     @PostMapping("/create_invoice")
-    public String createInvoice(@RequestParam int leaseAgreementId, @RequestParam double downPayment, @RequestParam double grossPrice, @RequestParam double netPrice) {
+    public String createInvoice(@RequestParam int leaseAgreementId, @RequestParam double downPayment, @RequestParam double grossPrice, @RequestParam double netPrice, Model model) {
         LocalDate createdAt = invoiceService.getCurrentDate();
         invoiceService.createInvoice(leaseAgreementId, downPayment, grossPrice, netPrice, createdAt);
 
@@ -99,5 +98,27 @@ public class InvoiceController {
         // Make car available again after creating invoice
         carService.makeCarAvailable(leaseAgreement.getCarId());
         return "redirect:/salesperson/customer_overview";
+    }
+
+    @GetMapping("/show_invoice")
+    public String showInvoice(@RequestParam int leaseAgreementId, Model model) {
+        LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementById(leaseAgreementId);
+        Customer customer = salesPersonService.getCustomerById(leaseAgreement.getCustomerId());
+        ZipCode zipCode = salesPersonService.getZipCodeByZipCode(customer.getZipCode());
+        Car car = carService.getCarById(leaseAgreement.getCarId());
+        CarModel carModel = carService.getCarModelById(car.getCarModelId());
+        Invoice invoice = invoiceService.getInvoiceByLeaseAgreementId(leaseAgreementId);
+        List<DamageReport> damageReports = mechanicService.getAllDamageReportsByCarId(car.getId());
+        long period = invoiceService.getLeasePeriodMonths(leaseAgreement);
+
+        model.addAttribute("leaseAgreement", leaseAgreement);
+        model.addAttribute("period", period);
+        model.addAttribute("customer", customer);
+        model.addAttribute("zipCode", zipCode);
+        model.addAttribute("car", car);
+        model.addAttribute("carModel", carModel);
+        model.addAttribute("damageReports", damageReports);
+        model.addAttribute("invoice", invoice);
+        return "salesperson/invoice/show_invoice";
     }
 }
