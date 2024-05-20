@@ -4,3 +4,36 @@
     font-family: Montserrat, sans-serif !important;
     color: #000000;
 }
+
+.navbar {
+    padding: 1.8rem;
+    height: 6rem;
+    overflow: auto;
+    background-color: white;
+}
+
+.navbar a {
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    color: #0e0e0e;
+    text-align: center;
+    float: right;
+    border-radius: 2px;
+    background-color: beige;
+    margin-top: 0.4rem;
+}
+
+.navbar a:hover {
+    transition: 0.27s linear;
+    background-color: #93da59 !important;
+    color: white;
+}
+
+.active {
+    background-color: #55cc4f !important;
+    color: white !important;
+}
+
+.navbar b {
+    float: left;
+}

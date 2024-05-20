@@ -1,0 +1,24 @@
+body {
+    background-color: #f2f2f2;
+}
+
+.center-page {
+    padding: 2rem 10rem 0 10rem;
+}
+
+.frontpage-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+    width: 300px;
+    padding-top: 5rem;
+}
+
+.frontpage {
+    font-size: xx-large;
+}
+
+.frontpage h1 {
+    text-align: center;
+}
