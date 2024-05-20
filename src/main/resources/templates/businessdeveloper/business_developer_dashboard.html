@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Business Developer Dashboard</title>
+    <link rel="stylesheet" th:href="@{/styles/businessdeveloper/dashboard.css}">
 </head>
 <body>
+
+<nav class="navbar">
+    <a href="/business_developer_dashboard">Forside</a>
+    <form action="/logout" method="post">
+        <button type="submit">Log ud</button>
+    </form>
+</nav>
+
 <h1>Business Developer Dashboard</h1>
 
 <form action="/average_payment_time" method="get">

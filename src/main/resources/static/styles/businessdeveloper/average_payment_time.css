@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 body {
     font-family: Montserrat, sans-serif;
     color: #000;
@@ -17,7 +16,6 @@ body {
     padding: 20px;
 }
 
-
 h1 {
     margin-bottom: 20px;
     font-size: 2rem;
@@ -28,7 +26,7 @@ form {
     margin: 10px 0;
 }
 
-button, .navbar a {
+button {
     font-family: Montserrat, sans-serif;
     font-size: 1rem;
     padding: 10px 20px;
@@ -38,32 +36,8 @@ button, .navbar a {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-right: 10px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    height: 40px;
 }
 
-button:hover, .navbar a:hover {
+button:hover {
     background-color: #45a63f;
-}
-
-
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #f4f4f4;
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.navbar a {
-    margin-right: 20px;
-    color: white;
 }

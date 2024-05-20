@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 body {
     font-family: Montserrat, sans-serif;
     color: #000;
@@ -16,7 +15,6 @@ body {
     height: 100vh;
     padding: 20px;
 }
-
 
 h1 {
     margin-bottom: 20px;
@@ -49,7 +47,6 @@ button:hover, .navbar a:hover {
     background-color: #45a63f;
 }
 
-
 .navbar {
     position: fixed;
     top: 0;
@@ -61,9 +58,14 @@ button:hover, .navbar a:hover {
     z-index: 1000;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
 }
 
 .navbar a {
     margin-right: 20px;
     color: white;
+}
+
+.navbar form button {
+    background-color: #ff5555;
 }

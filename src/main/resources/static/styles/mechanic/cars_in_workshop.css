@@ -24,6 +24,7 @@ h1 {
     color: #333;
 }
 
+
 form {
     margin: 10px 0;
 }
@@ -65,5 +66,5 @@ button:hover, .navbar a:hover {
 
 .navbar a {
     margin-right: 20px;
-    color: white;
+    color: #333;
 }

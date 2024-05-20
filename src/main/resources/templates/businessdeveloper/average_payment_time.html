@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Average Payment Time</title>
+    <link rel="stylesheet" th:href="@{/styles/businessdeveloper/average_payment_time.css}">
 </head>
 <body>
 <h1>Average Payment Time</h1>
 <p>The average payment time is: <span th:text="${averagePaymentTime}"></span></p>
+
+<form action="/business_developer_dashboard" method="get">
+    <button type="submit">Back to Dashboard</button>
+</form>
+
+
 </body>
 </html>
