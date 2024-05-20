@@ -1,8 +1,0 @@
-<nav class="navbar">
-    <!--<div class="img-pointer" th:onclick="|window.location.href='@{/userFrontpage(userId=${user.userId})}'|" th:insert="~{home/navbar/navLogo :: b}"></div>-->
-    <form action="/logout" method="post">
-        <button type="submit">Log ud</button></form>
-    <a th:href="@{/admin/employee_overview}">Personaleoverblik</a>
-    <a class="active" th:href="@{/}">Forside</a>
-    <!--<div th:insert="~{home/footer :: footer}"></div>-->
-</nav>

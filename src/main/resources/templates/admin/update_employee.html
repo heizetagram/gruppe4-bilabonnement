@@ -3,49 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Opdater Personale</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/admin/update_employee.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/admin/navbar}"></div>
+        <div th:replace="~{fragments/navbar/admin/frontpage}"></div>
     </header>
-    <h1>Opdater <span th:text="${employee.email}"></span></h1>
-    <form action="/admin/employee_overview" method="get">
-        <button type="submit">< OVERBLIK</button>
-    </form>
-    <br>
-    <form action="/admin/update_employee" method="post">
-        <input type="hidden" name="employeeId" th:value="${employee.id}">
-        <span th:if="${invalidInfo != null}">
-            <span th:text="${invalidInfo}"></span>
-            <br>
-        </span>
-        <label for="email">E-mail:</label>
-        <!--If user has entered an email that doesn't contain ".", then show an error message-->
-        <span th:if="${invalidInfo != null}">
-            <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}" required>
-        </span>
-        <span th:unless="${invalidInfo}">
-            <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${employee.email}" required>
-        </span>
-        <br>
-        <br>
-        <label for="employeePassword">Adgangskode:</label>
-        <input type="password" maxlength="100" id="employeePassword" name="employeePassword" placeholder="Indtast adgangskode" th:value="${employee.employeePassword}" required>
-        <br>
-        <br>
-        <label for="employeeRole">Rolle:</label>
-        <select id="employeeRole" name="employeeRole">
-            <option value="SALESPERSON" th:selected="${employee.employeeRole == 'SALESPERSON'}">Medarbejder</option>
-            <option value="MECHANIC" th:selected="${employee.employeeRole == 'MECHANIC'}">Mekaniker</option>
-            <option value="BUSINESS_DEV" th:selected="${employee.employeeRole == 'BUSINESS_DEV'}">Forretningsudvikler</option>
-            <option value="ADMIN" th:selected="${employee.employeeRole == 'ADMIN'}">Admin</option>
-        </select>
-        <br>
-        <br>
-        <button type="submit">GEM ÆNDRINGER</button>
-    </form>
-    <form action="/admin/employee_overview" method="get">
-        <button type="submit">FORTRYD</button>
-    </form>
+    <div class="center-page">
+        <div class="center-form" id="center-employee-form">
+            <div class="form-box">
+                <h1>Opdater <span th:text="${employee.email}"></span></h1>
+                <form action="/admin/employee_overview" method="get">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <br>
+                <form action="/admin/update_employee" method="post">
+                    <input type="hidden" name="employeeId" th:value="${employee.id}">
+                    <span th:if="${invalidInfo != null}">
+                        <span th:text="${invalidInfo}"></span>
+                        <br>
+                    </span>
+                    <label id="label-email" for="email">E-mail:</label>
+                    <!--If user has entered an email that doesn't contain ".", then show an error message-->
+                    <span class="error-message" th:if="${invalidInfo != null}">
+                        <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}" required>
+                    </span>
+                    <span th:unless="${invalidInfo}">
+                        <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${employee.email}" required>
+                    </span>
+                    <br>
+                    <br>
+                    <label for="employeePassword">Adgangskode:</label>
+                    <input type="password" maxlength="100" id="employeePassword" name="employeePassword" placeholder="Indtast adgangskode" th:value="${employee.employeePassword}" required>
+                    <br>
+                    <br>
+                    <label for="employeeRole">Rolle:</label>
+                    <br>
+                    <select id="employeeRole" name="employeeRole">
+                        <option value="SALESPERSON" th:selected="${employee.employeeRole == 'SALESPERSON'}">Medarbejder</option>
+                        <option value="MECHANIC" th:selected="${employee.employeeRole == 'MECHANIC'}">Mekaniker</option>
+                        <option value="BUSINESS_DEV" th:selected="${employee.employeeRole == 'BUSINESS_DEV'}">Forretningsudvikler</option>
+                        <option value="ADMIN" th:selected="${employee.employeeRole == 'ADMIN'}">Admin</option>
+                    </select>
+                    <br>
+                    <br>
+                    <button class="operation-button create-button" type="submit">GEM ÆNDRINGER</button>
+                </form>
+                <form action="/admin/employee_overview" method="get">
+                    <button class="operation-button cancel-button" type="submit">FORTRYD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>
