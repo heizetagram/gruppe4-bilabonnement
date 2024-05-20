@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Average Transport Time</title>
+    <link rel="stylesheet" th:href="@{/styles/businessdeveloper/average_transport_time.css}">
 </head>
 <body>
 <h1>Average Transport Time</h1>
 <p>The average transport time is: <span th:text="${averageTransportTime}"></span></p>
+
+<form action="/business_developer_dashboard" method="get">
+    <button type="submit">Back to Dashboard</button>
+</form>
+
 </body>
 </html>
