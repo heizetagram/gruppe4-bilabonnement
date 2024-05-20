@@ -5,34 +5,54 @@
     <title>Damage Reports</title>
 </head>
 <body>
-<h1>Damage Reports</h1>
+<header>
+    <div th:replace="~{fragments/navbar/mechanic/navbar}"></div>
+</header>
+<h1>Bilskader</h1>
+<form action="/mechanic/cars_in_workshop_overview" method="get">
+    <button type="submit">< Overblik</button>
+</form>
+<br>
+<span th:if="${!damageReports.isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Car ID</th>
+            <th>Damage Description</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
 
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Car ID</th>
-        <th>Damage Description</th>
-        <th>Price</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
+        <tr th:each="damageReport : ${damageReports}">
+            <td th:text="${damageReport.id}"></td>
+            <td th:text="${damageReport.carId}"></td>
+            <td th:text="${damageReport.damageText}"></td>
+            <td th:text="${damageReport.price}"></td>
+            <td>
+                <a th:href="@{'/damage_reports/' + ${damageReport.id} + '/edit'}">Edit</a>
+                <form th:action="@{'/damage_reports/' + ${damageReport.id} + '/delete'}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</span>
+<span th:if="${damageReports.isEmpty()}">
+    <p>Der er ikke blevet registreret nogle skader.</p>
+</span>
 
-    <tr th:each="damageReport : ${damageReports}">
-        <td th:text="${damageReport.id}"></td>
-        <td th:text="${damageReport.carId}"></td>
-        <td th:text="${damageReport.damageText}"></td>
-        <td th:text="${damageReport.price}"></td>
-        <td>
-            <a th:href="@{'/damage_reports/' + ${damageReport.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/damage_reports/' + ${damageReport.id} + '/delete'}" method="post">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<form th:action="@{/mechanic/mechanic_dashboard/{carId} (carId = ${carId})}" method="get">
+    <button type="submit">Opret ny skade</button>
+</form>
 
+<span th:if="${!damageReports.isEmpty()}">
+    <form th:action="@{/mechanic/return_car/{carId} (carId = ${carId})}" method="post">
+        <button type="submit">Send bil tilbage</button>
+    </form>
+</span>
 </body>
 </html>

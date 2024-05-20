@@ -133,22 +133,24 @@
             </tr>
         </table>
         <br>
-        <h2>Skader</h2>
-        <table>
-            <span th:each="damageReport : ${damageReports}">
-                <tr>
-                    <th>Beskrivelse:</th>
-                    <td></td>
-                    <td th:text="${damageReport.damageText}"></td>
-                </tr>
-                <tr>
-                    <th>Pris (inkl. moms):</th>
-                    <td th:text="${damageReport.price}"></td>
-                    <td>kr.</td>
-                </tr>
-            </span>
-        </table>
-        <br>
+        <span th:if="${!damageReports.isEmpty()}">
+            <h2>Skader</h2>
+            <table>
+                <span th:each="damageReport : ${damageReports}">
+                    <tr>
+                        <th>Beskrivelse:</th>
+                        <td></td>
+                        <td th:text="${damageReport.damageText}"></td>
+                    </tr>
+                    <tr>
+                        <th>Pris (inkl. moms):</th>
+                        <td th:text="${damageReport.price}"></td>
+                        <td>kr.</td>
+                    </tr>
+                </span>
+            </table>
+            <br>
+        </span>
         <h2>Finanseringsdetaljer</h2>
         <table>
             <tr>

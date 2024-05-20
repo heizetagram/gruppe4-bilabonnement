@@ -1,14 +1,12 @@
 package com.example.gruppe4bilabonnement.services;
 
-import com.example.gruppe4bilabonnement.models.Car;
-import com.example.gruppe4bilabonnement.models.CarModel;
-import com.example.gruppe4bilabonnement.models.DamageReport;
-import com.example.gruppe4bilabonnement.models.LeaseAgreement;
+import com.example.gruppe4bilabonnement.models.*;
 import com.example.gruppe4bilabonnement.models.enums.CarType;
 import com.example.gruppe4bilabonnement.repositories.CarRepository;
 import com.example.gruppe4bilabonnement.repositories.InvoiceRepository;
 import com.example.gruppe4bilabonnement.repositories.MechanicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -109,5 +107,20 @@ public class InvoiceService {
 
     public LocalDate getCurrentDate() {
         return LocalDate.now();
+    }
+
+    public boolean checkIfInvoiceExists(int leaseAgreementId) {
+        boolean doesInvoiceExist;
+        try {
+            invoiceRepository.getInvoiceByLeaseAgreementId(leaseAgreementId);
+            doesInvoiceExist = true;
+        } catch (EmptyResultDataAccessException e) {
+            doesInvoiceExist = false;
+        }
+        return doesInvoiceExist;
+    }
+
+    public Invoice getInvoiceByLeaseAgreementId(int leaseAgreementId) {
+        return invoiceRepository.getInvoiceByLeaseAgreementId(leaseAgreementId);
     }
 }

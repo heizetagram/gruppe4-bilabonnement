@@ -160,4 +160,10 @@ public class CarRepository {
         String query = "UPDATE car SET is_rented = 'false' WHERE id = ?;";
         jdbcTemplate.update(query, carId);
     }
+
+    // Check if car is rented
+    public void getRentedCarById(int carId) {
+        String query = "SELECT * FROM car WHERE is_rented = 'true' AND id = ?;";
+        jdbcTemplate.queryForObject(query, new CarRowMapper(), carId);
+    }
 }

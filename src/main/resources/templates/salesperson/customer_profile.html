@@ -64,7 +64,7 @@
     <form th:action="@{/salesperson/show_lease_agreement_details/{leaseAgreementId} (leaseAgreementId = ${leaseAgreement.id})}" method="get">
         <div class="">
             <!--Receive a Car Model object by the Car ID that the lease agreement has -->
-            <button type="submit"><span th:text="${carService.getCarModelById(leaseAgreement.carId).modelName}"></span></button>
+            <button type="submit"><span th:text="${carService.getCarModelById(leaseAgreement.carId).brand} + ' ' + ${carService.getCarModelById(leaseAgreement.carId).modelName}"></span></button>
         </div>
     </form>
 </span>

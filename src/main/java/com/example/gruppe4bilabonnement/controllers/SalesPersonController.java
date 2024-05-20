@@ -4,9 +4,7 @@ import com.example.gruppe4bilabonnement.models.Car;
 import com.example.gruppe4bilabonnement.models.Customer;
 
 import com.example.gruppe4bilabonnement.models.LeaseAgreement;
-import com.example.gruppe4bilabonnement.services.CarService;
-import com.example.gruppe4bilabonnement.services.LeaseAgreementService;
-import com.example.gruppe4bilabonnement.services.SalesPersonService;
+import com.example.gruppe4bilabonnement.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +21,10 @@ public class SalesPersonController {
     private LeaseAgreementService leaseAgreementService;
     @Autowired
     private CarService carService;
+    @Autowired
+    private MechanicService mechanicService;
+    @Autowired
+    private InvoiceService invoiceService;
 
 
     @GetMapping("/new_customer")
@@ -134,6 +136,7 @@ public class SalesPersonController {
         }
     }
 
+    // Prepare new lease agreement
     @GetMapping("/new_lease_agreement")
     public String showNewLeaseAgreementForm(@RequestParam int customerId, Model model) {
         List<Car> cars = carService.getAllAvailableCars();
@@ -154,6 +157,7 @@ public class SalesPersonController {
         return "salesperson/new_lease_agreement";
     } */
 
+    // Create lease agreement
     @PostMapping("/create_lease_agreement")
     public String createLeaseAgreement(@RequestParam int customerId, @ModelAttribute LeaseAgreement leaseAgreement) {
         Car car = carService.getCarById(leaseAgreement.getCarId());
@@ -167,10 +171,25 @@ public class SalesPersonController {
         return "redirect:/salesperson/customer_overview";
     }
 
+    // Show lease agreement
    @GetMapping("/show_lease_agreement_details/{leaseAgreementId}")
    public String showLeaseAgreementDetails(@PathVariable int leaseAgreementId, Model model) {
        LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementById(leaseAgreementId);
+       boolean doesInvoiceExist = invoiceService.checkIfInvoiceExists(leaseAgreementId);
+
+
        if (leaseAgreement != null) {
+           boolean isCarInService = mechanicService.checkIfCarIsInService(leaseAgreement.getCarId());
+           boolean isCarRented = carService.checkIfCarIsRented(leaseAgreement.getCarId());
+
+           if (doesInvoiceExist) {
+               model.addAttribute("invoiceExists", "En faktura er allerede blevet oprettet for denne leasingaftale.");
+           } else if (isCarInService && isCarRented) {
+               model.addAttribute("carInService", "Bilen er på værkstedet");
+               model.addAttribute("carIsRented", "Bilen er udlejet");
+           } else if (isCarRented) {
+               model.addAttribute("carIsRented", "");
+           }
            model.addAttribute("leaseAgreement", leaseAgreement);
            return "salesperson/lease_agreement_details";
        } else {
@@ -206,5 +225,11 @@ public class SalesPersonController {
     public String deleteLeaseAgreement(@PathVariable int id) {
         leaseAgreementService.deleteLeaseAgreement(id);
         return "redirect:/salesperson/customer_overview";
+    }
+
+    @PostMapping("/send_car_to_service")
+    public String sendCarToService(@RequestParam int carId, @RequestParam int leaseAgreementId) {
+        mechanicService.addCarToWorkshop(carId);
+        return "redirect:/salesperson/show_lease_agreement_details/" + leaseAgreementId;
     }
 }

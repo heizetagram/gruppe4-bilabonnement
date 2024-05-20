@@ -168,4 +168,15 @@ public class CarService {
     public void makeCarAvailable(int carId) {
         carRepository.makeCarAvailable(carId);
     }
+
+    public boolean checkIfCarIsRented(int carId) {
+        boolean isCarRented;
+        try {
+            carRepository.getRentedCarById(carId);
+            isCarRented = true;
+        } catch (EmptyResultDataAccessException e) {
+            isCarRented = false;
+        }
+        return isCarRented;
+    }
 }
