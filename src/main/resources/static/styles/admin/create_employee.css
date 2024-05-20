@@ -100,3 +100,8 @@ select {
 .cancel-button:hover {
     background: #c4c4c4 !important;
 }
+
+.error-message {
+    color: red;
+    font-size: small;
+}

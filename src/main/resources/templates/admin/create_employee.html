@@ -19,12 +19,12 @@
                 </form>
                 <br>
                 <form action="/admin/create_employee" method="post">
+                    <label id="label-email" for="email">E-mail</label>
                     <span th:if="${invalidInfo != null || emailAlreadyRegistered != null}">
-                        <span th:text="${invalidInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
-                        <span th:text="${emailAlreadyRegistered}"></span> <!-- Show an error message if the e-mail is already registered in the system -->
+                        <span class="error-message" th:text="${invalidInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
+                        <span class="error-message" th:text="${emailAlreadyRegistered}"></span> <!-- Show an error message if the e-mail is already registered in the system -->
                         <br>
                     </span>
-                    <label id="label-email" for="email">E-mail</label>
                     <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}" required>
                     <br>
                     <br>
