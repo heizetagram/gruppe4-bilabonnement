@@ -85,13 +85,13 @@ select {
     box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
 }
 
-.create-button {
-    background: #55cc4f !important;
+.update-button {
+    background: #318cc1 !important;
     margin: 1rem 0 1rem 0;
 }
 
-.create-button:hover {
-    background-color: #68e462 !important;
+.update-button:hover {
+    background-color: #4ea6e5 !important;
 }
 
 .cancel-button {
@@ -103,5 +103,6 @@ select {
 }
 
 .error-message {
-    color: #d00000;
+    color: red;
+    font-size: small;
 }

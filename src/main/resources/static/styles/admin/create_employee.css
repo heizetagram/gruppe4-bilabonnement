@@ -84,12 +84,12 @@ select {
     box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
 }
 
-.create-button {
+.update-button {
     background: #55cc4f !important;
     margin: 1rem 0 1rem 0;
 }
 
-.create-button:hover {
+.update-button:hover {
     background-color: #68e462 !important;
 }
 

@@ -20,13 +20,11 @@
                 <br>
                 <form action="/admin/update_employee" method="post">
                     <input type="hidden" name="employeeId" th:value="${employee.id}">
-                    <span th:if="${invalidInfo != null}">
-                        <span th:text="${invalidInfo}"></span>
-                        <br>
-                    </span>
-                    <label id="label-email" for="email">E-mail:</label>
+                    <label id="label-email" for="email">E-mail</label>
                     <!--If user has entered an email that doesn't contain ".", then show an error message-->
-                    <span class="error-message" th:if="${invalidInfo != null}">
+                    <span th:if="${invalidInfo != null}">
+                        <span class="error-message" th:text="${invalidInfo}"></span>
+                        <br>
                         <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}" required>
                     </span>
                     <span th:unless="${invalidInfo}">
@@ -34,11 +32,11 @@
                     </span>
                     <br>
                     <br>
-                    <label for="employeePassword">Adgangskode:</label>
+                    <label for="employeePassword">Adgangskode</label>
                     <input type="password" maxlength="100" id="employeePassword" name="employeePassword" placeholder="Indtast adgangskode" th:value="${employee.employeePassword}" required>
                     <br>
                     <br>
-                    <label for="employeeRole">Rolle:</label>
+                    <label for="employeeRole">Rolle</label>
                     <br>
                     <select id="employeeRole" name="employeeRole">
                         <option value="SALESPERSON" th:selected="${employee.employeeRole == 'SALESPERSON'}">Medarbejder</option>
@@ -48,7 +46,7 @@
                     </select>
                     <br>
                     <br>
-                    <button class="operation-button create-button" type="submit">GEM ÆNDRINGER</button>
+                    <button class="operation-button update-button" type="submit">OPDATER</button>
                 </form>
                 <form action="/admin/employee_overview" method="get">
                     <button class="operation-button cancel-button" type="submit">FORTRYD</button>
