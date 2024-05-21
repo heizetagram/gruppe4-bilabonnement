@@ -6,7 +6,7 @@
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
     </header>
     <h1>Tilføj ny <span th:text="${carBrand.brand}"></span>-model</h1>
     <form action="/salesperson/prepare_new_car" method="get">

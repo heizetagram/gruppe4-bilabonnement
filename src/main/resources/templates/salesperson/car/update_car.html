@@ -6,7 +6,7 @@
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
     </header>
     <h1>Opdater <span th:text="${carModel.brand} + ' ' + ${carModel.modelName} + ' - ' + ${car.licensePlate}"></span></h1>
     <form action="/salesperson/show_car" method="get">

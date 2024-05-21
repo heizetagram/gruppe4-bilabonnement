@@ -6,7 +6,7 @@ body {
     padding: 2rem 10rem 0 10rem;
 }
 
-#employee-overview-form {
+#car-overview-form {
     margin: auto auto 4rem;
     width: 50rem;
     padding-top: inherit;
@@ -66,11 +66,11 @@ td {
     border-color: #d8d8d8;
 }
 
-#employee-update-td {
+#car-update-td {
     padding: 10px 5px 10px 10px;
 }
 
-#employee-delete-td {
+#car-delete-td {
     padding: 10px 10px 10px 5px;
 }
 
@@ -83,20 +83,20 @@ td {
     padding: 0.3rem;
 }
 
-#employee-update-button {
+#car-update-button {
     background: #318cc1;
     width: 75px;
 }
 
-#employee-update-button:hover {
+#car-update-button:hover {
     background: #4ea6e5;
 }
 
-#employee-delete-button {
+#car-delete-button {
     background: #e14b3b;
     width: 70px;
 }
 
-#employee-delete-button:hover {
+#car-delete-button:hover {
     background: #f17161;
 }
