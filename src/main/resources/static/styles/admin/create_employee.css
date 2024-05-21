@@ -1,0 +1,107 @@
+body {
+    background-color: #f2f2f2;
+}
+
+.center-page {
+    padding: 2rem 10rem 0 10rem;
+}
+
+.center-form {
+    margin: auto;
+    width: 25%;
+    padding-top: inherit;
+}
+
+#center-employee-form {
+    display: flex;
+    justify-content: center;
+}
+
+.form-box {
+    background: white;
+    border-radius: 6px;
+    height: auto;
+    padding: 2rem;
+    width: 100%;
+    box-shadow: rgb(169 169 169) 0 4px 30px;
+}
+
+.overview {
+    margin-top: 5px;
+    padding: 10px 10px 10px 0;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    background-color: white;
+}
+
+.overview:hover {
+    background: #f2f2f2;
+}
+
+label {
+    padding-right: 7.9rem;
+    font-size: small;
+}
+
+#label-email {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 0;
+}
+
+input {
+    border: none;
+    font-weight: 400;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
+    width: 90%;
+    padding: 0.87rem;
+    margin-top: 0.4rem;
+    font-size: small;
+}
+
+select {
+    margin-top: 0.4rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
+}
+
+.operation-button {
+    font-size: small;
+    line-height: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-radius: 6px;
+    border: none;
+    padding: 0 30px;
+    height: 49px;
+    margin: 0;
+    color: white !important;
+    width: 100%;
+    box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
+}
+
+.update-button {
+    background: #55cc4f !important;
+    margin: 1rem 0 1rem 0;
+}
+
+.update-button:hover {
+    background-color: #68e462 !important;
+}
+
+.cancel-button {
+    background: #979797 !important;
+}
+
+.cancel-button:hover {
+    background: #c4c4c4 !important;
+}
+
+.error-message {
+    color: red;
+    font-size: small;
+}

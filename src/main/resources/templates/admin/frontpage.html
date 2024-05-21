@@ -8,8 +8,17 @@
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/admin/navbar}"></div>
+        <div th:replace="~{fragments/navbar/admin/frontpage}"></div>
     </header>
-    <h1>Velkommen, Admin 🧑🏻‍💻</h1>
+    <div class="center-page">
+        <div class="frontpage-center">
+            <div class="frontpage">
+                <h1>Velkommen, Admin 🧑🏻‍💻</h1>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

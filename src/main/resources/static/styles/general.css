@@ -4,3 +4,76 @@
     font-family: Montserrat, sans-serif !important;
     color: #000000;
 }
+
+.navbar {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 1rem 1.1rem;
+    height: 4rem;
+}
+
+.navbar img {
+    max-height: 75%;
+    height: auto;
+    width: auto;
+}
+
+.navbar .nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.navbar a, #nav-button {
+    padding: 0.5rem;
+    color: #101011;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-left: 2rem;
+    border: none;
+    background: none;
+}
+
+#nav-button {
+    margin-left: 0 !important;
+}
+
+button {
+    cursor: pointer;
+}
+
+.navbar a:hover, #nav-button:hover {
+    transition: 0.27s linear;
+    color: #54c9ff !important;
+}
+
+.active {
+    color: #1892c3 !important;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+}
+
+.footer-centering {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
