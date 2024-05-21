@@ -7,12 +7,9 @@
 </head>
 <body>
 
-<nav class="navbar">
-    <a href="/business_developer_dashboard">Forside</a>
-    <form action="/logout" method="post">
-        <button type="submit">Log ud</button>
-    </form>
-</nav>
+<header>
+    <div th:replace="~{fragments/navbar/businessdev/navbar}"></div>
+</header>
 
 <h1>Business Developer Dashboard</h1>
 
