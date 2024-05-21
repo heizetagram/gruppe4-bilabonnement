@@ -26,7 +26,6 @@
         </tr>
         </thead>
         <tbody>
-
         <tr th:each="damageReport : ${damageReports}">
             <td th:text="${damageReport.id}"></td>
             <td th:text="${damageReport.carId}"></td>
@@ -45,11 +44,9 @@
 <span th:if="${damageReports.isEmpty()}">
     <p>Der er ikke blevet registreret nogle skader.</p>
 </span>
-
 <form th:action="@{/mechanic/mechanic_dashboard/{carId} (carId = ${carId})}" method="get">
     <button type="submit">Opret ny skade</button>
 </form>
-
 <span th:if="${!damageReports.isEmpty()}">
     <form th:action="@{/mechanic/return_car/{carId} (carId = ${carId})}" method="post">
         <button type="submit">Send bil tilbage</button>
