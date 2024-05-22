@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 body {
     font-family: Montserrat, sans-serif;
     color: #000;
@@ -17,13 +16,11 @@ body {
     padding: 20px;
 }
 
-
 h1 {
     margin-bottom: 20px;
     font-size: 2rem;
     color: #333;
 }
-
 
 form {
     margin: 10px 0;
@@ -44,12 +41,50 @@ button, .navbar a {
     display: flex;
     align-items: center;
     height: 40px;
+    color: white;
 }
 
 button:hover, .navbar a:hover {
     background-color: #45a63f;
 }
 
+
+form[action="/mechanic/cars_in_workshop_overview"] button {
+    background-color: #55cc4f;
+}
+
+a[href*="/edit"], a[href*="/delete"] {
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100px;
+    text-align: center;
+}
+
+form[action*="/delete"] button {
+    background-color: #dc3545;
+    padding: 10px 20px;
+    height: 40px;
+    width: 100px;
+}
+
+form[action*="return_car"] button {
+    background-color: #55cc4f;
+}
+
+button:contains('< Overblik') {
+    background-color: #55cc4f;
+}
+
+button:contains('Biler på værksted') {
+    background-color: #55cc4f;
+}
 
 .navbar {
     position: fixed;
@@ -62,10 +97,29 @@ button:hover, .navbar a:hover {
     z-index: 1000;
     display: flex;
     justify-content: flex-start;
-    margin-right: auto;
+    align-items: center;
 }
 
 .navbar a {
     margin-right: 20px;
+    color: #333;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: white;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
     color: #333;
 }
