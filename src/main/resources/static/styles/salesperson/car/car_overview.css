@@ -1,12 +1,16 @@
 body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 100px;
     background-color: #f2f2f2;
+    min-height: 100vh;
 }
 
 .center-page {
     padding: 2rem 10rem 0 10rem;
 }
 
-#employee-overview-form {
+#car-overview-form {
     margin: auto auto 4rem;
     width: 50rem;
     padding-top: inherit;
@@ -37,7 +41,7 @@ body {
 }
 
 table {
-    border-collapse: collapse;
+    border-collapse: collapse !important;
     width: 100%;
 }
 
@@ -49,32 +53,50 @@ td {
     padding: 10px;
 }
 
-#table-email {
-    width: 50%;
+#car-brand-td {
+    padding: 0;
+}
+
+#table-brand {
+    width: 30%;
     padding: 10px 10px 10px 0;
 }
 
-#table-role {
-    width: 10rem;
+#table-model {
+    width: 30%;
     padding: 10px 10px 10px 0;
 }
 
-.general-employee-info {
+#table-license-plate {
+    width: 20%;
+    padding: 10px 10px 10px 0;
+}
+
+.general-car-info {
     border-style: solid;
     background: rgb(255, 255, 255);
     width: 100%;
     border-color: #d8d8d8;
 }
 
-#employee-update-td {
+.car-brand-button {
+    font-size: inherit;
+    padding: 10px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+#car-update-td {
     padding: 10px 5px 10px 10px;
 }
 
-#employee-delete-td {
+#car-delete-td {
     padding: 10px 10px 10px 5px;
 }
 
-.employee-button {
+.car-button {
     border-style: none;
     border-radius: 4px;
     border-width: 1px;
@@ -83,20 +105,24 @@ td {
     padding: 0.3rem;
 }
 
-#employee-update-button {
+.car-update-button {
     background: #318cc1;
     width: 75px;
 }
 
-#employee-update-button:hover {
+#car-brands-update-button {
+    width: 20%;
+}
+
+.car-update-button:hover {
     background: #4ea6e5;
 }
 
-#employee-delete-button {
+.car-delete-button {
     background: #e14b3b;
     width: 70px;
 }
 
-#employee-delete-button:hover {
+.car-delete-button:hover {
     background: #f17161;
 }

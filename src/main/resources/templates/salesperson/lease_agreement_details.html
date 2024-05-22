@@ -7,7 +7,7 @@
 </head>
 <body>
 <header>
-    <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
 </header>
 <h1>Lease Agreement Details</h1>
 <form th:action="@{/salesperson/customer_profile/{id}(id=${leaseAgreement.customerId})}" method="get">

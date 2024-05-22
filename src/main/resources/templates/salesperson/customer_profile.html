@@ -2,71 +2,85 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${customer.firstName} + ' ' + ${customer.lastName} + ' Profil'">Kundeprofil</title>
+    <title th:text="${customer.firstName} + ' ' + ${customer.lastName}"></title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/customer/customer_profile.css}">
 </head>
 <body>
 <header>
-    <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    <div th:replace="~{fragments/navbar/salesperson/customer_overview}"></div>
 </header>
-<h1 th:text="${customer.firstName} + ' ' + ${customer.lastName} + ' Profil'">Kundeprofil</h1>
 
-<hr>
-<hr>
-
-<table>
-    <tr>
-        <th>Fornavn:</th>
-        <td th:text="${customer.firstName}"></td>
-    </tr>
-    <tr>
-        <th>Efternavn:</th>
-        <td th:text="${customer.lastName}"></td>
-    </tr>
-    <tr>
-        <th>Mobilnummer:</th>
-        <td th:text="${customer.phoneNumber}"></td>
-    </tr>
-    <tr>
-        <th>Email:</th>
-        <td th:text="${customer.email}"></td>
-    </tr>
-    <tr>
-        <th>Adresse:</th>
-        <td th:text="${customer.address}"></td>
-    </tr>
-    <tr>
-        <th>Postnummer:</th>
-        <td th:text="${customer.zipCode}"></td>
-    </tr>
-</table>
-<form th:action="@{/salesperson/prepare_update/{id}(id=${customer.id})}" method="get">
-    <input type="hidden" name="origin" value="profile">
-    <button type="submit">Opdater</button>
-</form>
-<form th:action="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}" method="get">
-    <input type="hidden" name="origin" value="profile">
-    <button type="submit">SLET</button>
-</form>
-<form th:action="@{/salesperson/customer_overview}" method="get">
-    <button type="submit">Tilbage til oversigt</button>
-</form>
-<td>
-
-</td>
-<form action="/salesperson/new_lease_agreement" method="get">
-    <input type="hidden" name="customerId" th:value="${customer.id}">
-    <button type="submit">Ny Leasingaftale</button>
-</form>
-<hr>
-<hr>
-<h2>Leasingaftaler</h2>
-<span th:each="leaseAgreement : ${leaseAgreements}">
-    <form th:action="@{/salesperson/show_lease_agreement_details/{leaseAgreementId} (leaseAgreementId = ${leaseAgreement.id})}" method="get">
-        <div class="">
-            <!--Receive a Car Model object by the Car ID that the lease agreement has -->
-            <button type="submit"><span th:text="${carService.getCarModelById(leaseAgreement.carId).brand} + ' ' + ${carService.getCarModelById(leaseAgreement.carId).modelName}"></span></button>
+<div class="center-page">
+    <div id="customer-overview-form">
+        <div class="form-box">
+            <h1 th:text="${customer.firstName} + ' ' + ${customer.lastName}"></h1>
+            <form th:action="@{/salesperson/customer_overview}" method="get">
+                <button class="overview" type="submit">< OVERBLIK</button>
+            </form>
+            <br>
+            <div class="button-container">
+                <form th:action="@{/salesperson/prepare_update/{id}(id=${customer.id})}" method="get">
+                    <input type="hidden" name="origin" value="profile">
+                    <button class="operation-button update-button" type="submit">✎ Rediger</button>
+                </form>
+                <form th:action="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}" method="get">
+                    <input type="hidden" name="origin" value="profile">
+                    <button class="operation-button delete-button" type="submit">🗑 Slet</button>
+                </form>
+            </div>
+            <table>
+                <tr class="customer-tr">
+                    <th>Fornavn:</th>
+                    <td th:text="${customer.firstName}"></td>
+                </tr>
+                <tr class="customer-tr">
+                    <th>Efternavn:</th>
+                    <td th:text="${customer.lastName}"></td>
+                </tr>
+                <tr class="customer-tr">
+                    <th>Mobilnummer:</th>
+                    <td th:text="${customer.phoneNumber}"></td>
+                </tr>
+                <tr class="customer-tr">
+                    <th>Email:</th>
+                    <td th:text="${customer.email}"></td>
+                </tr>
+                <tr class="customer-tr">
+                    <th>Adresse:</th>
+                    <td th:text="${customer.address}"></td>
+                </tr>
+                <tr class="customer-tr">
+                    <th>Postnummer:</th>
+                    <td th:text="${customer.zipCode} + ', ' + ${zipCode.city}"></td>
+                </tr>
+            </table>
+            <br>
+            <hr>
+            <br>
+            <h2>Leasingaftaler</h2>
+            <form action="/salesperson/new_lease_agreement" method="get">
+                <input type="hidden" name="customerId" th:value="${customer.id}">
+                <button id="create-button" type="submit">+ Opret ny leasingaftale</button>
+            </form>
+            <table>
+                <thead><th id="table-car">BIL</th><th class="table-date">STARTDATO</th><th class="table-date">SLUTDATO</th></thead>
+                <tr class="general-lease-agreement-info" th:each="leaseAgreement : ${leaseAgreements}">
+                    <td id="car-td">
+                        <form th:action="@{/salesperson/show_lease_agreement_details/{leaseAgreementId} (leaseAgreementId = ${leaseAgreement.id})}" method="get">
+                            <!--Receive a Car Model object by the Car ID that the lease agreement has -->
+                            <button class="car-button" type="submit"><span th:text="${carService.getCarModelById(leaseAgreement.carId).brand} + ' ' + ${carService.getCarModelById(leaseAgreement.carId).modelName} + ' - ' + ${carService.getCarById(leaseAgreement.carId).licensePlate}"></span></button>
+                        </form>
+                    </td>
+                    <td th:text="${leaseAgreement.startDate}"></td>
+                    <td th:text="${leaseAgreement.endDate}"></td>
+                </tr>
+            </table>
         </div>
-    </form>
-</span>
+    </div>
+</div>
+<footer>
+    <div th:replace="~{fragments/footer}"></div>
+</footer>
 </body>
 </html>

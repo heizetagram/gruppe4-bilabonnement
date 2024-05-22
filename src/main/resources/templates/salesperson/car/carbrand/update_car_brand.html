@@ -3,23 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Opdater Bilmærke</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/carbrand/update_car_brand.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
-    <h1>Opdater <span th:text="${carBrand.brand}"></span></h1>
-    <form action="/salesperson/update_car_brand" method="post">
-        <span th:if="${carBrandExists != null}">
-            <span th:text="${carBrandExists}"></span> <!-- Show an error message if the car brand already exists -->
-            <br>
-        </span>
-        <input type="hidden" name="oldCarBrand" th:value="${carBrand.brand}">
-        <label for="newCarBrand">Bilmærke:</label>
-        <input type="text" maxlength="50" name="newCarBrand" id="newCarBrand" placeholder="Indtast bilmærke" th:value="${carBrand.brand}" required>
-        <br>
-        <br>
-        <button type="submit">Opdater bilmærke</button>
-    </form>
+    <div class="center-page">
+        <div class="center-form" id="center-car-form">
+            <div class="form-box">
+                <h1>Opdater <span th:text="${carBrand.brand}"></span></h1>
+                <form action="/salesperson/car_brand_overview" method="get">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <br>
+                <form action="/salesperson/update_car_brand" method="post">
+                    <input type="hidden" name="oldCarBrand" th:value="${carBrand.brand}">
+                    <label for="newCarBrand">Bilmærke</label>
+                    <span th:if="${carBrandExists != null}">
+                        <span class="error-message" th:text="${carBrandExists}"></span> <!-- Show an error message if the car brand already exists -->
+                        <input type="text" maxlength="50" name="newCarBrand" id="newCarBrand" placeholder="Indtast bilmærke" th:value="${param.brand}" required> <!-- This param doesn't work -->
+                    </span>
+                    <span th:unless="${carBrandExists}">
+                        <br>
+                        <input type="text" maxlength="50" name="newCarBrand" id="newCarBrand" placeholder="Indtast bilmærke" th:value="${carBrand.brand}" required>
+                    </span>
+                    <br>
+                    <br>
+                    <button class="operation-button update-button" type="submit">Opdater bilmærke</button>
+                </form>
+                <form action="/salesperson/car_brand_overview" method="get">
+                    <button class="operation-button cancel-button" type="submit">FORTRYD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

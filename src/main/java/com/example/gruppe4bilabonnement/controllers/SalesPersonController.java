@@ -4,6 +4,7 @@ import com.example.gruppe4bilabonnement.models.Car;
 import com.example.gruppe4bilabonnement.models.Customer;
 
 import com.example.gruppe4bilabonnement.models.LeaseAgreement;
+import com.example.gruppe4bilabonnement.models.ZipCode;
 import com.example.gruppe4bilabonnement.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -119,6 +120,8 @@ public class SalesPersonController {
         if (cookieValue.equals("SALESPERSON")) {
             Customer customer = salesPersonService.getCustomerById(id);
             model.addAttribute("customer", customer);
+            ZipCode zipCode = salesPersonService.getZipCodeByZipCode(customer.getZipCode());
+            model.addAttribute("zipCode", zipCode);
 
             if (origin.equals("overview")) {
                 List<Customer> customers = salesPersonService.getAllCustomers();

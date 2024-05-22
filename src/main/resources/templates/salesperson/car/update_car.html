@@ -3,67 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <title>Opdater Bil</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/update_car.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
-    <h1>Opdater <span th:text="${carModel.brand} + ' ' + ${carModel.modelName} + ' - ' + ${car.licensePlate}"></span></h1>
-    <form action="/salesperson/show_car" method="get">
-        <input type="hidden" name="origin" th:value="${origin}">
-        <input type="hidden" name="carId" th:value="${car.id}">
-        <input type="hidden" name="carModelId" th:value="${carModel.id}">
-        <button type="submit">< OVERBLIK</button>
-    </form>
-    <br>
-    <form action="/salesperson/update_car" method="post">
-        <input type="hidden" name="origin" th:value="${origin}">
-        <input type="hidden" name="carId" th:value="${car.id}">
-        <label for="carModelId">Model:</label>
-        <select id="carModelId" name="carModelId">
-            <option value="">Vælg model</option>
-            <option th:each="carModel : ${carModels}" th:text="${carModel.modelName}"
-                    th:selected="${carModel.id == car.carModelId}" th:value="${carModel.id}"></option>
-        </select>
-        <br>
-        <br>
-        <label for="fuelType">Brændstof:</label>
-        <select id="fuelType" name="fuelType">
-            <option value="">Vælg brændstof</option>
-            <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.displayValue}"
-                    th:selected="${fuelType == car.fuelType}" th:value="${fuelType}"></option>
-        </select>
-        <br>
-        <br>
-        <label for="licensePlate">Nummerplade:</label>
-        <input type="hidden" name="carModelId" th:value="${car.carModelId}">
-        <input type="text" minlength="2" maxlength="7" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" th:value="${car.licensePlate}" required>
-        <br>
-        <br>
-        <label for="vin">VIN:</label>
-        <input type="text" maxlength="50" id="vin" name="vin" placeholder="Indtast VIN" th:value="${car.vin}" required>
-        <br>
-        <br>
-        <label for="equipmentLevel">Udstyrsniveau:</label>
-        <input type="text" maxlength="50" id="equipmentLevel" name="equipmentLevel" placeholder="Indtast udstyrsniveau" th:value="${car.equipmentLevel}">
-        <br>
-        <br>
-        <label for="km">Kilometertal:</label>
-        <input type="number" min="0" id="km" name="km" placeholder="Indtast kilometertal" th:value="${car.km}" required>
-        <br>
-        <br>
-        <label for="registrationFee">Registreringsafgift:</label>
-        <input type="number" min="0" step="0.01" id="registrationFee" name="registrationFee" placeholder="Indtast registreringsafgift" th:value="${car.registrationFee}" required>
-        <br>
-        <br>
-        <label for="steelPrice">Stålpris:</label>
-        <input type="number" min="0" step="0.01" id="steelPrice" name="steelPrice" placeholder="Indtast stålpris" th:value="${car.steelPrice}" required>
-        <br>
-        <br>
-        <label for="co2Emission">CO2-ejerafgift:</label>
-        <input type="number" min="0" id="co2Emission" name="co2Emission" placeholder="Indtast CO2-ejerafgift" th:value="${car.co2Emission}" required>
-        <br>
-        <button type="submit">Opdater bil</button>
-    </form>
+    <div class="center-page">
+        <div class="center-form" id="center-car-form">
+            <div class="form-box">
+                <h1>Opdater <span th:text="${carModel.brand} + ' ' + ${carModel.modelName} + ' - ' + ${car.licensePlate}"></span></h1>
+                <form action="/salesperson/show_car" method="get">
+                    <input type="hidden" name="origin" th:value="${origin}">
+                    <input type="hidden" name="carId" th:value="${car.id}">
+                    <input type="hidden" name="carModelId" th:value="${carModel.id}">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <br>
+                <form action="/salesperson/update_car" method="post" class="two-column-form">
+                    <div class="form-left">
+                        <input type="hidden" name="origin" th:value="${origin}">
+                        <input type="hidden" name="carId" th:value="${car.id}">
+                        <label for="carModelId">Model</label>
+                        <select id="carModelId" name="carModelId">
+                            <option value="">Vælg model</option>
+                            <option th:each="carModel : ${carModels}" th:text="${carModel.modelName}"
+                                    th:selected="${carModel.id == car.carModelId}" th:value="${carModel.id}"></option>
+                        </select>
+                        <br>
+                        <br>
+                        <label for="fuelType">Brændstof</label>
+                        <select id="fuelType" name="fuelType">
+                            <option value="">Vælg brændstof</option>
+                            <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.displayValue}"
+                                    th:selected="${fuelType == car.fuelType}" th:value="${fuelType}"></option>
+                        </select>
+                        <br>
+                        <br>
+                        <label for="licensePlate">Nummerplade</label>
+                        <input type="hidden" name="carModelId" th:value="${car.carModelId}">
+                        <input type="text" minlength="2" maxlength="7" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" th:value="${car.licensePlate}" required>
+                        <br>
+                        <br>
+                        <label for="vin">Stelnummer</label>
+                        <input type="text" maxlength="50" id="vin" name="vin" placeholder="Indtast stelnummer" th:value="${car.vin}" required>
+                        <br>
+                        <br>
+                        <label for="equipmentLevel">Udstyrsniveau</label>
+                        <input type="text" maxlength="50" id="equipmentLevel" name="equipmentLevel" placeholder="Indtast udstyrsniveau" th:value="${car.equipmentLevel}">
+                    </div>
+                    <div class="form-right">
+                        <label for="km">Kilometertal</label>
+                        <input type="number" min="0" id="km" name="km" placeholder="Indtast kilometertal" th:value="${car.km}" required>
+                        <br>
+                        <br>
+                        <label for="registrationFee">Registreringsafgift</label>
+                        <input type="number" min="0" step="0.01" id="registrationFee" name="registrationFee" placeholder="Indtast registreringsafgift" th:value="${car.registrationFee}" required>
+                        <br>
+                        <br>
+                        <label for="steelPrice">Stålpris</label>
+                        <input type="number" min="0" step="0.01" id="steelPrice" name="steelPrice" placeholder="Indtast stålpris" th:value="${car.steelPrice}" required>
+                        <br>
+                        <br>
+                        <label for="co2Emission">CO2-ejerafgift</label>
+                        <input type="number" min="0" id="co2Emission" name="co2Emission" placeholder="Indtast CO2-ejerafgift" th:value="${car.co2Emission}" required>
+                        <br>
+                        <button class="operation-button update-button" type="submit">Opdater bil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>
