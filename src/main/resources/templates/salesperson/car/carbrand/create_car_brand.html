@@ -3,26 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Opret Bilmærke</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/carbrand/create_car_brand.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
-    <h1>Tilføj bilmærke</h1>
-    <form action="/salesperson/car_brand_overview" method="get">
-        <button type="submit">< OVERBLIK</button>
-    </form>
-    <br>
-    <form action="/salesperson/create_car_brand" method="post">
-        <span th:if="${carBrandExists != null}">
-            <span th:text="${carBrandExists}"></span> <!-- Show an error message if the car brand already exists -->
-            <br>
-        </span>
-        <label for="carBrand">Bilmærke:</label>
-        <input type="text" maxlength="50" name="carBrand" id="carBrand" placeholder="Indtast bilmærke" required>
-        <br>
-        <br>
-        <button type="submit">Opret bilmærke</button>
-    </form>
+    <div class="center-page">
+        <div class="center-form" id="center-car-form">
+            <div class="form-box">
+                <h1>Tilføj bilmærke</h1>
+                <form action="/salesperson/car_brand_overview" method="get">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <br>
+                <form action="/salesperson/create_car_brand" method="post">
+                    <label for="carBrand">Bilmærke</label>
+                    <span th:if="${carBrandExists != null}">
+                        <span class="error-message" th:text="${carBrandExists}"></span> <!-- Show an error message if the car brand already exists -->
+                        <br>
+                    </span>
+                    <input type="text" maxlength="50" name="carBrand" id="carBrand" placeholder="Indtast bilmærke" required>
+                    <br>
+                    <br>
+                    <button class="operation-button update-button" type="submit">Opret bilmærke</button>
+                </form>
+                <form action="/salesperson/car_brand_overview" method="get">
+                    <button class="operation-button cancel-button" type="submit">FORTRYD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

@@ -50,7 +50,6 @@ button:hover, .navbar a:hover {
     background-color: #45a63f;
 }
 
-
 .navbar {
     position: fixed;
     top: 0;
@@ -62,7 +61,6 @@ button:hover, .navbar a:hover {
     z-index: 1000;
     display: flex;
     justify-content: flex-start;
-    margin-right: auto;
 }
 
 .navbar a {

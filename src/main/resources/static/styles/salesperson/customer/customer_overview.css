@@ -1,12 +1,16 @@
 body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 100px;
     background-color: #f2f2f2;
+    min-height: 100vh;
 }
 
 .center-page {
     padding: 2rem 10rem 0 10rem;
 }
 
-#car-overview-form {
+#customer-overview-form {
     margin: auto auto 4rem;
     width: 50rem;
     padding-top: inherit;
@@ -21,7 +25,7 @@ body {
 }
 
 #create-button {
-    padding-top: 0.5rem;
+    padding: 0.5rem 0 0.5rem 0;
     color: #1892c3;
     text-decoration: none;
     cursor: pointer;
@@ -37,8 +41,9 @@ body {
 }
 
 table {
-    border-collapse: collapse;
+    border-collapse: collapse !important;
     width: 100%;
+    text-align: left;
 }
 
 thead {
@@ -49,32 +54,54 @@ td {
     padding: 10px;
 }
 
-#table-email {
-    width: 50%;
+th {
+    text-align: left;
+}
+
+#customer-td {
+    padding: 0;
+}
+
+#table-first-name {
+    width: 30%;
     padding: 10px 10px 10px 0;
 }
 
-#table-role {
-    width: 10rem;
+#table-last-name {
+    width: 30%;
     padding: 10px 10px 10px 0;
 }
 
-.general-employee-info {
+#table-phone-number {
+    width: 20%;
+    padding: 10px 10px 10px 0;
+}
+
+.general-customer-info {
     border-style: solid;
     background: rgb(255, 255, 255);
     width: 100%;
     border-color: #d8d8d8;
 }
 
-#car-update-td {
+.customer-name-button {
+    font-size: inherit;
+    padding: 10px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.customer-update-td {
     padding: 10px 5px 10px 10px;
 }
 
-#car-delete-td {
+.customer-delete-td {
     padding: 10px 10px 10px 5px;
 }
 
-.employee-button {
+.customer-button {
     border-style: none;
     border-radius: 4px;
     border-width: 1px;
@@ -83,20 +110,20 @@ td {
     padding: 0.3rem;
 }
 
-#car-update-button {
+.customer-update-button {
     background: #318cc1;
     width: 75px;
 }
 
-#car-update-button:hover {
+.customer-update-button:hover {
     background: #4ea6e5;
 }
 
-#car-delete-button {
+.customer-delete-button {
     background: #e14b3b;
     width: 70px;
 }
 
-#car-delete-button:hover {
+.customer-delete-button:hover {
     background: #f17161;
 }

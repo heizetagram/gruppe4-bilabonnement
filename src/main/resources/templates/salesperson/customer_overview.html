@@ -2,47 +2,55 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Kunde Overblik</title>
+    <title>Kundeoverblik</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/customer/customer_overview.css}">
 </head>
 <body>
 <header>
-    <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
+    <div th:replace="~{fragments/navbar/salesperson/customer_overview}"></div>
 </header>
-<h1>Kunde Overblik</h1>
-
-<a href="/salesperson/new_customer">
-    <button type="button">NY KUNDE</button>
-</a>
-
-<table>
-    <tr>
-        <th>Fornavn</th>
-        <th>Efternavn</th>
-        <th>Mobilnummer</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="customer : ${customers}">
-        <td>
-            <span th:text="${customer.firstName}"></span>
-            <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
-                <input type="hidden" name="origin" value="profile">
-                <button type="submit">Se profil</button>
-            </form>
-        </td>
-        <td th:text="${customer.lastName}"></td>
-        <td th:text="${customer.phoneNumber}"></td>
-        <td>
-            <form th:action="@{/salesperson/prepare_update/{id}(id=${customer.id})}" method="get">
-                <input type="hidden" name="origin" value="overview">
-                <button type="submit">OPDATER</button>
-            </form>
-            <form th:action="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}" method="get">
-                <input type="hidden" name="origin" value="overview">
-                <button type="submit">SLET</button>
-            </form>
-        </td>
-    </tr>
-</table>
-
+<div class="center-page">
+    <div id="customer-overview-form">
+        <div class="form-box">
+            <h1>Kundeoverblik</h1>
+            <a href="/salesperson/new_customer">
+                <button id="create-button" type="submit">+ Opret ny kunde</button>
+            </a>
+            <table>
+                <thead>
+                    <th id="table-first-name">FORNAVN</th>
+                    <th id="table-last-name">EFTERNAVN</th>
+                    <th id="table-phone-number">MOBILNUMMER</th>
+                </thead>
+                <tr class="general-customer-info" th:each="customer : ${customers}">
+                    <td id="customer-td">
+                        <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
+                            <input type="hidden" name="origin" value="profile">
+                            <button class="customer-name-button" type="submit"><span th:text="${customer.firstName}"></span></button>
+                        </form>
+                    </td>
+                    <td th:text="${customer.lastName}"></td>
+                    <td th:text="${customer.phoneNumber}"></td>
+                    <td class="customer-update-td">
+                        <form th:action="@{/salesperson/prepare_update/{id}(id=${customer.id})}" method="get">
+                            <input type="hidden" name="origin" value="overview">
+                            <button class="customer-button customer-update-button" type="submit">✎ Rediger</button>
+                        </form>
+                    </td>
+                    <td class="customer-delete-td">
+                        <form th:action="@{/salesperson/confirm_delete_customer/{id}(id=${customer.id})}" method="get">
+                            <input type="hidden" name="origin" value="overview">
+                            <button class="customer-button customer-delete-button" type="submit">🗑 Slet</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<footer>
+    <div th:replace="~{fragments/footer}"></div>
+</footer>
 </body>
 </html>

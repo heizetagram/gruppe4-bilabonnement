@@ -2,32 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Slet bil</title>
+    <title>Slet Bil</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/delete_car.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
-    <h1>Slet <span th:text="${carModel.brand} + ' ' + ${carModel.modelName}"></span></h1>
-    <form action="/salesperson/show_car" method="get">
-        <input type="hidden" name="origin" th:value="${origin}">
-        <input type="hidden" name="carId" th:value="${car.id}">
-        <input type="hidden" name="carModelId" th:value="${carModel.id}">
-        <button type="submit">< OVERBLIK</button>
-    </form>
-    <br>
-    <h2>Er du sikker på at du vil slette <span th:text="${car.licensePlate}"></span> ?</h2>
-    <form action="/salesperson/delete_car" method="post">
-        <input type="hidden" name="origin" th:value="${origin}">
-        <input type="hidden" name="carId" th:value="${car.id}">
-        <button type="submit">SLET</button>
-    </form>
-    <form action="/salesperson/show_car" method="get">
-        <input type="hidden" name="origin" th:value="${origin}">
-        <input type="hidden" name="carId" th:value="${car.id}">
-        <input type="hidden" name="carModelId" th:value="${car.carModelId}">
-        <button type="submit">FORTRYD</button>
-    </form>
-    <br>
+    <div class="center-page">
+        <div class="center-form" id="center-car-form">
+            <div class="form-box">
+                <h1>Slet <span th:text="${carModel.brand} + ' ' + ${carModel.modelName}"></span></h1>
+                <form action="/salesperson/show_car" method="get">
+                    <input type="hidden" name="origin" th:value="${origin}">
+                    <input type="hidden" name="carId" th:value="${car.id}">
+                    <input type="hidden" name="carModelId" th:value="${carModel.id}">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <div class="info-text">
+                    <a>Er du sikker på at du vil slette <span th:text="${car.licensePlate}"></span> ?</a>
+                </div>
+                <form action="/salesperson/delete_car" method="post">
+                    <input type="hidden" name="origin" th:value="${origin}">
+                    <input type="hidden" name="carId" th:value="${car.id}">
+                    <button class="operation-button delete-button" type="submit">SLET</button>
+                </form>
+                <form action="/salesperson/show_car" method="get">
+                    <input type="hidden" name="origin" th:value="${origin}">
+                    <input type="hidden" name="carId" th:value="${car.id}">
+                    <input type="hidden" name="carModelId" th:value="${car.carModelId}">
+                    <button class="operation-button cancel-button" type="submit">FORTRYD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

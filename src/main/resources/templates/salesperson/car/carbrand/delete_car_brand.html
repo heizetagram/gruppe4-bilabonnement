@@ -3,21 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Slet Bilmærke</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/carbrand/delete_car_brand.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
-    <h1>Slet <span th:text="${carBrand.brand}"></span></h1>
-    <h2>Er du sikker på at du vil slette <span th:text="${carBrand.brand}"></span>?</h2>
-    <form action="/salesperson/delete_car_brand" method="post">
-        <span th:if="${carBrandHasModelsError != null}">
-            <span th:text="${carBrandHasModelsError}"></span>
-            <br>
-            <br>
-        </span>
-        <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
-        <button type="submit">Slet bilmærke</button>
-    </form>
+    <div class="center-page">
+        <div class="center-form" id="center-car-form">
+            <div class="form-box">
+                <h1>Slet <span th:text="${carBrand.brand}"></span></h1>
+                <form action="/salesperson/car_brand_overview" method="get">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <div class="info-text">
+                    <a>Er du sikker på at du vil slette <span th:text="${carBrand.brand}"></span>?</a>
+                </div>
+                <form action="/salesperson/delete_car_brand" method="post">
+                    <span th:if="${carBrandHasModelsError != null}">
+                        <span class="error-message" th:text="${carBrandHasModelsError}"></span>
+                        <br>
+                        <br>
+                    </span>
+                    <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                    <button class="operation-button delete-button" type="submit">Slet bilmærke</button>
+                </form>
+                <form action="/salesperson/car_brand_overview" method="get">
+                    <button class="operation-button cancel-button" type="submit">FORTRYD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>
