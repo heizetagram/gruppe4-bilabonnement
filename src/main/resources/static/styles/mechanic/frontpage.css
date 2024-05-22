@@ -61,6 +61,7 @@ button:hover, .navbar a:hover {
     z-index: 1000;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
 }
 
 .navbar a {

@@ -41,13 +41,7 @@ button, .navbar a {
     display: flex;
     align-items: center;
     height: 40px;
-    color: white;
 }
-
-button:hover, .navbar a:hover {
-    background-color: #45a63f;
-}
-
 
 form[action="/mechanic/cars_in_workshop_overview"] button {
     background-color: #55cc4f;
