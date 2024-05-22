@@ -32,8 +32,8 @@
             <td th:text="${damageReport.damageText}"></td>
             <td th:text="${damageReport.price}"></td>
             <td>
-                <a th:href="@{'/damage_reports/' + ${damageReport.id} + '/edit'}">Edit</a>
-                <form th:action="@{'/damage_reports/' + ${damageReport.id} + '/delete'}" method="post">
+                <a th:href="@{'/mechanic/damage_reports/' + ${damageReport.id} + '/edit'}">Edit</a>
+                <form th:action="@{'/mechanic/damage_reports/' + ${damageReport.id} + '/delete'}" method="post">
                     <button type="submit">Delete</button>
                 </form>
             </td>
