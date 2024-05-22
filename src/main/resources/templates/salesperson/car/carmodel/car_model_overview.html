@@ -3,38 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Bilmodeller</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/carmodel/car_model_overview.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
-    <h1><span th:text="${carBrand.brand}"></span>-modeller</h1>
+    <div class="center-page">
+        <div id="car-model-overview-form">
+            <div class="form-box">
+                <h1><span th:text="${carBrand.brand}"></span>-modeller</h1>
+                <form action="/salesperson/car_brand_overview" method="get">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
 
-    <!-- CREATE CAR MODEL -->
-    <form action="/salesperson/prepare_new_car_model" method="get">
-        <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
-        <button type="submit">+ Tilføj ny bilmodel</button>
-    </form>
-    <br>
-    <table>
-        <thead><th>MODEL</th><th>TYPE</th></thead>
-        <tr th:each="carModel : ${carModels}">
-            <td><span th:text="${carModel.modelName}"></span></td>
-            <td><span th:text="${carModel.carType}"></span></td>
-
-            <td><form action="/salesperson/prepare_car_model_update" method="get">
-                <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
-                <input type="hidden" name="carModelId" th:value="${carModel.id}">
-                <button type="submit">✎ Rediger</button>
-            </form></td>
-
-            <td><form action="/salesperson/prepare_car_model_deletion" method="get">
-                <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
-                <input type="hidden" name="carModelId" th:value="${carModel.id}">
-                <button type="submit">🗑 Slet</button>
-            </form></td>
-
-        </tr>
-    </table>
+                <!-- CREATE CAR MODEL -->
+                <form action="/salesperson/prepare_new_car_model" method="get">
+                    <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                    <button id="create-button" type="submit">+ Tilføj ny bilmodel</button>
+                </form>
+                <br>
+                <table>
+                    <thead><td id="table-model">MODEL</td><td id="table-type">TYPE</td></thead>
+                    <tr class="general-car-model-info" th:each="carModel : ${carModels}">
+                        <td th:text="${carModel.modelName}"></td>
+                        <td th:text="${carModel.carType.displayValue}"></td>
+                        <td id="car-model-update-td"><form action="/salesperson/prepare_car_model_update" method="get">
+                            <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                            <input type="hidden" name="carModelId" th:value="${carModel.id}">
+                            <button class="car-model-button car-model-update-button" type="submit">✎ Rediger</button>
+                        </form></td>
+                        <td id="car-model-delete-td"><form action="/salesperson/prepare_car_model_deletion" method="get">
+                            <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                            <input type="hidden" name="carModelId" th:value="${carModel.id}">
+                            <button class="car-model-button car-model-delete-button" type="submit">🗑 Slet</button>
+                        </form></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

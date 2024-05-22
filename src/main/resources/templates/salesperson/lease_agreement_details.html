@@ -3,51 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lease Agreement Details</title>
+    <title>Leasingaftale</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/leaseagreement/lease_agreement_details.css}">
 </head>
 <body>
-<header>
-    <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
-</header>
-<h1>Lease Agreement Details</h1>
-<form th:action="@{/salesperson/customer_profile/{id}(id=${leaseAgreement.customerId})}" method="get">
-    <input type="hidden" name="origin" value="profile">
-    <button type="submit">< Overblik</button>
-</form>
-<br>
-<p>Start date: <span th:text="${leaseAgreement.startDate}"></span></p>
-<p>End date: <span th:text="${leaseAgreement.endDate}"></span></p>
-<p>Bought kilometers: <span th:text="${leaseAgreement.boughtKm}"></span></p>
-<p>Starting kilometers: <span th:text="${leaseAgreement.startKm}"></span></p>
-<p>Payment time: <span th:text="${leaseAgreement.paymentTime}"></span></p>
-<p>Transport time: <span th:text="${leaseAgreement.transportTime}"></span></p>
-<p>Price: <span th:text="${leaseAgreement.price}"></span></p>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/customer_overview}"></div>
+    </header>
+    <div class="center-page">
+        <div id="customer-overview-form">
+            <div class="form-box">
+                <h1>Leasingaftale</h1>
+                <h2><span th:text="${carModel.brand} + ' ' + ${carModel.modelName} + ' - ' + ${car.licensePlate}"></span></h2>
+                <form th:action="@{/salesperson/customer_profile/{id}(id=${leaseAgreement.customerId})}" method="get">
+                    <input type="hidden" name="origin" value="profile">
+                    <button class="overview" type="submit">< Overblik</button>
+                </form>
+                <br>
+                <table>
+                    <tr>
+                        <th>Startdato:</th>
+                        <td th:text="${leaseAgreement.startDate}"></td>
+                    </tr>
+                    <tr>
+                        <th>Slutdato:</th>
+                        <td th:text="${leaseAgreement.endDate}"></td>
+                    </tr>
+                    <tr>
+                        <th>Købte km:</th>
+                        <td th:text="${leaseAgreement.boughtKm} + ' km'"></td>
+                    </tr>
+                    <tr>
+                        <th>Start km:</th>
+                        <td th:text="${leaseAgreement.startKm} + ' km'"></td>
+                    </tr>
+                    <tr>
+                        <th>Betalingstid:</th>
+                        <td th:text="${leaseAgreement.paymentTime}"></td>
+                    </tr>
+                    <tr>
+                        <th>Transporttid:</th>
+                        <td th:text="${leaseAgreement.transportTime}"></td>
+                    </tr>
+                    <tr>
+                        <th>Pris pr. måned:</th>
+                        <td th:text="${leaseAgreement.price} + ' ' + ' kr.'"></td>
+                    </tr>
+                </table>
 
-<span th:if="${carInService == null && carIsRented != null && invoiceExists == null}">
-    <form action="/salesperson/send_car_to_service" method="post">
-        <input type="hidden" name="carId" th:value="${leaseAgreement.carId}">
-        <input type="hidden" name="leaseAgreementId" th:value="${leaseAgreement.id}">
-        <button type="submit">Send til service</button>
-    </form>
-</span>
+                <span th:if="${carInService == null && carIsRented != null && invoiceExists == null}">
+                    <form action="/salesperson/send_car_to_service" method="post">
+                        <input type="hidden" name="carId" th:value="${leaseAgreement.carId}">
+                        <input type="hidden" name="leaseAgreementId" th:value="${leaseAgreement.id}">
+                        <button class="operation-button send-to-mechanic-button" type="submit">Send til service</button>
+                    </form>
+                </span>
 
-<span th:if="${carInService != null && carIsRented != null && invoiceExists == null}">
-    <span th:text="${carInService}"></span>
-</span>
+                <span th:if="${carInService != null && carIsRented != null && invoiceExists == null}">
+                    <br>
+                    <span class="not-available-message" th:text="${carInService}"></span>
+                </span>
 
-<span th:if="${carInService == null && carIsRented == null && invoiceExists == null}">
-    <form action="/salesperson/prepare_new_invoice" method="get">
-        <input type="hidden" name="leaseAgreementId" th:value="${leaseAgreement.id}">
-        <button type="submit">Opret faktura</button>
-    </form>
-</span>
+                <span th:if="${carInService == null && carIsRented == null && invoiceExists == null}">
+                    <form action="/salesperson/prepare_new_invoice" method="get">
+                        <input type="hidden" name="leaseAgreementId" th:value="${leaseAgreement.id}">
+                        <button class="operation-button create-button" type="submit">Opret faktura</button>
+                    </form>
+                </span>
 
-<span th:if="${invoiceExists != null}">
-    <span th:text="${invoiceExists}"></span>
-    <form action="/salesperson/show_invoice" method="get">
-        <input type="hidden" name="leaseAgreementId" th:value="${leaseAgreement.id}">
-        <button type="submit">Vis faktura</button>
-    </form>
-</span>
+                <span th:if="${invoiceExists != null}">
+                    <br>
+                    <span class="not-available-message" th:text="${invoiceExists}"></span>
+                    <br>
+                    <br>
+                    <form action="/salesperson/show_invoice" method="get">
+                        <input type="hidden" name="leaseAgreementId" th:value="${leaseAgreement.id}">
+                        <button class="operation-button show-invoice-button" type="submit">Vis faktura</button>
+                    </form>
+                </span>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

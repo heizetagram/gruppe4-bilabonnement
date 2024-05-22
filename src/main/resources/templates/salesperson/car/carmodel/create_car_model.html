@@ -3,35 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Tilføj Bilmodel</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/carmodel/create_car_model.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
-    <h1>Tilføj ny <span th:text="${carBrand.brand}"></span>-model</h1>
-    <form action="/salesperson/prepare_new_car" method="get">
-        <button type="submit">< OVERBLIK</button>
-    </form>
-    <br>
-    <form action="/salesperson/create_car_model" method="post">
-        <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
-        <span th:if="${carModelExists != null}">
-            <span th:text="${carModelExists}"></span>
-            <br>
-            <br>
-        </span>
-        <label for="carModelName">Modelnavn:</label>
-        <input type="text" maxlength="50" id="carModelName" name="carModelName" placeholder="Indtast modelnavn" th:value="${param.carModelName}" required>
-        <br>
-        <br>
-        <label for="carType">Biltype:</label>
-        <select id="carType" name="carType" required>
-            <option value="">Vælg biltype</option>
-            <option th:each="carType : ${carTypes}" th:text="${carType.displayValue}" th:value="${carType}"></option>
-        </select>
-        <br>
-        <br>
-        <button type="submit">Opret model</button>
-    </form>
+    <div class="center-page">
+        <div id="car-model-overview-form">
+            <div class="form-box">
+                <h1>Tilføj ny <span th:text="${carBrand.brand}"></span>-model</h1>
+                <form action="/salesperson/car_model_overview" method="get">
+                    <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <br>
+                <form action="/salesperson/create_car_model" method="post">
+                    <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                    <label for="carModelName">Modelnavn</label>
+                    <span th:if="${carModelExists != null}">
+                        <span class="error-message" th:text="${carModelExists}"></span>
+                        <br>
+                    </span>
+                    <input type="text" maxlength="50" id="carModelName" name="carModelName" placeholder="Indtast modelnavn" th:value="${param.carModelName}" required>
+                    <br>
+                    <br>
+                    <label for="carType">Biltype</label>
+                    <select id="carType" name="carType" required>
+                        <option value="">Vælg biltype</option>
+                        <option th:each="carType : ${carTypes}" th:text="${carType.displayValue}" th:value="${carType}"></option>
+                    </select>
+                    <br>
+                    <br>
+                    <button class="operation-button create-button" type="submit">Opret model</button>
+                </form>
+                <form action="/salesperson/car_model_overview" method="get">
+                    <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                    <button class="operation-button cancel-button" type="submit">FORTRYD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

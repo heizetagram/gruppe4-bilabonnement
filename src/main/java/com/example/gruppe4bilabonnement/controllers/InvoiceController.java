@@ -111,6 +111,17 @@ public class InvoiceController {
         List<DamageReport> damageReports = mechanicService.getAllDamageReportsByCarId(car.getId());
         long period = invoiceService.getLeasePeriodMonths(leaseAgreement);
 
+        // Get invoice created at date, formatted in Danish date
+        String createdAt = invoiceService.getDanishFormattedDate(invoice.getCreatedAt());
+
+        // Start and end date for lease period
+        String startDateFormatted = invoiceService.getDanishFormattedDate(leaseAgreement.getStartDate());
+        String endDateFormatted = invoiceService.getDanishFormattedDate(leaseAgreement.getEndDate());
+
+
+        model.addAttribute("createdAt", createdAt);
+        model.addAttribute("startDate", startDateFormatted);
+        model.addAttribute("endDate", endDateFormatted);
         model.addAttribute("leaseAgreement", leaseAgreement);
         model.addAttribute("period", period);
         model.addAttribute("customer", customer);
