@@ -7,16 +7,17 @@ body {
 }
 
 .center-page {
-    padding: 2rem 10rem 4rem 10rem;
+    padding: 2rem 10rem 0 10rem;
+    margin-bottom: 4rem;
 }
 
 .center-form {
     margin: auto;
-    width: 50%;
+    width: 25%;
     padding-top: inherit;
 }
 
-#center-car-form {
+#center-login-form {
     display: flex;
     justify-content: center;
 }
@@ -28,28 +29,6 @@ body {
     padding: 2rem;
     width: 100%;
     box-shadow: rgb(169 169 169) 0 4px 30px;
-}
-
-.two-column-form {
-    display: flex;
-    justify-content: space-between;
-}
-
-.form-left, .form-right {
-    width: 48%;
-}
-
-.overview {
-    margin-top: 5px;
-    padding: 10px 10px 10px 0;
-    border-radius: 6px;
-    text-decoration: none;
-    border: none;
-    background-color: white;
-}
-
-.overview:hover {
-    background: #f2f2f2;
 }
 
 label {
@@ -69,19 +48,6 @@ input {
     font-size: small;
 }
 
-select {
-    margin-top: 0.4rem;
-    padding: 0.75rem;
-    border-radius: 5px;
-    box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
-    width: 100%;
-}
-
-#carBrand {
-    width: 48%;
-    padding: 0.75rem;
-}
-
 .operation-button {
     font-size: small;
     line-height: 12px;
@@ -97,21 +63,11 @@ select {
     box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
 }
 
-.create-button {
-    background: #55cc4f !important;
-    margin: 2.8rem 0 0 0;
-    height: 42px;
-}
-
-.create-button:hover {
-    background-color: #68e462 !important;
-}
-
-.cancel-button {
+.login-button {
     background: #979797 !important;
 }
 
-.cancel-button:hover {
+.login-button:hover {
     background: #c4c4c4 !important;
 }
 
