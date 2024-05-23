@@ -59,14 +59,14 @@ public class MechanicController {
     @PostMapping("/damage_reports/{id}/delete")
     public String deleteDamageReport(@PathVariable("id") int id) {
         mechanicService.deleteDamageReport(id);
-        return "redirect:/damage_reports";
+        return "redirect:/mechanic/damage_reports";
     }
 
     @PostMapping("/damage_reports/{id}/update")
     public String updateDamageReport(@PathVariable("id") int id, @ModelAttribute DamageReport damageReport) {
         damageReport.setId(id);
         mechanicService.updateDamageReport(damageReport);
-        return "redirect:/damage_reports";
+        return "redirect:/mechanic/cars_in_workshop_overview";
     }
 
     @GetMapping("/damage_reports/{id}/edit")

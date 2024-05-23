@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Damage Report</title>
+    <link rel="stylesheet" th:href="@{/styles/mechanic/edit_damage_report.css}">
 </head>
 <body>
 <header>
     <div th:replace="~{fragments/navbar/mechanic/navbar}"></div>
 </header>
 <h1>Edit Damage Report</h1>
-<form action="/mechanic/damage_reports/{id}/update" method="post" th:action="@{'/damage_reports/' + ${damageReport.id} + '/update'}">
+<form action="/mechanic/damage_reports/{id}/update" method="post" th:action="@{'/mechanic/damage_reports/' + ${damageReport.id} + '/update'}">
     <input type="hidden" name="_method" value="PUT"/>
     <input type="hidden" name="id" th:value="${damageReport.id}"/>
 
@@ -24,6 +25,6 @@
 
     <button type="submit">Update Damage Report</button>
 </form>
-<a href="/mechanic/damage_reports">Cancel</a>
+<a href="/mechanic/cars_in_workshop_overview">Cancel</a>
 </body>
 </html>
