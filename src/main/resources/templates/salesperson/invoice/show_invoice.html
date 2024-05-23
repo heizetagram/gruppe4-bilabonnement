@@ -7,23 +7,9 @@
     <link rel="stylesheet" th:href="@{/styles/salesperson/invoice/show_invoice.css}">
 </head>
 <body>
-    <header>
-        <div th:replace="~{fragments/navbar/salesperson/customer_overview}"></div>
-    </header>
     <div class="center-page">
         <div id="invoice-overview-form">
             <div class="form-box">
-                <h1>Faktura for <span th:text="${carModel.brand} + ' ' + ${carModel.modelName} + ' - ' + ${customer.email}"></span></h1>
-                <form th:action="@{/salesperson/show_lease_agreement_details/{leaseAgreementId} (leaseAgreementId = ${leaseAgreement.id})}" method="get">
-                    <button class="overview" type="submit">< Overblik</button>
-                </form>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <hr>
-                <br>
                 <div class="left-right-box">
                     <div class="box-left">
                         <h1>Faktura</h1>

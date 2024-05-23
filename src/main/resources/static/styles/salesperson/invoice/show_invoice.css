@@ -12,13 +12,12 @@ body {
 
 #invoice-overview-form {
     margin: auto auto 4rem;
-    width: 60%;
+    width: 80%;
     padding-top: inherit;
 }
 
 .form-box {
     background: #ffffff;
-    border-radius: 6px;
     height: auto;
     padding: 2rem;
     box-shadow: rgb(169 169 169) 0 4px 30px;

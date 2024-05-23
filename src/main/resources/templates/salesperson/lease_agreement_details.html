@@ -77,7 +77,7 @@
                     <span class="not-available-message" th:text="${invoiceExists}"></span>
                     <br>
                     <br>
-                    <form action="/salesperson/show_invoice" method="get">
+                    <form action="/salesperson/show_invoice" method="get" target="_blank">
                         <input type="hidden" name="leaseAgreementId" th:value="${leaseAgreement.id}">
                         <button class="operation-button show-invoice-button" type="submit">Vis faktura</button>
                     </form>
