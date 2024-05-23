@@ -23,15 +23,23 @@ public class MechanicController {
     }
 
     @GetMapping("/mechanic_dashboard")
-    public String showMechanicDashboard() {
-        return "mechanic/mechanic_dashboard";
+    public String showMechanicDashboard(@CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("MECHANIC")) {
+            return "mechanic/mechanic_dashboard";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/damage_reports")
-    public String getAllDamageReports(Model model) {
-        List<DamageReport> damageReports = mechanicService.getAllDamageReports();
-        model.addAttribute("damageReports", damageReports);
-        return "mechanic/damage_reports";
+    public String getAllDamageReports(Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("MECHANIC")) {
+            List<DamageReport> damageReports = mechanicService.getAllDamageReports();
+            model.addAttribute("damageReports", damageReports);
+            return "mechanic/damage_reports";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/damage_reports/{id}/delete")
@@ -48,9 +56,13 @@ public class MechanicController {
     }
 
     @GetMapping("/damage_reports/{id}/edit")
-    public String showEditDamageReportForm(@PathVariable("id") Long id, Model model) {
-        DamageReport damageReport = mechanicService.getDamageReportById(id);
-        model.addAttribute("damageReport", damageReport);
-        return "mechanic/edit_damage_report";
+    public String showEditDamageReportForm(@PathVariable("id") Long id, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("MECHANIC")) {
+            DamageReport damageReport = mechanicService.getDamageReportById(id);
+            model.addAttribute("damageReport", damageReport);
+            return "mechanic/edit_damage_report";
+        } else {
+            return "redirect:/";
+        }
     }
 }
