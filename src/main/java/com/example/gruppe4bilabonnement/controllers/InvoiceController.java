@@ -97,7 +97,7 @@ public class InvoiceController {
         LeaseAgreement leaseAgreement = salesPersonService.getLeaseAgreementById(leaseAgreementId);
         // Make car available again after creating invoice
         carService.makeCarAvailable(leaseAgreement.getCarId());
-        return "redirect:/salesperson/customer_overview";
+        return "redirect:/salesperson/show_lease_agreement_details/" + leaseAgreementId;
     }
 
     @GetMapping("/show_invoice")
