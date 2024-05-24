@@ -38,12 +38,16 @@ public class SalesPersonController {
                          @RequestParam String firstName, @RequestParam String lastName, @RequestParam String phoneNumber,
                          @RequestParam String email, @RequestParam String address, @RequestParam int zipCode) {
         boolean isEmailRegistered = salesPersonService.isEmailRegistered(email);
+        boolean isZipCodeValid = salesPersonService.isZipCodeValid(zipCode);
+
         if (isEmailRegistered) {
             // Send an invalid message if e-mail is already registered in the system
             model.addAttribute("emailAlreadyRegistered", "E-mail er allerede i brug");
         } else if (!email.contains(".")) {
             // Send an invalid message if e-mail doesn't contain "."
             model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
+        } else if (!isZipCodeValid) {
+            model.addAttribute("invalidZipCode", "Postnummeret findes ikke");
         } else {
             salesPersonService.insert(firstName, lastName, phoneNumber, email, address, zipCode);
             Customer customer = salesPersonService.getCustomerByEmail(email);
