@@ -3,85 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <title>Tilføj Bil</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/create_car.css}">
 </head>
 <body>
-    <header>
-        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
-    </header>
-    <h1>Tilføj bil</h1>
-    <form action="/salesperson/car_overview" method="get">
-        <button type="submit">< OVERBLIK</button>
-    </form>
-    <br>
+<header>
+    <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
+</header>
+<div class="center-page">
+    <div class="center-form" id="center-car-form">
+        <div class="form-box">
+            <h1>Tilføj bil</h1>
+            <form action="/salesperson/car_overview" method="get">
+                <button class="overview" type="submit">< OVERBLIK</button>
+            </form>
+            <br>
 
-    <!-- SELECT CAR BRAND -->
-    <form action="/salesperson/select_car_brand" method="post">
-        <label for="carBrand">Bilmærke:</label>
-        <select id="carBrand" name="carBrand" onchange="this.form.submit()"> <!--JAVASCRIPT-->
-            <option value="N/A">Vælg bilmærke</option>
-            <option th:each="carBrand : ${carBrands}" th:text="${carBrand.brand}" th:value="${carBrand.brand}" th:selected="${selectedCarBrand != null && selectedCarBrand.brand == carBrand.brand}"></option>
-        </select>
-        <!--<button type="submit">BILMÆRKE</button>-->
-    </form>
-    <span th:if="${selectedCarBrand} != null">
-        <!-- CREATE CAR -->
-        <form action="/salesperson/create_car" method="post">
-            <label for="carModelId">Model:</label>
-            <select id="carModelId" name="carModelId">
-                <option value="">Vælg model</option>
-                <option th:each="carModel : ${carModels}" th:text="${carModel.modelName}" th:value="${carModel.id}"></option>
-            </select>
-            <br>
-            <br>
-            <label for="fuelType">Brændstof:</label>
-            <select id="fuelType" name="fuelType">
-                <option value="">Vælg brændstof</option>
-                <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.displayValue}" th:value="${fuelType}"></option>
-            </select>
-            <br>
-            <br>
-            <!-- IN PROGRESS
-            <span th:if="${licensePlateExists != null}">
-                <span th:text="${licensePlateExists}"></span> Show an error message if the license plate already exists
+            <!-- SELECT CAR BRAND -->
+            <form action="/salesperson/select_car_brand" method="post">
+                <label for="carBrand">Bilmærke</label>
                 <br>
-            </span>
-            -->
-            <label for="licensePlate">Nummerplade:</label>
-            <input type="text" minlength="2" maxlength="7" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" required>
+                <select id="carBrand" name="carBrand" onchange="this.form.submit()"> <!--JAVASCRIPT-->
+                    <option value="N/A">Vælg bilmærke</option>
+                    <option th:each="carBrand : ${carBrands}" th:text="${carBrand.brand}" th:value="${carBrand.brand}" th:selected="${selectedCarBrand != null && selectedCarBrand.brand == carBrand.brand}"></option>
+                </select>
+            </form>
             <br>
-            <br>
-            <!-- IN PROGRESS
-            <span th:if="${vinExists != null}">
-                <span th:text="${vinExists}"></span> Show an error message if the VIN already exists
-                <br>
-            </span>
-            -->
-            <label for="vin">VIN:</label>
-            <input type="text" maxlength="50" id="vin" name="vin" placeholder="Indtast VIN" required>
-            <br>
-            <br>
-            <label for="equipmentLevel">Udstyrsniveau:</label>
-            <input type="text" maxlength="50" id="equipmentLevel" name="equipmentLevel" placeholder="Indtast udstyrsniveau">
-            <br>
-            <br>
-            <label for="km">Kilometertal:</label>
-            <input type="number" min="0" id="km" name="km" placeholder="Indtast kilometertal" required>
-            <br>
-            <br>
-            <label for="registrationFee">Registreringsafgift:</label>
-            <input type="number" min="0" step="0.01" id="registrationFee" name="registrationFee" placeholder="Indtast registreringsafgift" required>
-            <br>
-            <br>
-            <label for="steelPrice">Stålpris:</label>
-            <input type="number" min="0" step="0.01" id="steelPrice" name="steelPrice" placeholder="Indtast stålpris" required>
-            <br>
-            <br>
-            <label for="co2Emission">CO2-udledning:</label>
-            <input type="number" min="0" id="co2Emission" name="co2Emission" placeholder="Indtast CO2-udledning" required>
-            <input type="hidden" id="isRented" name="isRented" value="FALSE">
-            <br>
-            <button type="submit">Tilføj bil</button>
-        </form>
-    </span>
+            <span th:if="${selectedCarBrand} != null">
+                    <!-- CREATE CAR -->
+                    <form action="/salesperson/create_car" method="post" class="two-column-form">
+                        <div class="form-left">
+                            <label for="carModelId">Model</label>
+                            <br>
+                            <select id="carModelId" name="carModelId">
+                                <option value="">Vælg model</option>
+                                <option th:each="carModel : ${carModels}" th:text="${carModel.modelName}" th:value="${carModel.id}"></option>
+                            </select>
+                            <br>
+                            <br>
+                            <label for="fuelType">Brændstof</label>
+                            <br>
+                            <select id="fuelType" name="fuelType">
+                                <option value="">Vælg brændstof</option>
+                                <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.displayValue}" th:value="${fuelType}"></option>
+                            </select>
+                            <br>
+                            <br>
+                            <label for="licensePlate">Nummerplade</label>
+                            <br>
+                            <input type="text" minlength="2" maxlength="7" id="licensePlate" name="licensePlate" placeholder="Indtast nummerplade" required>
+                            <br>
+                            <br>
+                            <label for="vin">Stelnummer</label>
+                            <br>
+                            <input type="text" maxlength="20" id="vin" name="vin" placeholder="Indtast stelnummer" required>
+                            <br>
+                            <br>
+                            <label for="equipmentLevel">Udstyrsniveau</label>
+                            <br>
+                            <input type="text" maxlength="50" id="equipmentLevel" name="equipmentLevel" placeholder="Indtast udstyrsniveau">
+                        </div>
+                        <div class="form-right">
+                            <label for="km">Kilometertal</label>
+                            <br>
+                            <input type="number" min="0" id="km" name="km" placeholder="Indtast kilometertal" required>
+                            <br>
+                            <br>
+                            <label for="registrationFee">Registreringsafgift</label>
+                            <br>
+                            <input type="number" min="0" step="0.01" id="registrationFee" name="registrationFee" placeholder="Indtast registreringsafgift" required>
+                            <br>
+                            <br>
+                            <label for="steelPrice">Stålpris</label>
+                            <br>
+                            <input type="number" min="0" step="0.01" id="steelPrice" name="steelPrice" placeholder="Indtast stålpris" required>
+                            <br>
+                            <br>
+                            <label for="co2Emission">CO2-udledning</label>
+                            <br>
+                            <input type="number" min="0" id="co2Emission" name="co2Emission" placeholder="Indtast CO2-udledning" required>
+                            <input type="hidden" id="isRented" name="isRented" value="FALSE">
+                            <br>
+                            <button class="operation-button create-button" type="submit">Tilføj bil</button>
+                        </div>
+                    </form>
+                </span>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Rented Cars Count</title>
+    <link rel="stylesheet" th:href="@{/styles/businessdeveloper/rented_cars_count.css}">
+</head>
 </head>
 <body>
 <h1>Rented Cars Count</h1>
 <p>The total number of rented cars is: <span th:text="${rentedCarsCount}"></span></p>
+
+<form action="/business_developer/business_developer_dashboard" method="get">
+    <button type="submit">Back to Dashboard</button>
+</form>
+
+
 </body>
 </html>

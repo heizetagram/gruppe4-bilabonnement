@@ -3,35 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Personale</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/admin/employee_overview.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/admin/navbar}"></div>
+        <div th:replace="~{fragments/navbar/admin/employee_overview}"></div>
     </header>
-    <h1>Personale</h1>
-    <form action="/admin/prepare_new_employee" method="get">
-        <button type="submit">+ Opret ny bruger</button>
-    </form>
-    <br>
-    <table>
-        <thead><td>E-MAIL</td><td>ROLLE</td></thead>
-        <tr th:each="employee : ${employees}">
-            <td th:text="${employee.email}"></td>
-            <td th:switch="${employee.employeeRole}">
-                <span th:case="SALESPERSON">Medarbejder</span>
-                <span th:case="MECHANIC">Mekaniker</span>
-                <span th:case="BUSINESS_DEV">Forretningsudvikler</span>
-                <span th:case="ADMIN">Admin</span>
-            </td>
-            <td><form action="/admin/prepare_employee_update" method="get">
-                    <input type="hidden" name="employeeId" th:value="${employee.id}">
-                    <button type="submit">✎ Rediger</button>
-            </form></td>
-            <td><form action="/admin/prepare_employee_deletion" method="get">
-                <input type="hidden" name="employeeId" th:value="${employee.id}">
-                <button type="submit">🗑 Slet</button>
-            </form></td>
-        </tr>
-    </table>
+    <div class="center-page">
+        <div id="employee-overview-form">
+            <div class="form-box">
+                <h1>Personale</h1>
+                <form action="/admin/prepare_new_employee" method="get">
+                    <button id="create-button" type="submit">+ Opret ny bruger</button>
+                </form>
+                <br>
+                <table>
+                    <thead><td id="table-email">E-MAIL</td><td id="table-role">ROLLE</td></thead>
+                    <tr class="general-employee-info" th:each="employee : ${employees}">
+                        <td th:text="${employee.email}"></td>
+                        <td th:switch="${employee.employeeRole}">
+                            <span th:case="SALESPERSON">Medarbejder</span>
+                            <span th:case="MECHANIC">Mekaniker</span>
+                            <span th:case="BUSINESS_DEV">Forretningsudvikler</span>
+                            <span th:case="ADMIN">Admin</span>
+                        </td>
+                        <td id="employee-update-td"><form action="/admin/prepare_employee_update" method="get">
+                                <input type="hidden" name="employeeId" th:value="${employee.id}">
+                                <button class="employee-button" id="employee-update-button" type="submit">✎ Rediger</button>
+                        </form></td>
+                        <td id="employee-delete-td"><form action="/admin/prepare_employee_deletion" method="get">
+                            <input type="hidden" name="employeeId" th:value="${employee.id}">
+                            <button class="employee-button" id="employee-delete-button" type="submit">🗑 Slet</button>
+                        </form></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

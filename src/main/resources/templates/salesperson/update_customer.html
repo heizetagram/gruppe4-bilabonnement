@@ -4,36 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opdater Kunde</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/customer/update_customer.css}">
 </head>
 <body>
-<header>
-    <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
-</header>
-<h1>Opdater Kunde</h1>
-<form method="post" th:action="@{/salesperson/update_customer}">
-    <input type="hidden" name="origin" th:value="${origin}">
-    <input type="hidden" name="id" th:value="${customer.id}"/>
-    <label for="firstName">Fornavn:</label><br>
-    <input type="text" maxlength="50" id="firstName" name="firstName" placeholder="Indtast navn" th:value="${customer.firstName}" pattern="[A-Za-zÆØÅæøå\\s]+" title="Indtast venligst et gyldigt navn" required><br>
-    <label for="lastName">Efternavn:</label><br>
-    <input type="text" maxlength="50" id="lastName" name="lastName" placeholder="Indtast efternavn" th:value="${customer.lastName}" pattern="[A-Za-zÆØÅæøå\\s-]+" title="Indtast venligst et gyldigt efternavn" required><br>
-    <label for="phoneNumber">Mobilnummer:</label><br>
-    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Indtast DK mobilnummer" pattern="[0-9]{8}" th:value="${customer.phoneNumber}" required title="8-cifret mobilnummer uden +45!"/><br>
-    <label for="email">Email:</label><br>
-    <span th:if="${invalidInfo!=null || emailAlreadyRegistered!=null}">
-        <span th:text="${invalidInfo}"></span>
-        <span th:text="${emailAlreadyRegistered}"></span>
-        <!-- Show an error message if the e-mail is already registered in the system -->
-        <br>
-    </span>
-    <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${customer.email}" required/><br>
-    <label for="address">Adress:</label><br>
-    <input type="text" maxlength="100" id="address" name="address" placeholder="Indtast adresse" th:value="${customer.address}" required/><br>
-    <label for="zipCode">Postnummer:</label><br>
-    <input type="number" min="1000" max="9990" id="zipCode" name="zipCode" placeholder="Indtast postnummer" th:value="${customer.zipCode}" required/><br><br>
-    <button type="submit">Opdater</button>
-</form>
-<form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
-    <input type="hidden" name="origin" th:value="${origin}">
-    <button type="submit">FORTRYD</button>
-</form>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/customer_overview}"></div>
+    </header>
+    <div class="center-page">
+        <div class="center-form" id="center-customer-form">
+            <div class="form-box">
+                <h1>Opdater Kunde</h1>
+                <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
+                    <input type="hidden" name="origin" th:value="${origin}">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <br>
+                <form method="post" th:action="@{/salesperson/update_customer}">
+                    <input type="hidden" name="origin" th:value="${origin}">
+                    <input type="hidden" name="id" th:value="${customer.id}"/>
+                    <label for="firstName">Fornavn</label>
+                    <input type="text" maxlength="50" id="firstName" name="firstName" placeholder="Indtast navn" th:value="${customer.firstName}" pattern="[A-Za-zÆØÅæøå\\s]+" title="Indtast venligst et gyldigt navn" required>
+                    <br>
+                    <br>
+                    <label for="lastName">Efternavn</label>
+                    <input type="text" maxlength="50" id="lastName" name="lastName" placeholder="Indtast efternavn" th:value="${customer.lastName}" pattern="[A-Za-zÆØÅæøå\\s-]+" title="Indtast venligst et gyldigt efternavn" required>
+                    <br>
+                    <br>
+                    <label for="phoneNumber">Mobilnummer</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Indtast DK mobilnummer" pattern="[0-9]{8}" th:value="${customer.phoneNumber}" required title="8-cifret mobilnummer uden +45!"/>
+                    <br>
+                    <br>
+                    <label for="email">Email</label>
+                    <span th:if="${invalidInfo!=null || emailAlreadyRegistered!=null}">
+                        <span class="error-message" th:text="${invalidInfo}"></span>
+                        <span class="error-message" th:text="${emailAlreadyRegistered}"></span>
+                        <!-- Show an error message if the e-mail is already registered in the system -->
+                        <br>
+                    </span>
+                    <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${customer.email}" required/>
+                    <br>
+                    <br>
+                    <label for="address">Adresse</label>
+                    <input type="text" maxlength="100" id="address" name="address" placeholder="Indtast adresse" th:value="${customer.address}" required/>
+                    <br>
+                    <br>
+                    <label for="zipCode">Postnummer</label>
+                    <input type="number" min="1000" max="9990" id="zipCode" name="zipCode" placeholder="Indtast postnummer" th:value="${customer.zipCode}" required/>
+                    <br>
+                    <br>
+                    <button class="operation-button update-button" type="submit">Opdater</button>
+                </form>
+                <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
+                    <input type="hidden" name="origin" th:value="${origin}">
+                    <button class="operation-button cancel-button" type="submit">FORTRYD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
+</body>
+</html>

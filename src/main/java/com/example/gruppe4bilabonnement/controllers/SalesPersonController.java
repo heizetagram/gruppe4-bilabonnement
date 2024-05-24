@@ -1,9 +1,7 @@
 package com.example.gruppe4bilabonnement.controllers;
 
-import com.example.gruppe4bilabonnement.models.Car;
-import com.example.gruppe4bilabonnement.models.Customer;
+import com.example.gruppe4bilabonnement.models.*;
 
-import com.example.gruppe4bilabonnement.models.LeaseAgreement;
 import com.example.gruppe4bilabonnement.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -93,7 +91,9 @@ public class SalesPersonController {
     public String confirmDelete(@PathVariable int id, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
             Customer customer = salesPersonService.getCustomerById(id);
+            ZipCode zipCode = salesPersonService.getZipCodeByZipCode(customer.getZipCode());
             model.addAttribute("customer", customer);
+            model.addAttribute("zipCode", zipCode);
             model.addAttribute("origin", origin);
             return "salesperson/delete_customer";
         } else {
@@ -112,13 +112,14 @@ public class SalesPersonController {
         }
     }
 
-
     //Show selected customer profile
     @GetMapping("/customer_profile/{id}")
     public String customerProfile(@PathVariable int id, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
             Customer customer = salesPersonService.getCustomerById(id);
             model.addAttribute("customer", customer);
+            ZipCode zipCode = salesPersonService.getZipCodeByZipCode(customer.getZipCode());
+            model.addAttribute("zipCode", zipCode);
 
             if (origin.equals("overview")) {
                 List<Customer> customers = salesPersonService.getAllCustomers();
@@ -177,8 +178,9 @@ public class SalesPersonController {
        LeaseAgreement leaseAgreement = leaseAgreementService.getLeaseAgreementById(leaseAgreementId);
        boolean doesInvoiceExist = invoiceService.checkIfInvoiceExists(leaseAgreementId);
 
-
        if (leaseAgreement != null) {
+           Car car = carService.getCarById(leaseAgreement.getCarId());
+           CarModel carModel = carService.getCarModelById(car.getCarModelId());
            boolean isCarInService = mechanicService.checkIfCarIsInService(leaseAgreement.getCarId());
            boolean isCarRented = carService.checkIfCarIsRented(leaseAgreement.getCarId());
 
@@ -191,6 +193,8 @@ public class SalesPersonController {
                model.addAttribute("carIsRented", "");
            }
            model.addAttribute("leaseAgreement", leaseAgreement);
+           model.addAttribute("car", car);
+           model.addAttribute("carModel", carModel);
            return "salesperson/lease_agreement_details";
        } else {
            return "redirect:/salesperson/customer_overview";

@@ -1,0 +1,110 @@
+body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 100px;
+    background-color: #f2f2f2;
+    min-height: 100vh;
+}
+
+.center-page {
+    padding: 2rem 10rem 0 10rem;
+}
+
+#invoice-overview-form {
+    margin: auto auto 4rem;
+    width: 80%;
+    padding-top: inherit;
+}
+
+.form-box {
+    background: #ffffff;
+    height: auto;
+    padding: 2rem;
+    box-shadow: rgb(169 169 169) 0 4px 30px;
+}
+
+.overview {
+    margin-top: 5px;
+    padding: 10px 10px 10px 0;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    background-color: white;
+}
+
+.overview:hover {
+    background: #f2f2f2;
+}
+
+th {
+    text-align: left;
+    padding-bottom: 5px;
+}
+
+td {
+    padding: 5px;
+}
+
+hr {
+    border-top: 1px solid lightgray;
+}
+
+.invoice-date {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#currentDate {
+    padding: 5px 0;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.left-right-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-left {
+    float: left;
+}
+
+.box-right {
+    float: right;
+}
+
+.operation-button {
+    font-size: small;
+    line-height: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-radius: 6px;
+    border: none;
+    padding: 0 30px;
+    height: 49px;
+    margin: 0;
+    color: white !important;
+    width: 100%;
+    box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
+}
+
+.create-button {
+    background: #55cc4f !important;
+    margin: 2.8rem 0 0 0;
+    height: 42px;
+}
+
+.create-button:hover {
+    background-color: #68e462 !important;
+}
+
+#total-price {
+    font-size: x-large;
+}
+
+.price-td {
+    color: green;
+}
