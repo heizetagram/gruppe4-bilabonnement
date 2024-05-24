@@ -29,6 +29,10 @@
     <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${customer.email}" required/><br>
     <label for="address">Adress:</label><br>
     <input type="text" maxlength="100" id="address" name="address" placeholder="Indtast adresse" th:value="${customer.address}" required/><br>
+    <span th:if="${invalidZipCode!=null}">
+        <span th:text="${invalidZipCode}"></span>
+        <br>
+    </span>
     <label for="zipCode">Postnummer:</label><br>
     <input type="number" min="1000" max="9990" id="zipCode" name="zipCode" placeholder="Indtast postnummer" th:value="${customer.zipCode}" required/><br><br>
     <button type="submit">Opdater</button>
