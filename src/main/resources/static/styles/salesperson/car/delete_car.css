@@ -1,0 +1,85 @@
+body {
+    background-color: #f2f2f2;
+}
+
+.center-page {
+    padding: 2rem 10rem 0 10rem;
+}
+
+.center-form {
+    margin:auto;
+    width: 300px;
+    padding-top: inherit;
+}
+
+#center-car-form {
+    display: flex;
+    justify-content: center;
+}
+
+.form-box {
+    background: white;
+    border-radius: 6px;
+    height: auto;
+    padding: 2rem;
+    width: 100%;
+    box-shadow: rgb(169 169 169) 0 4px 30px;
+    display: table;
+}
+
+.overview {
+    margin: 5px 0 5px 0;
+    padding: 10px 10px 10px 0;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    background-color: white;
+}
+
+.overview:hover {
+    background: #f2f2f2;
+}
+
+h2 {
+    margin: 1rem 1rem 1rem 0;
+}
+
+.info-text {
+    margin: 0.5rem 0 0.5rem 0;
+}
+
+#car-name {
+    font-weight: bold;
+}
+
+.operation-button {
+    font-size: small;
+    line-height: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-radius: 6px;
+    border: none;
+    padding: 0 30px;
+    height: 49px;
+    margin: 0;
+    color: white !important;
+    width: 100%;
+    box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
+}
+
+.delete-button {
+    background: #e14b3b !important;
+    margin: 1rem 0 1rem 0;
+}
+
+.delete-button:hover {
+    background-color: #f17161 !important;
+}
+
+.cancel-button {
+    background: #979797 !important;
+}
+
+.cancel-button:hover {
+    background: #c4c4c4 !important;
+}

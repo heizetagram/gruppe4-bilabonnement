@@ -3,68 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>Vis Bil</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/show_car.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
-    <h1><span th:text="${carModel.brand} + ' ' + ${carModel.modelName}"></span></h1>
-    <form action="/salesperson/car_overview" method="get">
-        <button type="submit">< OVERBLIK</button>
-    </form>
-    <br>
-    <table>
-        <tr><form action="/salesperson/prepare_car_update" method="get">
-            <input type="hidden" name="origin" value="car">
-            <input type="hidden" name="carId" th:value="${car.id}">
-            <input type="hidden" name="carModelId" th:value="${car.carModelId}">
-            <button type="submit">✎ Rediger</button>
-        </form></tr>
-        <tr><form action="/salesperson/confirm_car_deletion" method="get">
-            <input type="hidden" name="origin" value="car">
-            <input type="hidden" name="carId" th:value="${car.id}">
-            <button type="submit">🗑 Slet</button>
-        </form></tr>
-        <tr>
-            <th>Nummerplade</th>
-            <td th:text="${car.licensePlate}"></td>
-        </tr>
-        <tr>
-            <th>Brændstof</th>
-            <td th:text="${car.fuelType.displayValue}"></td>
-        </tr>
-        <tr>
-            <th>Biltype</th>
-            <td th:text="${carModel.carType.displayValue}"></td>
-        </tr>
-        <tr>
-            <th>VIN</th>
-            <td th:text="${car.vin}"></td>
-        </tr>
-        <tr>
-            <th>Udstyrsniveau</th>
-            <td th:text="${car.equipmentLevel}"></td>
-        </tr>
-        <tr>
-            <th>Kilometertal</th>
-            <td th:text="${car.km}"></td>
-        </tr>
-        <tr>
-            <th>Registreringsafgift</th>
-            <td th:text="${car.registrationFee}"></td>
-        </tr>
-        <tr>
-            <th>Stålpris</th>
-            <td th:text="${car.steelPrice}"></td>
-        </tr>
-        <tr>
-            <th>CO2-ejerafgift</th>
-            <td th:text="${car.co2Emission}"></td>
-        </tr>
-        <tr>
-            <th>Udlejningsstatus</th>
-            <td th:text="${car.rented}"></td>
-        </tr>
-    </table>
+    <div class="center-page">
+        <div id="car-overview-form">
+            <div class="form-box">
+                <h1><span th:text="${carModel.brand} + ' ' + ${carModel.modelName} + ' - ' + ${car.licensePlate}"></span></h1>
+                <form action="/salesperson/car_overview" method="get">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <br>
+                <div class="button-container">
+                    <form action="/salesperson/prepare_car_update" method="get">
+                        <input type="hidden" name="origin" value="car">
+                        <input type="hidden" name="carId" th:value="${car.id}">
+                        <input type="hidden" name="carModelId" th:value="${car.carModelId}">
+                        <button class="operation-button update-button" type="submit">✎ Rediger</button>
+                    </form>
+                    <form action="/salesperson/confirm_car_deletion" method="get">
+                        <input type="hidden" name="origin" value="car">
+                        <input type="hidden" name="carId" th:value="${car.id}">
+                        <button class="operation-button delete-button" type="submit">🗑 Slet</button>
+                    </form>
+                </div>
+                <table>
+                    <tr>
+                        <th>Nummerplade:</th>
+                        <td th:text="${car.licensePlate}"></td>
+                    </tr>
+                    <tr>
+                        <th>Brændstof:</th>
+                        <td th:text="${car.fuelType.displayValue}"></td>
+                    </tr>
+                    <tr>
+                        <th>Biltype:</th>
+                        <td th:text="${carModel.carType.displayValue}"></td>
+                    </tr>
+                    <tr>
+                        <th>Stelnummer:</th>
+                        <td th:text="${car.vin}"></td>
+                    </tr>
+                    <tr>
+                        <th>Udstyrsniveau:</th>
+                        <td th:text="${car.equipmentLevel}"></td>
+                    </tr>
+                    <tr>
+                        <th>Kilometertal:</th>
+                        <td th:text="${car.km}"></td>
+                    </tr>
+                    <tr>
+                        <th>Registreringsafgift:</th>
+                        <td th:text="${car.registrationFee}"></td>
+                    </tr>
+                    <tr>
+                        <th>Stålpris:</th>
+                        <td th:text="${car.steelPrice}"></td>
+                    </tr>
+                    <tr>
+                        <th>CO2-udledning:</th>
+                        <td th:text="${car.co2Emission}"></td>
+                    </tr>
+                    <tr>
+                        <th>Udlejningsstatus:</th>
+                        <span th:if="${car.rented == true}">
+                            <td id="rented-status-true">Udlejet</td>
+                        </span>
+                        <span th:if="${car.rented == false}">
+                            <td id="rented-status-false">Tilgængelig til udlejning</td>
+                        </span>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

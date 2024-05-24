@@ -2,44 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Employee</title>
+    <title>Opret Personale</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/admin/create_employee.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/admin/navbar}"></div>
+        <div th:replace="~{fragments/navbar/admin/employee_overview}"></div>
     </header>
-    <h1>Opret en ny medarbejder</h1>
-    <form action="/admin/employee_overview" method="get">
-        <button type="submit">< OVERBLIK</button>
-    </form>
-    <br>
-    <form action="/admin/create_employee" method="post">
-        <span th:if="${invalidInfo != null || emailAlreadyRegistered != null}">
-            <span th:text="${invalidInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
-            <span th:text="${emailAlreadyRegistered}"></span> <!-- Show an error message if the e-mail is already registered in the system -->
-            <br>
-        </span>
-        <label for="email">E-mail:</label>
-        <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}" required>
-        <br>
-        <br>
-        <label for="employeePassword">Adgangskode:</label>
-        <input type="password" maxlength="100" id="employeePassword" name="employeePassword" placeholder="Indtast adgangskode" th:value="${param.employeePassword}" required>
-        <br>
-        <br>
-        <label for="employeeRole">Rolle:</label>
-        <select id="employeeRole" name="employeeRole">
-            <option value="SALESPERSON">Medarbejder</option>
-            <option value="MECHANIC">Mekaniker</option>
-            <option value="BUSINESS_DEV">Forretningsudvikler</option>
-            <option value="ADMIN">Admin</option>
-        </select>
-        <br>
-        <br>
-        <button type="submit">OPRET</button>
-    </form>
-    <form action="/admin/employee_overview" method="get">
-        <button type="submit">FORTRYD</button>
-    </form>
+    <div class="center-page">
+        <div class="center-form" id="center-employee-form">
+            <div class="form-box">
+                <h1>Opret en ny bruger</h1>
+                <form action="/admin/employee_overview" method="get">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <br>
+                <form action="/admin/create_employee" method="post">
+                    <label id="label-email" for="email">E-mail</label>
+                    <span th:if="${invalidInfo != null || emailAlreadyRegistered != null}">
+                        <span class="error-message" th:text="${invalidInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
+                        <span class="error-message" th:text="${emailAlreadyRegistered}"></span> <!-- Show an error message if the e-mail is already registered in the system -->
+                        <br>
+                    </span>
+                    <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}" required>
+                    <br>
+                    <br>
+                    <label for="employeePassword">Adgangskode</label>
+                    <input type="password" maxlength="100" id="employeePassword" name="employeePassword" placeholder="Indtast adgangskode" th:value="${param.employeePassword}" required>
+                    <br>
+                    <br>
+                    <label for="employeeRole">Rolle</label>
+                    <br>
+                    <select id="employeeRole" name="employeeRole">
+                        <option value="SALESPERSON">Medarbejder</option>
+                        <option value="MECHANIC">Mekaniker</option>
+                        <option value="BUSINESS_DEV">Forretningsudvikler</option>
+                        <option value="ADMIN">Admin</option>
+                    </select>
+                    <br>
+                    <br>
+                    <button class="operation-button update-button" type="submit">OPRET</button>
+                </form>
+                <form action="/admin/employee_overview" method="get">
+                    <button class="operation-button cancel-button" type="submit">FORTRYD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

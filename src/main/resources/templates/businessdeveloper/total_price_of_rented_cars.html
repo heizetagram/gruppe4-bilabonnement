@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Total Price of Rented Cars</title>
+    <link rel="stylesheet" th:href="@{/styles/businessdeveloper/total_price_of_rented_cars.css}">
 </head>
 <body>
 <h1>Total Price of Rented Cars</h1>
 <p>The total price of all rented cars is: <span th:text="${totalPrice}"></span></p>
+
+<form action="/business_developer/business_developer_dashboard" method="get">
+    <button type="submit">Back to Dashboard</button>
+</form>
+
+
 </body>
 </html>

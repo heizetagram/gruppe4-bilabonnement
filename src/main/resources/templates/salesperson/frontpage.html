@@ -3,11 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Medarbejder Forside</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/frontpage.css}">
 </head>
 <body>
-<header>
-    <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
-</header>
-<h1>Velkommen, Medarbejder</h1>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
+    </header>
+    <div class="center-page">
+        <div class="frontpage-center">
+            <div class="frontpage">
+                <h1>Velkommen, Medarbejder</h1>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

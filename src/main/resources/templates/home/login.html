@@ -3,25 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/home/login.css}">
 </head>
 <body>
 <header>
     <div th:replace="~{fragments/navbar/navbar}"></div>
 </header>
-<h1>Log ind med e-mail</h1>
-<br>
-<form action="/login_attempt" method="post">
-    <label for="email">E-mail:</label>
-    <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" required>
-    <br>
-    <br>
-    <label for="employeePassword">Adgangskode:</label>
-    <input type="password" maxlength="100" id="employeePassword" name="employeePassword" placeholder="Indtast adgangskode" required>
-    <br>
-    <span th:text="${invalidEmployeeInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
-    <br>
-    <br>
-    <button type="submit">LOG IND</button>
-</form>
+<div class="center-page">
+    <div class="center-form" id="center-login-form">
+        <div class="form-box">
+            <h1>Log ind med e-mail</h1>
+            <br>
+            <form action="/login_attempt" method="post">
+                <label for="email">E-mail:</label>
+                <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail" th:value="${param.email}" required>
+                <br>
+                <br>
+                <label for="employeePassword">Adgangskode:</label>
+                <input type="password" maxlength="100" id="employeePassword" name="employeePassword" placeholder="Indtast adgangskode" required>
+                <br>
+                <br>
+                <span class="error-message" th:text="${invalidEmployeeInfo}"></span> <!-- Show an error message if the login credentials are incorrect -->
+                <br>
+                <br>
+                <button class="operation-button login-button" type="submit">LOG IND</button>
+            </form>
+        </div>
+    </div>
+</div>
+<footer>
+    <div th:replace="~{fragments/footer}"></div>
+</footer>
 </body>
 </html>

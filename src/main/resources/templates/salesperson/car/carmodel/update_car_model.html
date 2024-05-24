@@ -3,33 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Opdater Bilmodel</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/carmodel/update_car_model.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
-    <h1>Opdater <span th:text="${carBrand.brand} + ' ' + ${carModel.modelName}"></span></h1>
-    <form action="/salesperson/update_car_model" method="post">
-        <input type="hidden" name="carModelId" th:value="${carModel.id}">
-        <input type="hidden" name="carBrand" th:value="${carModel.brand}">
-        <span th:if="${carModelExists != null}">
-            <span th:text="${carModelExists}"></span>
-            <br>
-            <br>
-        </span>
-        <label for="modelName">Bilmærke:</label>
-        <input type="text" maxlength="50" name="modelName" id="modelName" placeholder="Indtast modelnavn" th:value="${carModel.modelName}" required>
-        <br>
-        <br>
-        <label for="carType">Biltype:</label>
-        <select id="carType" name="carType" required>
-            <option value="">Vælg biltype</option>
-            <option th:each="carType : ${carTypes}" th:text="${carType.displayValue}"
-                    th:selected="${carType == carModel.carType}" th:value="${carType}"></option>
-        </select>
-        <br>
-        <br>
-        <button type="submit">Opdater bilmærke</button>
-    </form>
+    <div class="center-page">
+        <div class="center-form" id="center-car-model-form">
+            <div class="form-box">
+                <h1>Opdater <span th:text="${carBrand.brand} + ' ' + ${carModel.modelName}"></span></h1>
+                <form action="/salesperson/car_model_overview" method="get">
+                    <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                    <button class="overview" type="submit">< OVERBLIK</button>
+                </form>
+                <br>
+                <form action="/salesperson/update_car_model" method="post">
+                    <input type="hidden" name="carModelId" th:value="${carModel.id}">
+                    <input type="hidden" name="carBrand" th:value="${carModel.brand}">
+                    <span th:if="${carModelExists != null}">
+                        <span class="error-message" th:text="${carModelExists}"></span>
+                    </span>
+                    <label for="modelName">Bilmærke</label>
+                    <input type="text" maxlength="50" name="modelName" id="modelName" placeholder="Indtast modelnavn" th:value="${carModel.modelName}" required>
+                    <br>
+                    <br>
+                    <label for="carType">Biltype</label>
+                    <select id="carType" name="carType" required>
+                        <option value="">Vælg biltype</option>
+                        <option th:each="carType : ${carTypes}" th:text="${carType.displayValue}"
+                                th:selected="${carType == carModel.carType}" th:value="${carType}"></option>
+                    </select>
+                    <br>
+                    <br>
+                    <button class="operation-button update-button" type="submit">Opdater bilmærke</button>
+                </form>
+                <form action="/salesperson/car_model_overview" method="get">
+                    <input type="hidden" name="carBrand" th:value="${carBrand.brand}">
+                    <button class="operation-button cancel-button" type="submit">FORTRYD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

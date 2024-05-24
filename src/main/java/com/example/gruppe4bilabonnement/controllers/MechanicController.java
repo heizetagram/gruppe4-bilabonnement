@@ -43,17 +43,24 @@ public class MechanicController {
     }
 
     @GetMapping("/mechanic_dashboard/{carId}")
-    public String showMechanicDashboard(@PathVariable("carId") int carId, Model model) {
-        model.addAttribute("carId", carId);
-        return "mechanic/mechanic_dashboard";
+    public String showMechanicDashboard(@PathVariable("carId") int carId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("MECHANIC")) {
+            model.addAttribute("carId", carId);
+            return "mechanic/mechanic_dashboard";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/damage_reports/{carId}")
-    public String getAllDamageReports(@PathVariable("carId") int carId, Model model) {
-        List<DamageReport> damageReports = mechanicService.getAllDamageReportsByCarId(carId);
-        //List<DamageReport> damageReports = mechanicService.getAllDamageReports();
-        model.addAttribute("damageReports", damageReports);
-        return "mechanic/damage_reports";
+    public String getAllDamageReports(@PathVariable("carId") int carId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("MECHANIC")) {
+            List<DamageReport> damageReports = mechanicService.getAllDamageReportsByCarId(carId);
+            model.addAttribute("damageReports", damageReports);
+            return "mechanic/damage_reports";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/damage_reports/{id}/delete")
@@ -70,9 +77,13 @@ public class MechanicController {
     }
 
     @GetMapping("/damage_reports/{id}/edit")
-    public String showEditDamageReportForm(@PathVariable("id") int id, Model model) {
-        DamageReport damageReport = mechanicService.getDamageReportById(id);
-        model.addAttribute("damageReport", damageReport);
-        return "mechanic/edit_damage_report";
+    public String showEditDamageReportForm(@PathVariable("id") int id, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("MECHANIC")) {
+            DamageReport damageReport = mechanicService.getDamageReportById(id);
+            model.addAttribute("damageReport", damageReport);
+            return "mechanic/edit_damage_report";
+        } else {
+            return "redirect:/";
+        }
     }
 }

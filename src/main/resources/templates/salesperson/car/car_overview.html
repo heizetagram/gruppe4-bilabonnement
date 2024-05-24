@@ -2,43 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Biler</title>
+    <title>Biloverblik</title>
+    <link rel="stylesheet" th:href="@{/styles/general.css}">
+    <link rel="stylesheet" th:href="@{/styles/salesperson/car/car_overview.css}">
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
-    <h1>Biler</h1>
-    <form action="/salesperson/prepare_new_car" method="get">
-        <button type="submit">+ Tilføj ny bil</button>
-    </form>
-    <br>
-    <form action="/salesperson/car_brand_overview" method="get">
-        <button type="submit">Rediger bilmærker</button>
-    </form>
-    <table>
-        <thead><th>MÆRKE</th><th>MODEL</th><th>NUMMERPLADE</th></thead>
-        <tr th:each="car : ${cars}">
-            <td><form action="/salesperson/show_car" method="get">
-                <input type="hidden" name="origin" value="car">
-                <input type="hidden" name="carId" th:value="${car.id}">
-                <input type="hidden" name="carModelId" th:value="${car.carModelId}">
-                <span th:text="${carService.getCarModelById(car.carModelId).brand}"></span>
-                <button type="submit"></button>
-            </form></td>
-            <td th:text="${carService.getCarModelById(car.carModelId).modelName}"></td>
-            <td th:text="${car.licensePlate}"></td>
-            <td><form action="/salesperson/prepare_car_update" method="get">
-                <input type="hidden" name="origin" value="overview">
-                <input type="hidden" name="carId" th:value="${car.id}">
-                <button type="submit">✎ Rediger</button>
-            </form></td>
-            <td><form action="/salesperson/confirm_car_deletion" method="get">
-                <input type="hidden" name="origin" value="overview">
-                <input type="hidden" name="carId" th:value="${car.id}">
-                <button type="submit">🗑 Slet</button>
-            </form></td>
-        </tr>
-    </table>
+    <div class="center-page">
+        <div id="car-overview-form">
+            <div class="form-box">
+                <h1>Biloverblik</h1>
+                <form action="/salesperson/prepare_new_car" method="get">
+                    <button id="create-button" type="submit">+ Tilføj ny bil</button>
+                </form>
+                <br>
+                <form action="/salesperson/car_brand_overview" method="get">
+                    <button class="car-button car-update-button" id="car-brands-update-button" type="submit">Rediger bilmærker</button>
+                </form>
+                <br>
+                <table>
+                    <thead><td id="table-brand">MÆRKE</td><td id="table-model">MODEL</td><td id="table-license-plate">NUMMERPLADE</td><td id="table-status">STATUS</td></thead>
+                    <tr class="general-car-info" th:each="car : ${cars}">
+                        <td id="car-brand-td"><form action="/salesperson/show_car" method="get">
+                            <input type="hidden" name="origin" value="car">
+                            <input type="hidden" name="carId" th:value="${car.id}">
+                            <input type="hidden" name="carModelId" th:value="${car.carModelId}">
+                            <button class="car-brand-button" type="submit"><span th:text="${carService.getCarModelById(car.carModelId).brand}"></span></button>
+                        </form></td>
+                        <td th:text="${carService.getCarModelById(car.carModelId).modelName}"></td>
+                        <td th:text="${car.licensePlate}"></td>
+                        <span th:if="${car.rented == true}">
+                            <td id="rented-status-true">Udlejet</td>
+                        </span>
+                        <span th:if="${car.rented == false}">
+                            <td id="rented-status-false">Tilgængelig</td>
+                        </span>
+                        <td id="car-update-td"><form action="/salesperson/prepare_car_update" method="get">
+                            <input type="hidden" name="origin" value="overview">
+                            <input type="hidden" name="carId" th:value="${car.id}">
+                            <button class="car-button car-update-button" type="submit">✎ Rediger</button>
+                        </form></td>
+                        <td id="car-delete-td"><form action="/salesperson/confirm_car_deletion" method="get">
+                            <input type="hidden" name="origin" value="overview">
+                            <input type="hidden" name="carId" th:value="${car.id}">
+                            <button class="car-button car-delete-button" type="submit">🗑 Slet</button>
+                        </form></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div th:replace="~{fragments/footer}"></div>
+    </footer>
 </body>
 </html>

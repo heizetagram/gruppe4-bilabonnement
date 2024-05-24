@@ -59,7 +59,7 @@ public class HomeController {
         switch (cookieValue) {
             case "SALESPERSON" -> employeeView = "/salesperson/frontpage";
             case "MECHANIC" -> employeeView = "/mechanic/frontpage";
-            case "BUSINESS_DEV" -> employeeView = "/business_dev/frontpage";
+            case "BUSINESS_DEV" -> employeeView = "/businessdeveloper/business_developer_dashboard";
             case "ADMIN" -> employeeView = "/admin/frontpage";
             default -> employeeView = "redirect:/";
         }

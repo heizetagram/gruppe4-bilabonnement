@@ -1,0 +1,145 @@
+body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 100px;
+    background-color: #f2f2f2;
+    min-height: 100vh;
+}
+
+.center-page {
+    padding: 2rem 10rem 0 10rem;
+}
+
+#customer-overview-form {
+    margin: auto auto 4rem;
+    width: 40rem;
+    padding-top: inherit;
+}
+
+.form-box {
+    background: #ffffff;
+    border-radius: 6px;
+    height: auto;
+    padding: 2rem;
+    box-shadow: rgb(169 169 169) 0 4px 30px;
+}
+
+.overview {
+    margin-top: 5px;
+    padding: 10px 10px 10px 0;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    background-color: white;
+}
+
+.overview:hover {
+    background: #f2f2f2;
+}
+
+table {
+    border-collapse: collapse !important;
+    width: 100%;
+}
+
+td {
+    padding: 10px;
+}
+
+.customer-tr {
+    border-style: solid;
+    background: rgb(255, 255, 255);
+    width: 100%;
+    border-color: #d8d8d8;
+}
+
+th {
+    text-align: left;
+    padding: 1rem;
+    width: 10%;
+}
+
+.operation-button {
+    font-size: small;
+    line-height: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-radius: 6px;
+    border: none;
+    padding: 0 30px;
+    height: 49px;
+    margin: 0;
+    color: white !important;
+    width: 100%;
+    box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
+}
+
+.update-button {
+    background: #318cc1;
+    width: 100%;
+}
+
+.update-button:hover {
+    background-color: #4ea6e5 !important;
+}
+
+.delete-button {
+    background: #e14b3b;
+    width: 100%;
+}
+
+.delete-button:hover {
+    background: #f17161 !important;
+}
+
+.button-container {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+}
+
+#create-button {
+    padding: 0.5rem 0;
+    color: #1892c3;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: none;
+    background: none;
+}
+
+#create-button:hover {
+    transition: 0.27s linear;
+    color: #54c9ff !important;
+}
+
+#table-car {
+    width: 30%;
+    padding: 10px 10px 10px 0;
+}
+
+.table-date {
+    width: 10%;
+    padding: 10px 10px 10px 0;
+}
+
+#car-td {
+    padding: 0;
+}
+
+.general-lease-agreement-info {
+    border-style: solid;
+    background: rgb(255, 255, 255);
+    width: 100%;
+    border-color: #d8d8d8;
+}
+
+.car-button {
+    font-size: inherit;
+    padding: 20px 10px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
