@@ -43,6 +43,7 @@ public class SalesPersonService {
         return salesPersonRepository.getAllCustomers();
     }
 
+    // Check if email is registered (should be private)
     public boolean isEmailRegistered(String email) {
         boolean isEmailRegistered;
         try {
@@ -52,6 +53,28 @@ public class SalesPersonService {
             isEmailRegistered = false; // Email doesn't exist, return false
         }
         return isEmailRegistered;
+    }
+
+    public String getErrorMessageForInvalidEmail(String email, Customer customer) {
+        boolean isEmailRegistered = isEmailRegistered(email);
+
+        if (isEmailRegistered && !email.equalsIgnoreCase(customer.getEmail())) {
+            return "Email er allerede i brug";
+        } else if (!email.contains(".")) {
+            return "E-mail skal indeholde \".\"";
+        } else {
+            return null;
+        }
+    }
+
+    public String getErrorMessageForInvalidZipCode(int zipCode) {
+        boolean isZipCodeValid = isZipCodeValid(zipCode);
+
+        if (!isZipCodeValid) {
+            return "Postnummeret findes ikke";
+        } else {
+            return null;
+        }
     }
 
     public void deleteCustomerById(int id) {

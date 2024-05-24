@@ -41,16 +41,19 @@
                        title="8-cifret mobilnummer uden +45!"/>
                 <br>
                 <br>
-
                 <label for="email">Email</label>
-                <span th:if="${invalidInfo!=null || emailAlreadyRegistered!=null}">
-                        <span class="error-message" th:text="${invalidInfo}"></span>
-                        <span class="error-message" th:text="${emailAlreadyRegistered}"></span>
-                    <!-- Show an error message if the e-mail is already registered in the system -->
-                        <br>
-                    </span>
-                <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail"
-                       th:value="${customer.email}" required/>
+                <span th:if="${invalidEmailError != null}">
+                    <br>
+                    <!-- Show an error message if the e-mail is already registered in the system or if it doesn't contain a "." -->
+                    <span class="error-message" th:text="${invalidEmailError}"></span>
+                    <br>
+                    <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail"
+                           th:value="${param.email}" required/>
+                </span>
+                <span th:unless="${invalidEmailError}">
+                    <input type="email" maxlength="100" id="email" name="email" placeholder="Indtast e-mail"
+                           th:value="${customer.email}" required/>
+                </span>
                 <br>
                 <br>
                 <label for="address">Adresse</label>
@@ -58,14 +61,18 @@
                        th:value="${customer.address}" required/>
                 <br>
                 <br>
-
                 <label for="zipCode">Postnummer</label>
-                <span th:if="${invalidZipCode!=null}">
-                    <span th:text="${invalidZipCode}"></span>
+                <span th:if="${invalidZipCodeError != null}">
                     <br>
+                    <span class="error-message" th:text="${invalidZipCodeError}"></span>
+                    <br>
+                    <input type="number" min="1000" max="9990" id="zipCode" name="zipCode" placeholder="Indtast postnummer"
+                           th:value="${param.zipCode}" required/>
                 </span>
-                <input type="number" min="1000" max="9990" id="zipCode" name="zipCode" placeholder="Indtast postnummer"
-                       th:value="${customer.zipCode}" required/>
+                <span th:unless="${invalidZipCodeError}">
+                    <input type="number" min="1000" max="9990" id="zipCode" name="zipCode" placeholder="Indtast postnummer"
+                           th:value="${customer.zipCode}" required/>
+                </span>
                 <br>
                 <br>
                 <button class="operation-button update-button" type="submit">Opdater</button>

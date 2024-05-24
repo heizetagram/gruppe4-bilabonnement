@@ -71,39 +71,40 @@ public class SalesPersonController {
     public String update(Model model, @RequestParam int id, @RequestParam String firstName, @RequestParam String lastName,
                          @RequestParam String phoneNumber, @RequestParam String email, @RequestParam String address,
                          @RequestParam int zipCode, @RequestParam String origin) {
+        Customer customer = salesPersonService.getCustomerById(id);
+        model.addAttribute("customer", customer);
+        model.addAttribute("origin", origin);
+        model.addAttribute("invalidEmailError", salesPersonService.getErrorMessageForInvalidEmail(email, customer));
+        model.addAttribute("invalidZipCodeError", salesPersonService.getErrorMessageForInvalidZipCode(zipCode));
+
+        //** The old and alternative solution (better to find the errors in the service layer **\\
+        /*
         boolean isEmailRegistered = salesPersonService.isEmailRegistered(email);
         boolean isZipCodeValid = salesPersonService.isZipCodeValid(zipCode);
         boolean errorCaught = false;
-
-        Customer customer = salesPersonService.getCustomerById(id);
-        model.addAttribute("customer", customer);
-
         if (isEmailRegistered && !email.equalsIgnoreCase(customer.getEmail())) {
             // Send an invalid message if e-mail is already registered in the system
             model.addAttribute("emailAlreadyRegistered", "E-mail er allerede i brug");
             errorCaught = true;
-        }
-        if (!email.contains(".")) {
+        } else if (!email.contains(".")) {
             // Send an invalid message if e-mail doesn't contain "."
             model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
             errorCaught = true;
         }
-            
         if (!isZipCodeValid) {
+            // Send an invalid message if the zip code doesn't exist
             model.addAttribute("invalidZipCode", "Postnummeret findes ikke");
             errorCaught = true;
+        }*/
 
-        }
-
-        if (!errorCaught) {
+        // If no error is found, then update the customer
+        if (model.getAttribute("invalidEmailError") == null && model.getAttribute("invalidZipCodeError") == null) {
             salesPersonService.update(id, firstName, lastName, phoneNumber, email, address, zipCode);
-        }
-
 
             if (origin.equals("overview")) {
                 return "redirect:/salesperson/customer_overview";
             } else {
-                return "redirect:/salesperson/customer_profile/" + id;
+                return "redirect:/salesperson/customer_profile/" + id + "?origin=" + origin;
             }
         }
         return "/salesperson/update_customer";
