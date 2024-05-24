@@ -68,14 +68,45 @@ public class SalesPersonController {
 
     // Update customer
     @PostMapping("/update_customer")
-    public String update(@RequestParam int id, @RequestParam String firstName, @RequestParam String lastName,
-                         @RequestParam String phoneNumber, @RequestParam String email, @RequestParam String address, @RequestParam int zipCode, @RequestParam String origin) {
-        salesPersonService.update(id, firstName, lastName, phoneNumber, email, address, zipCode);
-        if (origin.equals("overview")) {
-            return "redirect:/salesperson/customer_overview";
-        } else {
-            return "redirect:/salesperson/customer_profile/" + id;
+    public String update(Model model, @RequestParam int id, @RequestParam String firstName, @RequestParam String lastName,
+                         @RequestParam String phoneNumber, @RequestParam String email, @RequestParam String address,
+                         @RequestParam int zipCode, @RequestParam String origin) {
+        boolean isEmailRegistered = salesPersonService.isEmailRegistered(email);
+        boolean isZipCodeValid = salesPersonService.isZipCodeValid(zipCode);
+        boolean errorCaught = false;
+
+        Customer customer = salesPersonService.getCustomerById(id);
+        model.addAttribute("customer", customer);
+
+        if (isEmailRegistered && !email.equalsIgnoreCase(customer.getEmail())) {
+            // Send an invalid message if e-mail is already registered in the system
+            model.addAttribute("emailAlreadyRegistered", "E-mail er allerede i brug");
+            errorCaught = true;
         }
+        if (!email.contains(".")) {
+            // Send an invalid message if e-mail doesn't contain "."
+            model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
+            errorCaught = true;
+        }
+            
+        if (!isZipCodeValid) {
+            model.addAttribute("invalidZipCode", "Postnummeret findes ikke");
+            errorCaught = true;
+
+        }
+
+        if (!errorCaught) {
+            salesPersonService.update(id, firstName, lastName, phoneNumber, email, address, zipCode);
+        }
+
+
+            if (origin.equals("overview")) {
+                return "redirect:/salesperson/customer_overview";
+            } else {
+                return "redirect:/salesperson/customer_profile/" + id;
+            }
+        }
+        return "/salesperson/update_customer";
     }
 
     //Show all customers
