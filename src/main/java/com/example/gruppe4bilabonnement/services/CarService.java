@@ -98,6 +98,10 @@ public class CarService {
         return carRepository.getAllCars();
     }
 
+    public List<Car> getAllAvailableCars() {
+        return carRepository.getAllAvailableCars();
+    }
+
     public boolean checkIfCarBrandExists(CarBrand carBrand) {
         boolean carBrandExists;
         try {
@@ -124,10 +128,6 @@ public class CarService {
 
     public void deleteCarBrand(CarBrand carBrand) {
         carRepository.deleteCarBrand(carBrand);
-    }
-
-    public CarModel getCarModelByModelId(int carModelId) {
-        return carRepository.getCarModelByModelId(carModelId);
     }
 
     public boolean checkIfCarModelExists(CarBrand carBrand, String modelName, CarType carType) {
@@ -159,5 +159,24 @@ public class CarService {
 
     public void deleteCarModelById(int carModelId) {
         carRepository.deleteCarModelById(carModelId);
+    }
+
+    public void rentCar(int carId) {
+        carRepository.rentCar(carId);
+    }
+
+    public void makeCarAvailable(int carId) {
+        carRepository.makeCarAvailable(carId);
+    }
+
+    public boolean checkIfCarIsRented(int carId) {
+        boolean isCarRented;
+        try {
+            carRepository.getRentedCarById(carId);
+            isCarRented = true;
+        } catch (EmptyResultDataAccessException e) {
+            isCarRented = false;
+        }
+        return isCarRented;
     }
 }

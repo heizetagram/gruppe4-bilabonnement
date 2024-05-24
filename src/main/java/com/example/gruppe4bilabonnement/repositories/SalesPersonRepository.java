@@ -1,8 +1,8 @@
 package com.example.gruppe4bilabonnement.repositories;
 
 import com.example.gruppe4bilabonnement.models.Customer;
-import com.example.gruppe4bilabonnement.models.Employee;
 import com.example.gruppe4bilabonnement.models.LeaseAgreement;
+import com.example.gruppe4bilabonnement.models.ZipCode;
 import com.example.gruppe4bilabonnement.services.rowmappers.LeaseAgreementRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -70,5 +70,15 @@ public class SalesPersonRepository {
             return null;
         }
         return leaseAgreements.get(0);
+    }
+
+    public LeaseAgreement getLeaseAgreementById(int leaseAgreementId) {
+        String query = "SELECT * FROM lease_agreement WHERE id = ?;";
+        return jdbcTemplate.queryForObject(query, new LeaseAgreementRowMapper(), leaseAgreementId);
+    }
+
+    public ZipCode getZipCodeByZipCode(int zipCode) {
+        String query = "SELECT * FROM zip_code WHERE zip_code = ?;";
+        return jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(ZipCode.class), zipCode);
     }
 }

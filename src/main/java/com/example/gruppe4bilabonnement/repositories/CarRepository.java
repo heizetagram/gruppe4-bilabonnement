@@ -111,6 +111,11 @@ public class CarRepository {
         return jdbcTemplate.query(query, new CarRowMapper());
     }
 
+    public List<Car> getAllAvailableCars() {
+        String query = "SELECT * FROM car WHERE is_rented = 'false';";
+        return jdbcTemplate.query(query, new CarRowMapper());
+    }
+
     public CarBrand getCarBrandByBrand(CarBrand carBrand) {
         String query = "SELECT * FROM car_brand WHERE brand = ?;";
         BeanPropertyRowMapper<CarBrand> carBrandBeanPropertyRowMapper = new BeanPropertyRowMapper<>(CarBrand.class);
@@ -133,11 +138,6 @@ public class CarRepository {
         jdbcTemplate.update(query, carBrand.getBrand());
     }
 
-    public CarModel getCarModelByModelId(int carModelId) {
-        String query = "SELECT * FROM car_model WHERE id = ?;";
-        return jdbcTemplate.queryForObject(query, new CarModelRowMapper(), carModelId);
-    }
-
     public void updateCarModel(int carModelId, String modelName, CarType carType) {
         String query = "UPDATE car_model SET model_name = ?, car_type = ? WHERE id = ?;";
         jdbcTemplate.update(query, modelName, carType.name(), carModelId);
@@ -146,5 +146,24 @@ public class CarRepository {
     public void deleteCarModelById(int carModelId) {
         String query = "DELETE FROM car_model WHERE id = ?;";
         jdbcTemplate.update(query, carModelId);
+    }
+
+
+    // Rent car
+    public void rentCar(int carId) {
+        String query = "UPDATE car SET is_rented = 'true' WHERE id = ?;";
+        jdbcTemplate.update(query, carId);
+    }
+
+    // 'Unrent' car
+    public void makeCarAvailable(int carId) {
+        String query = "UPDATE car SET is_rented = 'false' WHERE id = ?;";
+        jdbcTemplate.update(query, carId);
+    }
+
+    // Check if car is rented
+    public void getRentedCarById(int carId) {
+        String query = "SELECT * FROM car WHERE is_rented = 'true' AND id = ?;";
+        jdbcTemplate.queryForObject(query, new CarRowMapper(), carId);
     }
 }

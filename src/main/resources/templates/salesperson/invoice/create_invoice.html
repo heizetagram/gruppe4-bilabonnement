@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret Faktura</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar/salesperson/navbar}"></div>
+    </header>
+    <h1>Opret Faktura</h1>
+    <form action="/salesperson/create_invoice" method="post">
+        <input type="hidden" name="leaseAgreementId" th:value="${leaseAgreement.id}">
+        <input type="hidden" name="downPayment" th:value="${downPayment}">
+        <input type="hidden" name="grossPrice" th:value="${grossPrice}">
+        <input type="hidden" name="netPrice" th:value="${netPrice}">
+        <table>
+            <tr>
+                <th>Dato:</th>
+                <td th:text="${currentDate}"></td>
+            </tr>
+        </table>
+        <h2>Kunde</h2>
+        <table>
+            <tr>
+                <th>Navn:</th>
+                <td th:text="${customer.firstName} + ' ' + ${customer.lastName}"></td>
+            </tr>
+            <tr>
+                <th>Adresse:</th>
+                <td th:text="${customer.address}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td th:text="${zipCode.zipCode} + ', ' + ${zipCode.city}"></td>
+            </tr>
+            <tr>
+                <th>Mobil:</th>
+                <td th:text="${customer.phoneNumber}"></td>
+            </tr>
+            <tr>
+                <th>E-mail:</th>
+                <td th:text="${customer.email}"></td>
+            </tr>
+        </table>
+        <br>
+        <h2>Køretøjsdata</h2>
+        <table>
+            <tr>
+                <th>Fabrikat:</th>
+                <td></td>
+                <td th:text="${carModel.brand}"></td>
+            </tr>
+            <tr>
+                <th>Model:</th>
+                <td></td>
+                <td th:text="${carModel.modelName}"></td>
+            </tr>
+            <tr>
+                <th>Type:</th>
+                <td></td>
+                <td th:text="${carModel.carType.displayValue}"></td>
+            </tr>
+            <tr>
+                <th>Udstyrsniveau:</th>
+                <td></td>
+                <td th:text="${car.equipmentLevel}"></td>
+            </tr>
+            <tr>
+                <th>Stelnr.:</th>
+                <td></td>
+                <td th:text="${car.vin}"></td>
+            </tr>
+            <tr>
+                <th>Co2-udledning:</th>
+                <td></td>
+                <td th:text="${car.co2Emission}"></td>
+            </tr>
+            <tr>
+                <th>Køretøjets km-stand ved aftalestart:</th>
+                <td th:text="${leaseAgreement.startKm}"></td>
+                <td>km</td>
+            </tr>
+        </table>
+        <br>
+        <h2>Forhandler</h2>
+        <table>
+            <tr>
+                <th>Navn:</th>
+                <td>Bilabonnement A/S</td>
+            </tr>
+            <tr>
+                <th>Adresse:</th>
+                <td>Vibeholmsvej 31</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2605, Brøndby</td>
+            </tr>
+            <tr>
+                <th>CVR-nr.:</th>
+                <td>36042069</td>
+            </tr>
+            <tr>
+                <th>Telefon:</th>
+                <td>42069360</td>
+            </tr>
+        </table>
+        <br>
+        <h2>Leasingperiode</h2>
+        <table>
+            <tr>
+                <th>Startdato:</th>
+                <td></td>
+                <td th:text="${startDate}"></td>
+            </tr>
+            <tr>
+                <th>Slutdato:</th>
+                <td></td>
+                <td th:text="${endDate}"></td>
+            </tr>
+            <tr>
+                <th>Antal måneder:</th>
+                <td></td>
+                <td th:texT="${period}"></td>
+                <td>måneder</td>
+            </tr>
+            <tr>
+                <th>Købte kilometer:</th>
+                <td></td>
+                <td th:text="${leaseAgreement.boughtKm}"></td>
+                <td>km</td>
+            </tr>
+        </table>
+        <br>
+        <span th:if="${!damageReports.isEmpty()}">
+            <h2>Skader</h2>
+            <table>
+                <span th:each="damageReport : ${damageReports}">
+                    <tr>
+                        <th>Beskrivelse:</th>
+                        <td></td>
+                        <td th:text="${damageReport.damageText}"></td>
+                    </tr>
+                    <tr>
+                        <th>Pris (inkl. moms):</th>
+                        <td th:text="${damageReport.price}"></td>
+                        <td>kr.</td>
+                    </tr>
+                </span>
+            </table>
+            <br>
+        </span>
+        <h2>Finanseringsdetaljer</h2>
+        <table>
+            <tr>
+                <th>Leasingafgift:</th>
+                <td th:text="${leaseAgreement.price}" th></td>
+                <td>kr.</td>
+                <td>pr. måned</td>
+            </tr>
+            <tr>
+                <th>Bruttopris:</th>
+                <td th:text="${grossPrice}"></td>
+                <td>kr.</td>
+            </tr>
+            <tr>
+                <th>Førstegangsydelse (inkl. moms):</th>
+                <td th:text="${downPayment}"></td>
+                <td>kr.</td>
+            </tr>
+            <tr>
+                <th>Total (inkl. moms):</th>
+                <td th:text="${netPrice}"></td>
+                <td>kr.</td>
+            </tr>
+        </table>
+        <br>
+        <button type="submit">Opret faktura</button>
+    </form>
+</body>
+</html>

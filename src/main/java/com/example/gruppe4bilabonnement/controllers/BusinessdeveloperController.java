@@ -49,7 +49,6 @@ public class BusinessdeveloperController {
         } else {
             return "redirect:/";
         }
-    }
 
     //totale antal biler udlejet på givent tidspunkt
     @GetMapping("/rented_cars_count")

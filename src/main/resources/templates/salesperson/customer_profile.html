@@ -60,18 +60,13 @@
 <hr>
 <hr>
 <h2>Leasingaftaler</h2>
-
-<table>
-    <tr>
-        <th>Start Dato</th>
-        <th>Slut Dato</th>
-        <th>Købte Kilometer</th>
-        <th>Start Kilometer</th>
-        <th>Pris</th>
-        <th>Bil</th>
-        <th>Status??</th>
-    </tr>
-</table>
-
+<span th:each="leaseAgreement : ${leaseAgreements}">
+    <form th:action="@{/salesperson/show_lease_agreement_details/{leaseAgreementId} (leaseAgreementId = ${leaseAgreement.id})}" method="get">
+        <div class="">
+            <!--Receive a Car Model object by the Car ID that the lease agreement has -->
+            <button type="submit"><span th:text="${carService.getCarModelById(leaseAgreement.carId).brand} + ' ' + ${carService.getCarModelById(leaseAgreement.carId).modelName}"></span></button>
+        </div>
+    </form>
+</span>
 </body>
 </html>
