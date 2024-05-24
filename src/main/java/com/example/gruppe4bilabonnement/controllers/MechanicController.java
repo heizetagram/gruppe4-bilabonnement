@@ -86,3 +86,4 @@ public class MechanicController {
             return "redirect:/";
         }
     }
+}
