@@ -40,7 +40,7 @@ public class BusinessdeveloperController {
         //gennemsnitlig Leasetid
 
     @GetMapping("/leasing_speed")
-    public String getLeasingSpeedForCar(@RequestParam long carId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+    public String getLeasingSpeedForCar(@RequestParam int carId, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("BUSINESS_DEV")) {
             double leasingSpeed = businessdeveloperService.getLeasingSpeedForCar(carId);
             model.addAttribute("carId", carId);
@@ -49,6 +49,7 @@ public class BusinessdeveloperController {
         } else {
             return "redirect:/";
         }
+    }
 
     //totale antal biler udlejet på givent tidspunkt
     @GetMapping("/rented_cars_count")
