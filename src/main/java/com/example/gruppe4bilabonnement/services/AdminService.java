@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -13,8 +14,19 @@ public class AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
-    public void createEmployee(String email, String employeePassword, String employeeRole) {
+    public void createEmployee(String email, String employeePassword, int employeeRoleKey) {
+        String employeeRole = getEmployeeRoleValueByKey(employeeRoleKey);
         adminRepository.createEmployee(email, employeePassword, employeeRole);
+    }
+
+    // Receive a key and return the value from a HashMap
+    private String getEmployeeRoleValueByKey(int key) {
+        HashMap<Integer, String> employeeRoles = new HashMap<>();
+        employeeRoles.put(1, "SALESPERSON");
+        employeeRoles.put(2, "MECHANIC");
+        employeeRoles.put(3, "BUSINESS_DEV");
+        employeeRoles.put(4, "ADMIN");
+        return employeeRoles.get(key);
     }
 
     // Try to find an existing employee. If the employee doesn't exist, then return an empty employee.

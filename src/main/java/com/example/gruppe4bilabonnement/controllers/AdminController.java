@@ -25,7 +25,7 @@ public class AdminController {
     }
 
     @PostMapping("/create_employee")
-    public String createEmployee(@RequestParam String email, @RequestParam String employeePassword, @RequestParam String employeeRole, Model model) {
+    public String createEmployee(@RequestParam String email, @RequestParam String employeePassword, @RequestParam int employeeRoleKey, Model model) {
         boolean isEmailRegistered = adminService.isEmailRegistered(email);
 
         if (isEmailRegistered) {
@@ -35,7 +35,7 @@ public class AdminController {
             // Send an invalid message if e-mail doesn't contain "."
             model.addAttribute("invalidInfo", "E-mail skal indeholde \".\"");
         } else {
-            adminService.createEmployee(email, employeePassword, employeeRole);
+            adminService.createEmployee(email, employeePassword, employeeRoleKey);
             return "redirect:/admin/employee_overview";
         }
         return "admin/create_employee";
