@@ -7,18 +7,14 @@ body {
 }
 
 .center-page {
-    padding: 2rem 10rem 4rem 10rem;
+    padding: 2rem 10rem 0 10rem;
+    margin-bottom: 4rem;
 }
 
-.center-form {
-    margin: auto;
-    width: 50%;
+#car-model-overview-form {
+    margin: auto auto 4rem;
+    width: 35rem;
     padding-top: inherit;
-}
-
-#center-car-form {
-    display: flex;
-    justify-content: center;
 }
 
 .form-box {
@@ -28,15 +24,6 @@ body {
     padding: 2rem;
     width: 100%;
     box-shadow: rgb(169 169 169) 0 4px 30px;
-}
-
-.two-column-form {
-    display: flex;
-    justify-content: space-between;
-}
-
-.form-left, .form-right {
-    width: 48%;
 }
 
 .overview {
@@ -63,7 +50,7 @@ input {
     background: rgb(255, 255, 255);
     border-radius: 10px;
     box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
-    width: 90%;
+    width: 95%;
     padding: 0.87rem;
     margin-top: 0.4rem;
     font-size: small;
@@ -75,11 +62,6 @@ select {
     border-radius: 5px;
     box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
     width: 100%;
-}
-
-#carBrand {
-    width: 48%;
-    padding: 0.5rem;
 }
 
 .operation-button {
@@ -97,14 +79,13 @@ select {
     box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
 }
 
-.update-button {
-    background: #318cc1 !important;
-    margin: 2.7rem 0 0 0;
-    height: 42px;
+.create-button {
+    background: #55cc4f !important;
+    margin: 1rem 0 1rem 0;
 }
 
-.update-button:hover {
-    background-color: #4ea6e5 !important;
+.create-button:hover {
+    background-color: #68e462 !important;
 }
 
 .cancel-button {

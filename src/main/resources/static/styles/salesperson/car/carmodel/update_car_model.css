@@ -5,18 +5,17 @@ body {
     background-color: #f2f2f2;
     min-height: 100vh;
 }
-
 .center-page {
-    padding: 2rem 10rem 4rem 10rem;
+    padding: 2rem 10rem 0 10rem;
 }
 
 .center-form {
     margin: auto;
-    width: 50%;
+    width: 25%;
     padding-top: inherit;
 }
 
-#center-car-form {
+#center-car-model-form {
     display: flex;
     justify-content: center;
 }
@@ -28,15 +27,6 @@ body {
     padding: 2rem;
     width: 100%;
     box-shadow: rgb(169 169 169) 0 4px 30px;
-}
-
-.two-column-form {
-    display: flex;
-    justify-content: space-between;
-}
-
-.form-left, .form-right {
-    width: 48%;
 }
 
 .overview {
@@ -57,13 +47,19 @@ label {
     font-size: small;
 }
 
+#label-email {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 0;
+}
+
 input {
     border: none;
     font-weight: 400;
     background: rgb(255, 255, 255);
     border-radius: 10px;
     box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
-    width: 90%;
+    width: 92%;
     padding: 0.87rem;
     margin-top: 0.4rem;
     font-size: small;
@@ -75,11 +71,6 @@ select {
     border-radius: 5px;
     box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
     width: 100%;
-}
-
-#carBrand {
-    width: 48%;
-    padding: 0.5rem;
 }
 
 .operation-button {
@@ -99,8 +90,7 @@ select {
 
 .update-button {
     background: #318cc1 !important;
-    margin: 2.7rem 0 0 0;
-    height: 42px;
+    margin: 1rem 0 1rem 0;
 }
 
 .update-button:hover {

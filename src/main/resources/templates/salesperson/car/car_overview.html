@@ -23,7 +23,7 @@
                 </form>
                 <br>
                 <table>
-                    <thead><td id="table-brand">MÆRKE</td><td id="table-model">MODEL</td><td id="table-license-plate">NUMMERPLADE</td></thead>
+                    <thead><td id="table-brand">MÆRKE</td><td id="table-model">MODEL</td><td id="table-license-plate">NUMMERPLADE</td><td id="table-status">STATUS</td></thead>
                     <tr class="general-car-info" th:each="car : ${cars}">
                         <td id="car-brand-td"><form action="/salesperson/show_car" method="get">
                             <input type="hidden" name="origin" value="car">
@@ -33,6 +33,12 @@
                         </form></td>
                         <td th:text="${carService.getCarModelById(car.carModelId).modelName}"></td>
                         <td th:text="${car.licensePlate}"></td>
+                        <span th:if="${car.rented == true}">
+                            <td id="rented-status-true">Udlejet</td>
+                        </span>
+                        <span th:if="${car.rented == false}">
+                            <td id="rented-status-false">Tilgængelig</td>
+                        </span>
                         <td id="car-update-td"><form action="/salesperson/prepare_car_update" method="get">
                             <input type="hidden" name="origin" value="overview">
                             <input type="hidden" name="carId" th:value="${car.id}">

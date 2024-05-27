@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <div th:replace="~{fragments/navbar/salesperson/frontpage}"></div>
+        <div th:replace="~{fragments/navbar/salesperson/car_overview}"></div>
     </header>
     <div class="center-page">
         <div id="car-overview-form">
@@ -65,7 +65,7 @@
                         <td th:text="${car.steelPrice}"></td>
                     </tr>
                     <tr>
-                        <th>CO2-ejerafgift:</th>
+                        <th>CO2-udledning:</th>
                         <td th:text="${car.co2Emission}"></td>
                     </tr>
                     <tr>

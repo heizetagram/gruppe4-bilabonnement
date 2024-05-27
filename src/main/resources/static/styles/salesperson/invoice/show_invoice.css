@@ -1,28 +1,25 @@
 body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 100px;
     background-color: #f2f2f2;
+    min-height: 100vh;
 }
 
 .center-page {
     padding: 2rem 10rem 0 10rem;
 }
 
-.center-form {
-    margin: auto;
-    width: 25%;
+#invoice-overview-form {
+    margin: auto auto 4rem;
+    width: 80%;
     padding-top: inherit;
 }
 
-#center-car-form {
-    display: flex;
-    justify-content: center;
-}
-
 .form-box {
-    background: white;
-    border-radius: 6px;
+    background: #ffffff;
     height: auto;
     padding: 2rem;
-    width: 100%;
     box-shadow: rgb(169 169 169) 0 4px 30px;
 }
 
@@ -39,34 +36,44 @@ body {
     background: #f2f2f2;
 }
 
-label {
-    padding-right: 7.9rem;
-    font-size: small;
+th {
+    text-align: left;
+    padding-bottom: 5px;
 }
 
-#label-email {
+td {
+    padding: 5px;
+}
+
+hr {
+    border-top: 1px solid lightgray;
+}
+
+.invoice-date {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#createdAtDate {
+    padding: 5px 0;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.left-right-box {
     display: flex;
     justify-content: space-between;
-    padding-right: 0;
 }
 
-input {
-    border: none;
-    font-weight: 400;
-    background: rgb(255, 255, 255);
-    border-radius: 10px;
-    box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
-    width: 92%;
-    padding: 0.87rem;
-    margin-top: 0.4rem;
-    font-size: small;
+.box-left {
+    float: left;
 }
 
-select {
-    margin-top: 0.4rem;
-    padding: 0.5rem;
-    border-radius: 5px;
-    box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
+.box-right {
+    float: right;
 }
 
 .operation-button {
@@ -84,24 +91,25 @@ select {
     box-shadow: rgb(171 171 171 / 47%) 0 4px 30px;
 }
 
-.update-button {
+.create-button {
     background: #55cc4f !important;
-    margin: 1rem 0 1rem 0;
+    margin: 2.8rem 0 0 0;
+    height: 42px;
 }
 
-.update-button:hover {
+.create-button:hover {
     background-color: #68e462 !important;
 }
 
-.cancel-button {
-    background: #979797 !important;
+#total-price {
+    font-size: x-large;
 }
 
-.cancel-button:hover {
-    background: #c4c4c4 !important;
+.price-td {
+    color: green;
 }
 
-.error-message {
-    color: red;
-    font-size: small;
+#invoice-logo {
+    width: 50%;
+    float: right;
 }
