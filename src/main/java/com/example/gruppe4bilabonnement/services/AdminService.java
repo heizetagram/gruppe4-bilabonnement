@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 @Service
 public class AdminService {
@@ -21,7 +23,7 @@ public class AdminService {
 
     // Receive a key and return the value from a HashMap
     private String getEmployeeRoleValueByKey(int key) {
-        HashMap<Integer, String> employeeRoles = new HashMap<>();
+        Map<Integer, String> employeeRoles = new HashMap<>();
         employeeRoles.put(1, "SALESPERSON");
         employeeRoles.put(2, "MECHANIC");
         employeeRoles.put(3, "BUSINESS_DEV");
