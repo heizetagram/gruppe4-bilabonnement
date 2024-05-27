@@ -53,6 +53,10 @@
                     <br>
                     <br>
                     <label for="zipCode">Postnummer</label>
+                    <span th:if="${invalidZipCode!=null}">
+                        <span th:text="${invalidZipCode}"></span>
+                        <br>
+                     </span>
                     <input type="number" min="1000" max="9990" id="zipCode" name="zipCode" placeholder="Indtast postnummer"
                            th:value="${param.zipCode}" required>
                     <br>
