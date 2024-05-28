@@ -68,7 +68,12 @@
                     <td id="car-td">
                         <form th:action="@{/salesperson/show_lease_agreement_details/{leaseAgreementId} (leaseAgreementId = ${leaseAgreement.id})}" method="get">
                             <!--Receive a Car Model object by the Car ID that the lease agreement has -->
-                            <button class="car-button" type="submit"><span th:text="${carService.getCarModelById(leaseAgreement.carId).brand} + ' ' + ${carService.getCarModelById(leaseAgreement.carId).modelName} + ' - ' + ${carService.getCarById(leaseAgreement.carId).licensePlate}"></span></button>
+                            <!-- The objects instantiated are very hard to read:
+                                carModel(car.carModelId).brand
+                            and
+                                carModel(car.carModelId).modelName
+                            -->
+                            <button class="car-button" type="submit"><span th:text="${carService.getCarModelById(carService.getCarById(leaseAgreement.carId).carModelId).brand} + ' ' + ${carService.getCarModelById(carService.getCarById(leaseAgreement.carId).carModelId).modelName} + ' - ' + ${carService.getCarById(leaseAgreement.carId).licensePlate}"></span></button>
                         </form>
                     </td>
                     <td th:text="${leaseAgreement.startDate}"></td>
