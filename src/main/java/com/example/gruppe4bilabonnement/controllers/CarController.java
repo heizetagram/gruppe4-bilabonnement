@@ -42,7 +42,7 @@ public class CarController {
         model.addAttribute("carModels", carModels);
         model.addAttribute("fuelTypes", fuelTypes);
         model.addAttribute("selectedCarBrand", carBrand);
-        return "/salesperson/car/create_car";
+        return "salesperson/car/create_car";
     }
 
     // CREATE car
