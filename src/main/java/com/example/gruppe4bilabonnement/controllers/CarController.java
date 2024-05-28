@@ -91,7 +91,7 @@ public class CarController {
             if (origin.equals("overview")) {
                 return "redirect:/salesperson/car_overview";
             } else {
-                return "/salesperson/car/show_car";
+                return "salesperson/car/show_car";
             }
         } else {
             return "redirect:/";
@@ -257,7 +257,7 @@ public class CarController {
             List<CarType> carTypes = carService.getAllCarTypes();
             model.addAttribute("carTypes", carTypes);
             model.addAttribute("carBrand", carBrand);
-            return "/salesperson/car/carmodel/create_car_model";
+            return "salesperson/car/carmodel/create_car_model";
         } else {
             return "redirect:/";
         }

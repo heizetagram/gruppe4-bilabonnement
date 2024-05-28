@@ -111,7 +111,7 @@ public class SalesPersonController {
                 return "redirect:/salesperson/customer_profile/" + id + "?origin=" + origin;
             }
         }
-        return "/salesperson/update_customer";
+        return "salesperson/update_customer";
     }
 
     //Show all customers
@@ -164,7 +164,7 @@ public class SalesPersonController {
             if (origin.equals("overview")) {
                 List<Customer> customers = salesPersonService.getAllCustomers();
                 model.addAttribute("customers", customers);
-                return "/salesperson/customer_overview";
+                return "salesperson/customer_overview";
             } else {
                 List<LeaseAgreement> leaseAgreements = leaseAgreementService.getAllLeaseAgreementsByCustomerId(id);
                 model.addAttribute("leaseAgreements", leaseAgreements);
