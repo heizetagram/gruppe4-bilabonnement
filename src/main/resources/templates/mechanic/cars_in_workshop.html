@@ -16,7 +16,12 @@
 <span th:each="carInService : ${carsInService}">
     <form th:action="@{/mechanic/damage_reports/{carId} (carId = ${carInService.carId})}" method="get">
         <!--Receive a Car Model object by the Car ID that the car in service has -->
-        <button type="submit"><span th:text="${carService.getCarModelById(carInService.carId).brand} + ' ' + ${carService.getCarModelById(carInService.carId).modelName}"></span></button>
+        <!-- The objects instantiated are very hard to read:
+            carModel(car.carModelId).brand
+        and
+            carModel(car.carModelId).modelName
+        -->
+        <button type="submit"><span th:text="${carService.getCarModelById(carService.getCarById(carInService.carId).carModelId).brand} + ' ' + ${carService.getCarModelById(carService.getCarById(carInService.carId).carModelId).modelName}"></span></button>
     </form>
 </span>
 </body>
