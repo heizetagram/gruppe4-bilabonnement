@@ -55,14 +55,14 @@ public class HomeController {
 
     @GetMapping("/employee_frontpage")
     public String employeeFrontpage(@CookieValue(name = "employeeRole") String cookieValue) {
-        String employeeView;
+        String employeeEndpoint;
         switch (cookieValue) {
-            case "SALESPERSON" -> employeeView = "/salesperson/frontpage";
-            case "MECHANIC" -> employeeView = "/mechanic/frontpage";
-            case "BUSINESS_DEV" -> employeeView = "/businessdeveloper/business_developer_dashboard";
-            case "ADMIN" -> employeeView = "/admin/frontpage";
-            default -> employeeView = "redirect:/";
+            case "SALESPERSON" -> employeeEndpoint = "/salesperson/frontpage";
+            case "MECHANIC" -> employeeEndpoint = "/mechanic/frontpage";
+            case "BUSINESS_DEV" -> employeeEndpoint = "/business_developer/business_developer_dashboard";
+            case "ADMIN" -> employeeEndpoint = "/admin/frontpage";
+            default -> employeeEndpoint = "redirect:/";
         }
-        return employeeView;
+        return "redirect:" + employeeEndpoint;
     }
 }

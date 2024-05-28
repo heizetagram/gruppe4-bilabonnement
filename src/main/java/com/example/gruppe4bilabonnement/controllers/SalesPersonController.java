@@ -24,6 +24,10 @@ public class SalesPersonController {
     @Autowired
     private InvoiceService invoiceService;
 
+    @GetMapping("/frontpage")
+    public String frontpage() {
+        return "/salesperson/frontpage";
+    }
 
     @GetMapping("/new_customer")
     public String insert() {

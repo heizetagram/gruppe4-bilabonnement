@@ -15,6 +15,11 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @GetMapping("/frontpage")
+    public String frontpage() {
+        return "/admin/frontpage";
+    }
+
     @GetMapping("/prepare_new_employee")
     public String prepareNewEmployee(@CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("ADMIN")) {

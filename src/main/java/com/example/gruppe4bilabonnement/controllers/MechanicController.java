@@ -21,6 +21,11 @@ public class MechanicController {
     @Autowired
     private CarService carService;
 
+    @GetMapping("/frontpage")
+    public String frontpage() {
+        return "/mechanic/frontpage";
+    }
+
     @GetMapping("/cars_in_workshop_overview")
     public String showCarsInWorkshop(Model model) {
         List<Workshop> carsInService = mechanicService.getAllCarsInWorkshop();
