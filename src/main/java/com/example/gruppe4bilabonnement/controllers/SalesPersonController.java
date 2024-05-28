@@ -31,7 +31,7 @@ public class SalesPersonController {
 
     @GetMapping("/new_customer")
     public String insert() {
-        return "/salesperson/create_customer";
+        return "salesperson/create_customer";
     }
 
     //Customer creation
