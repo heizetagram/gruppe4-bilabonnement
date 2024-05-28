@@ -26,7 +26,7 @@ public class SalesPersonController {
 
     @GetMapping("/frontpage")
     public String frontpage() {
-        return "/salesperson/frontpage";
+        return "salesperson/frontpage";
     }
 
     @GetMapping("/new_customer")

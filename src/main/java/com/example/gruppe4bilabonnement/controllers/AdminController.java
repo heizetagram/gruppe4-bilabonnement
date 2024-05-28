@@ -16,8 +16,8 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("/frontpage")
-    public String frontpage() {
-        return "/admin/frontpage";
+    public String frontpage(@CookieValue(name = "employeeRole") String cookieValue) {
+        return "admin/frontpage";
     }
 
     @GetMapping("/prepare_new_employee")
