@@ -15,6 +15,19 @@ public class CarRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    // Method 1
+    // Dependency injection via field
+    /*@Autowired
+    private CarModelRowMapper carModelRowMapper;*/
+
+    // Method 2
+    // Dependency injection via the constructor.
+    private final CarModelRowMapper carModelRowMapper;
+
+    public CarRepository(CarModelRowMapper carModelRowMapper) {
+        this.carModelRowMapper = carModelRowMapper;
+    }
+
     public CarModel getCarModelByBrandAndModelNameAndCarType(CarBrand carBrand, String carModelName, CarType carType) {
         String query = "SELECT * FROM car_model WHERE brand = ? AND model_name = ? AND car_type = ?;";
         return jdbcTemplate.queryForObject(query, new CarModelRowMapper(), carBrand.getBrand(), carModelName, carType.name());
@@ -63,9 +76,18 @@ public class CarRepository {
         jdbcTemplate.update(query, carBrand.getBrand(),carModelName, carType.name());
     }
 
-    public CarModel getCarModelById(int carModelId) {
+    // High-level dependent on low-level
+    // Creating the instance of CarModelRowMapper directly in the method
+    /*public CarModel getCarModelById(int carModelId) {
         String query = "SELECT * FROM car_model WHERE id = ?;";
         return jdbcTemplate.queryForObject(query, new CarModelRowMapper(), carModelId);
+    }*/
+
+    // High-level not dependent on low-level, DIP :-)
+    // Using DI to provide carModelRowMapper as a dependency
+    public CarModel getCarModelById(int carModelId) {
+        String query = "SELECT * FROM car_model WHERE id = ?;";
+        return jdbcTemplate.queryForObject(query, carModelRowMapper, carModelId);
     }
 
     public Car getCarById(int carId) {
