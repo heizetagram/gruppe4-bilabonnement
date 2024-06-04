@@ -1,5 +1,9 @@
 <nav class="navbar">
-    <img th:src="@{/images/bilabonnement.png}" alt="Bilabonnement">
+    <div class="navbar-logo-container">
+        <a th:href="@{/}" id="navbar-logo">
+            <img th:src="@{/images/bilabonnement.png}" alt="Bilabonnement">
+        </a>
+    </div>
     <div class="nav-links">
         <a class="active" href="/employee_frontpage">Forside</a>
         <a href="/salesperson/car_overview">Biloverblik</a>

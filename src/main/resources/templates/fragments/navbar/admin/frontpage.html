@@ -1,6 +1,9 @@
 <nav class="navbar">
-    <img th:src="@{/images/bilabonnement.png}" alt="Bilabonnement">
-    <!--<div class="img-pointer" th:onclick="|window.location.href='@{/userFrontpage(userId=${user.userId})}'|" th:insert="~{home/navbar/navLogo :: b}"></div>-->
+    <div class="navbar-logo-container">
+        <a th:href="@{/}" id="navbar-logo">
+            <img th:src="@{/images/bilabonnement.png}" alt="Bilabonnement">
+        </a>
+    </div>
     <div class="nav-links">
         <a class="active" th:href="@{/}">Forside</a>
         <a th:href="@{/admin/employee_overview}">Personaleoverblik</a>

@@ -21,10 +21,16 @@
     height: 4rem;
 }
 
+.navbar-logo-container {
+    width: 50%;
+}
+
+#navbar-logo {
+    margin-left: 0;
+}
+
 .navbar img {
-    max-height: 75%;
-    height: auto;
-    width: auto;
+    width: 50%;
 }
 
 .navbar .nav-links {
@@ -80,4 +86,8 @@ footer {
 
 ::-webkit-scrollbar {
     display: none;
+}
+
+.general-car-info:hover, .general-customer-info:hover, .general-lease-agreement-info:hover {
+    background: #e8e8e8;
 }
