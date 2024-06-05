@@ -7,55 +7,58 @@
     <link rel="stylesheet" th:href="@{/styles/salesperson/customer/delete_customer.css}">
 </head>
 <body>
-    <!--Der er ikke gjort rede for GDPR, hvor vi gemmer kundens oplysninger i 6 måneder efter slettelse -->
-    <header>
-        <div th:replace="~{fragments/navbar/salesperson/customer_overview}"></div>
-    </header>
-    <div class="center-page">
-        <div id="customer-overview-form">
-            <div class="form-box">
-                <h1>Slet Kunde</h1>
-                <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
-                    <input type="hidden" name="origin" th:value="${origin}">
-                    <button class="overview" type="submit">< OVERBLIK</button>
-                </form>
-                <br>
-                <table>
-                    <tr>
-                        <th>Fulde navn:</th>
-                        <td th:text="${customer.firstName} + ' ' + ${customer.lastName}" ></td>
-                    </tr>
-                    <tr>
-                        <th>Mobilnummer:</th>
-                        <td th:text="${customer.phoneNumber}"></td>
-                    </tr>
-                    <tr>
-                        <th>Email:</th>
-                        <td th:text="${customer.email}"></td>
-                    </tr>
-                    <tr>
-                        <th>Adresse:</th>
-                        <td th:text="${customer.address}"></td>
-                    </tr>
-                    <tr>
-                        <th>Postnummer:</th>
-                        <td th:text="${customer.zipCode} + ', ' + ${zipCode.city}"></td>
-                    </tr>
-                </table>
+<header>
+    <div th:replace="~{fragments/navbar/salesperson/customer_overview}"></div>
+</header>
+<div class="center-page">
+    <div id="customer-overview-form">
+        <div class="form-box">
+            <h1>Slet Kunde</h1>
+            <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
+                <input type="hidden" name="origin" th:value="${origin}">
+                <button class="overview" type="submit">< OVERBLIK</button>
+            </form>
+            <br>
+            <table>
+                <tr>
+                    <th>Fulde navn:</th>
+                    <td th:text="${customer.firstName} + ' ' + ${customer.lastName}"></td>
+                </tr>
+                <tr>
+                    <th>Mobilnummer:</th>
+                    <td th:text="${customer.phoneNumber}"></td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td th:text="${customer.email}"></td>
+                </tr>
+                <tr>
+                    <th>Adresse:</th>
+                    <td th:text="${customer.address}"></td>
+                </tr>
+                <tr>
+                    <th>Postnummer:</th>
+                    <td th:text="${customer.zipCode} + ', ' + ${zipCode.city}"></td>
+                </tr>
+            </table>
+            <div th:if="${!leaseAgreementExists}">
                 <form action="/salesperson/delete_customer" method="post">
                     <input type="hidden" name="id" th:value="${customer.id}">
                     <input type="hidden" name="origin" th:value="${origin}">
                     <button class="operation-button delete-button" type="submit">SLET</button>
                 </form>
-                <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
-                    <input type="hidden" name="origin" th:value="${origin}">
-                    <button class="operation-button cancel-button" type="submit">FORTRYD</button>
-                </form>
             </div>
+            <form th:action="@{/salesperson/customer_profile/{id}(id=${customer.id})}" method="get">
+                <input type="hidden" name="origin" th:value="${origin}">
+                <button class="operation-button cancel-button" type="submit">FORTRYD</button>
+            </form>
+            <p th:if="${errorMessage}" th:text="${errorMessage}" class="error-message red-text"></p>
+            <p th:if="${leaseAgreementExists}" class="error-message red-text">Kunden kunne ikke slettes fordi de har leasingaftaler</p>
         </div>
     </div>
-    <footer>
-        <div th:replace="~{fragments/footer}"></div>
-    </footer>
+</div>
+<footer>
+    <div th:replace="~{fragments/footer}"></div>
+</footer>
 </body>
 </html>
