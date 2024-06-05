@@ -127,7 +127,7 @@ public class SalesPersonController {
     }
 
     //Prepare customer deletion
-    @GetMapping("/confirm_delete_customer/{id}")
+   /* @GetMapping("/confirm_delete_customer/{id}")
     public String confirmDelete(@PathVariable int id, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
         if (cookieValue.equals("SALESPERSON")) {
             Customer customer = salesPersonService.getCustomerById(id);
@@ -138,6 +138,47 @@ public class SalesPersonController {
             return "salesperson/delete_customer";
         } else {
             return "redirect:/";
+        }
+    } */
+    // Bekræft sletning af kunde
+    @GetMapping("/confirm_delete_customer/{id}")
+    public String confirmDelete(@PathVariable int id, @RequestParam String origin, Model model, @CookieValue(name = "employeeRole") String cookieValue) {
+        if (cookieValue.equals("SALESPERSON")) {
+            Customer customer = salesPersonService.getCustomerById(id);
+            ZipCode zipCode = salesPersonService.getZipCodeByZipCode(customer.getZipCode());
+            LeaseAgreement leaseAgreement = salesPersonService.getLeaseAgreementByCustomerId(id);
+
+            model.addAttribute("customer", customer);
+            model.addAttribute("zipCode", zipCode);
+            model.addAttribute("origin", origin);
+            model.addAttribute("leaseAgreementExists", leaseAgreement != null);  // Tilføj denne linje
+
+            return "salesperson/delete_customer";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    // Slet kunde med leasingaftale check
+    @PostMapping("/delete_customer")
+    public String deleteCustomer(@RequestParam int id, @RequestParam String origin, Model model) {
+        LeaseAgreement leaseAgreement = salesPersonService.getLeaseAgreementByCustomerId(id);
+
+        if (leaseAgreement != null) {
+            Customer customer = salesPersonService.getCustomerById(id);
+            ZipCode zipCode = salesPersonService.getZipCodeByZipCode(customer.getZipCode());
+            model.addAttribute("customer", customer);
+            model.addAttribute("zipCode", zipCode);
+            model.addAttribute("origin", origin);
+            model.addAttribute("errorMessage", "Kunden kunne ikke slettes fordi de har leasingaftaler");
+            return "salesperson/delete_customer";
+        } else {
+            salesPersonService.deleteCustomerById(id);
+            if (origin.equals("overview")) {
+                return "redirect:/salesperson/customer_overview";
+            } else {
+                return "redirect:/salesperson/customer_profile/" + id;
+            }
         }
     }
 
@@ -276,4 +317,5 @@ public class SalesPersonController {
         mechanicService.addCarToWorkshop(carId);
         return "redirect:/salesperson/show_lease_agreement_details/" + leaseAgreementId;
     }
+
 }

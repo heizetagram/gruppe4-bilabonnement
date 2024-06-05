@@ -91,3 +91,13 @@ th {
 .cancel-button:hover {
     background: #c4c4c4 !important;
 }
+
+
+.error-message {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.red-text {
+    color: red !important;
+}

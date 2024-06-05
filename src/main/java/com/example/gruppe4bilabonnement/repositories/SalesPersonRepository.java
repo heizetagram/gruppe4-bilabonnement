@@ -52,8 +52,13 @@ public class SalesPersonRepository {
         return jdbcTemplate.queryForObject(query, rowMapper, email);
     }
 
-    public void deleteCustomerById(int id) {
+  /*  public void deleteCustomerById(int id) {
         String query ="DELETE FROM customer WHERE id = ?;";
+        jdbcTemplate.update(query, id);
+    } */
+
+    public void deleteCustomerById(int id) {
+        String query = "DELETE FROM customer WHERE id = ?;";
         jdbcTemplate.update(query, id);
     }
 
@@ -62,6 +67,15 @@ public class SalesPersonRepository {
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
         return jdbcTemplate.queryForObject(query, rowMapper, id);
     }
+
+ /*   public LeaseAgreement getLeaseAgreementCustomerId(int customerId) {
+        String query = "SELECT * FROM lease_agreement WHERE customer_id = ?;";
+        List<LeaseAgreement> leaseAgreements = jdbcTemplate.query(query, new LeaseAgreementRowMapper(), customerId);
+        if (leaseAgreements.isEmpty()) {
+            return null;
+        }
+        return leaseAgreements.get(0);
+    } */
 
     public LeaseAgreement getLeaseAgreementCustomerId(int customerId) {
         String query = "SELECT * FROM lease_agreement WHERE customer_id = ?;";

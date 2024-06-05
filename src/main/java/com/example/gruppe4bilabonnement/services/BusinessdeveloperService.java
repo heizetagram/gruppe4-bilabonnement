@@ -18,9 +18,9 @@ public class BusinessdeveloperService {
         return businessdeveloperRepository.calculateAverageTransportTime();
     }
     // Hvor hurtigt bliver biler leaset.
-    public double getLeasingSpeedForCar(int carId) {
+   /* public double getLeasingSpeedForCar(int carId) {
         return businessdeveloperRepository.calculateLeasingSpeedForCar(carId);
-    }
+    } */
     // hvor mange biler er udlejet
     public int getNumberOfRentedCars() {
         return businessdeveloperRepository.countRentedCars();
