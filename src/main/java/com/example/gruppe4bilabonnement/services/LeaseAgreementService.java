@@ -13,7 +13,8 @@ public class LeaseAgreementService {
     private LeaseAgreementRepository leaseAgreementRepository;
 
     public void createLeaseAgreement(int customerId, LeaseAgreement leaseAgreement) {
-
+        // Validate that the end date is after the start date
+        validateLeaseDates(leaseAgreement);
         leaseAgreementRepository.createLeaseAgreement(customerId, leaseAgreement);
     }
     public LeaseAgreement getLeaseAgreementById(int id) {
@@ -23,6 +24,7 @@ public class LeaseAgreementService {
         return leaseAgreementRepository.findAll();
     }
     public void updateLeaseAgreement(LeaseAgreement leaseAgreement) {
+        validateLeaseDates(leaseAgreement);
         leaseAgreementRepository.updateLeaseAgreement(leaseAgreement);
     }
     public void deleteLeaseAgreement(int id) {
@@ -31,5 +33,11 @@ public class LeaseAgreementService {
 
     public List<LeaseAgreement> getAllLeaseAgreementsByCustomerId(int customerId) {
         return leaseAgreementRepository.getAllLeaseAgreementsByCustomerId(customerId);
+    }
+    // Method to ensure the end date is after the start date
+    private void validateLeaseDates(LeaseAgreement leaseAgreement) {
+        if (leaseAgreement.getEndDate().isBefore(leaseAgreement.getStartDate())) {
+            throw new IllegalArgumentException("Slutdato skal være efter startdato");
+        }
     }
 }

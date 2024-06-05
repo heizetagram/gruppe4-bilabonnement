@@ -22,57 +22,43 @@
             <br>
             <form method="post" action="/salesperson/create_lease_agreement" class="two-column-form">
                 <div class="form-left">
-                    <input type="hidden" id="customerId" name="customerId" th:value="${customer.id}" required>
-
-                    <!-- BRUG DENNE SENERE NÅR VI SENDER ID <label for="customerId">Customer ID:</label>
-                    <input type="hidden" id="customerId" name="customerId" th:value="${customer.id}"> -->
-
+                    <input type="hidden" id="customerId" name="customerId" th:value="${param.customerId}" required>
                     <label for="carId">Vælg bil</label>
                     <br>
-                    <select id="carId" name="carId">
+                    <select id="carId" name="carId" th:value="${param.carId}">
                         <option value="">Vælg bil</option>
                         <th:block th:each="car : ${cars}">
-                            <option th:value="${car.id}" th:text="${carService.getCarModelById(car.carModelId).brand} +
-                             ' ' + ${carService.getCarModelById(car.carModelId).modelName} +
-                             ' - ' + ${car.licensePlate}"></option>
+                            <option th:value="${car.id}" th:text="${carService.getCarModelById(car.carModelId).brand} + ' ' + ${carService.getCarModelById(car.carModelId).modelName} + ' - ' + ${car.licensePlate}"></option>
                         </th:block>
                     </select>
-                    <br>
-                    <br>
-                    <label for="startDate">Startdato</label>
-                    <br>
-                    <input type="date" id="startDate" name="startDate" required>
-                    <br>
-                    <br>
-                    <label for="endDate">Slutdato</label>
-                    <br>
-                    <input type="date" id="endDate" name="endDate" required>
-                    <br>
-                    <br>
-                    <label for="boughtKm">Købte km</label>
-                    <br>
-                    <input type="text" id="boughtKm" name="boughtKm" placeholder="Indtast købte km" required>
+                    <br><br>
 
-                    <!--<label for="startKm">Start KM:</label>
-                    <input type="text" id="startKm" name="startKm" required><br>-->
-                    <input type="hidden" name="startKm" value="0">
+                    <label for="startDate">Startdato</label>
+                    <input type="date" id="startDate" name="startDate" th:value="${param.startDate}" required>
+                    <br><br>
+                    <!-- Error message display -->
+                    <div th:if="${errorMessage}" class="error-message" style="color: red;">
+                        <p th:text="${errorMessage}"></p>
+                    </div>
+                    <label for="endDate">Slutdato</label>
+                    <input type="date" id="endDate" name="endDate" th:value="${param.endDate}" required>
+                    <br><br>
+                    <label for="boughtKm">Købte km</label>
+                    <input type="number" id="boughtKm" name="boughtKm" placeholder="Indtast købte km" th:value="${param.boughtKm}" min="0" required>
+                    <br><br>
                 </div>
                 <div class="form-right">
                     <label for="paymentTime">Betalingstid</label>
-                    <br>
-                    <input type="text" id="paymentTime" name="paymentTime" placeholder="Indtast betalingstid" required>
-                    <br>
-                    <br>
+                    <input type="number" id="paymentTime" name="paymentTime" placeholder="Indtast betalingstid" th:value="${param.paymentTime}" min="0" required>
+                    <br><br>
                     <label for="transportTime">Transporttid</label>
-                    <br>
-                    <input type="text" id="transportTime" name="transportTime" placeholder="Indtast transporttid" required>
-                    <br>
-                    <br>
+                    <input type="number" id="transportTime" name="transportTime" placeholder="Indtast transporttid" th:value="${param.transportTime}" min="0" required>
+                    <br><br>
                     <label for="price">Pris pr. måned</label>
-                    <br>
-                    <input type="text" id="price" name="price" placeholder="Indtast pris pr. måned" required>
+                    <input type="number" id="price" name="price" placeholder="Indtast pris pr. måned" th:value="${param.price}" min="0" step="0.01" required>
                     <br>
                     <button class="operation-button create-button" type="submit">Opret leasingaftale</button>
+                    <br>
                 </div>
             </form>
         </div>

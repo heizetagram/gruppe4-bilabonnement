@@ -200,16 +200,24 @@ public class SalesPersonController {
 
     // Create lease agreement
     @PostMapping("/create_lease_agreement")
-    public String createLeaseAgreement(@RequestParam int customerId, @ModelAttribute LeaseAgreement leaseAgreement) {
+    public String createLeaseAgreement(@RequestParam int customerId, @ModelAttribute LeaseAgreement leaseAgreement, Model model) {
         Car car = carService.getCarById(leaseAgreement.getCarId());
         long startKm = car.getKm();
-
         leaseAgreement.setStartKm(startKm);
 
-        carService.rentCar(leaseAgreement.getCarId());
-
-        leaseAgreementService.createLeaseAgreement(customerId, leaseAgreement);
-        return "redirect:/salesperson/customer_overview";
+        try {
+            leaseAgreementService.createLeaseAgreement(customerId, leaseAgreement);
+            carService.rentCar(leaseAgreement.getCarId());
+            return "redirect:/salesperson/customer_overview";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            List<Car> cars = carService.getAllAvailableCars();
+            Customer customer = salesPersonService.getCustomerById(customerId);
+            model.addAttribute("cars", cars);
+            model.addAttribute("carService", carService);
+            model.addAttribute("customer", customer);
+            return "salesperson/new_lease_agreement";
+        }
     }
 
     // Show lease agreement
